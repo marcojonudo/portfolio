@@ -1,0 +1,12 @@
+<div *ngIf="checkSelectedUser(normalUser)" id="sections" class="link-container">
+    <div
+        [ngClass]="{'selected': checkSelectedSection(welcomeSection)}"
+        (click)="selectSection(welcomeSection)">Welcome</div>
+    <div
+        [ngClass]="{'selected': checkSelectedSection(aboutSection)}"
+        (click)="selectSection(aboutSection)">About me</div>
+    <div
+        [ngClass]="{'selected': checkSelectedSection(projectsSection)}"
+        (click)="selectSection(projectsSection)">Projects</div>
+</div>
+<app-style-editor *ngIf="checkSelectedUser(devUser)"></app-style-editor>

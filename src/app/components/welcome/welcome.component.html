@@ -31,12 +31,12 @@
 </div>
 <div id="user-selector" class="link-container">
     <div
-        [ngClass]="{'selected': checkSelectedUser(normalUser)}"
+        [ngClass]="{'selected': checkSelectedUser(normalUser.type)}"
         (click)="selectUser(normalUser)">
         Normal user
     </div>
     <div
-        [ngClass]="{'selected': checkSelectedUser(devUser)}"
+        [ngClass]="{'selected': checkSelectedUser(devUser.type)}"
         (click)="selectUser(devUser)">
         Developer
     </div>

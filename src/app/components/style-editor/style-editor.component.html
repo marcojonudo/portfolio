@@ -1,9 +1,18 @@
 <div id="style-container" class="dark-background">
     <div>element.style {{'{'}}</div>
-    <div id="properties-container" class="d-flex">
-        <span class="input" role="textbox" contenteditable></span>
+    <div *ngFor="let style of styles; let i = index" class="property-container">
+        <span
+            id="property-elem-{{i}}"
+            class="input"
+            contenteditable
+            (input)="setProperty(i)"></span>
         <span class="symbol">:</span>
-        <span class="input" role="textbox" contenteditable></span>
+        <span
+            id="value-elem-{{i}}"
+            class="input"
+            contenteditable
+            (input)="setValue(i)"></span>
+        <span class="symbol">;</span>
     </div>
     <div>{{'}'}}</div>
 </div>

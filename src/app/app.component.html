@@ -1,13 +1,14 @@
 <div
     id="section-container"
-    [ngStyle]="{'transform': section.buildTranslateProperty()}">
+    [ngStyle]="buildStyleObject()">
     <app-welcome
         class="section"
+        [user]="user"
         (userEmitter)="setUser($event)"></app-welcome>
     <app-about class="section"></app-about>
     <app-projects class="section"></app-projects>
 </div>
 <app-section-selector
-    [user]="user"
+    [user]="user.type"
     (sectionEmitter)="setSection($event)">
 </app-section-selector>

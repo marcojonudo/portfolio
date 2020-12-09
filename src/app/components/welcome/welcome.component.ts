@@ -1,5 +1,7 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Constants} from '../../objects/constants';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {User} from '../../objects/users/user';
+import {NormalUser} from '../../objects/users/normal-user';
+import {DevUser} from '../../objects/users/dev-user';
 
 @Component({
     selector: 'app-welcome',
@@ -9,36 +11,32 @@ import {Constants} from '../../objects/constants';
 })
 export class WelcomeComponent {
 
-    @Output() userEmitter: EventEmitter<string>;
+    @Input() user: User;
 
-    user: string;
-    section: string;
+    @Output() userEmitter: EventEmitter<User>;
 
     constructor() {
-        this.user = Constants.USER.NORMAL;
-        this.section = Constants.SECTION.WELCOME;
-
-        this.userEmitter = new EventEmitter<string>();
+        this.userEmitter = new EventEmitter<User>();
     }
 
     // region Getters / setters
 
-    get normalUser(): string {
-        return Constants.USER.NORMAL;
+    get normalUser(): User {
+        return new NormalUser();
     }
 
-    get devUser(): string {
-        return Constants.USER.DEV;
+    get devUser(): User {
+        return new DevUser();
     }
 
     // endregion
 
-    selectUser(user: string): void {
+    selectUser(user: User): void {
         this.user = user;
         this.userEmitter.emit(user);
     }
 
-    checkSelectedUser(user: string, selectedUser: string = this.user): boolean {
+    checkSelectedUser(user: string, selectedUser: string = this.user.type): boolean {
         return user === selectedUser;
     }
 

@@ -1,34 +1,34 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {StyleIndex} from '../objects/style-index';
+import {Style} from '../objects/style';
 
 @Injectable({
     providedIn: 'root'
 })
 export class NotificationService {
 
-    private static styleIndexSubject: Subject<StyleIndex>;
-    private static _styleIndex$: Observable<StyleIndex>;
+    private static stylesSubject: Subject<Style[]>;
+    private static _styles$: Observable<Style[]>;
 
     // region Getters / setters
 
-    static get styleIndex$(): Observable<StyleIndex> {
-        return this._styleIndex$;
+    static get styles$(): Observable<Style[]> {
+        return this._styles$;
     }
 
-    static set styleIndex$(value: Observable<StyleIndex>) {
-        this._styleIndex$ = value;
+    static set styles$(value: Observable<Style[]>) {
+        this._styles$ = value;
     }
 
     // endregion
 
     static init() {
-        this.styleIndexSubject = new Subject<StyleIndex>();
-        this.styleIndex$ = this.styleIndexSubject.asObservable();
+        this.stylesSubject = new Subject<Style[]>();
+        this.styles$ = this.stylesSubject.asObservable();
     }
 
-    public static notifyStyleIndex(styleIndex: StyleIndex): void {
-        this.styleIndexSubject.next(styleIndex);
+    public static notifyStyles(styles: Style[]): void {
+        this.stylesSubject.next(styles);
     }
 
 }

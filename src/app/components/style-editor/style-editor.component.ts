@@ -11,36 +11,40 @@ import {StyleIndex} from '../../objects/style-index';
 })
 export class StyleEditorComponent {
 
-    styles: Style[];
-    addedStylesIndexes: number[];
+    styles: StyleIndex[];
+    addedStyles: StyleIndex[];
 
     constructor() {
-        this.styles = [new Style()];
-        this.addedStylesIndexes = [];
+        this.styles = [new StyleIndex()];
+        this.addedStyles = [];
     }
 
-    setProperty(i: number, styles: Style[] = this.styles): void {
-        styles[i].property = document.getElementById(`property-elem-${i}`).innerHTML;
-        this.handleStyle(i, styles[i]);
+    setProperty(style: StyleIndex): void {
+        style.style.property = document.getElementById(`property-elem-${style.index}`).innerHTML;
+        this.handleStyle(style);
     }
 
-    setValue(i: number, styles: Style[] = this.styles): void {
-        styles[i].value = document.getElementById(`value-elem-${i}`).innerHTML;
-        this.handleStyle(i, styles[i]);
+    setValue(style: StyleIndex): void {
+        style.style.value = document.getElementById(`value-elem-${style.index}`).innerHTML;
+        this.handleStyle(style);
     }
 
-    handleStyle(i: number, style: Style): void {
-        if (i > 0 && style.empty()) {
-            this.styles.splice(i, 1);
-        }
-        if (style.filled()) {
-            const existentAddedStylesIndex = this.addedStylesIndexes.indexOf(i);
-            if (existentAddedStylesIndex === -1) {
-                this.styles.push(new Style());
-                this.addedStylesIndexes.push(i);
+    handleStyle(style: StyleIndex, styles: StyleIndex[] = this.styles): void {
+        if (style.style.empty()) {
+            if (style.index < styles.length - 1) {
+                this.styles.splice(style.index, 1);
+                for (let i = style.index; i < styles.length; i++) {
+                    styles[i].index -= 1;
+                }
             }
-            NotificationService.notifyStyleIndex(new StyleIndex(style, i));
+        } else if (style.style.filled()) {
+            const addedStyle = this.addedStyles.find(s => s.style === style.style);
+            if (!addedStyle) {
+                this.styles.push(new StyleIndex(this.styles.length));
+                this.addedStyles.push(style);
+            }
         }
+        NotificationService.notifyStyles(styles.map(s => s.style).slice(0, styles.length - 1));
     }
 
 }

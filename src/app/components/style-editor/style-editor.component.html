@@ -1,17 +1,19 @@
 <div id="style-container" class="dark-background">
     <div>element.style {{'{'}}</div>
-    <div *ngFor="let style of styles; let i = index" class="property-container">
+    <div *ngFor="let style of styles" class="property-container">
         <span
-            id="property-elem-{{i}}"
+            id="property-elem-{{style.index}}"
             class="input"
             contenteditable
-            (input)="setProperty(i)"></span>
+            (input)="setProperty(style)">
+        </span>
         <span class="symbol">:</span>
         <span
-            id="value-elem-{{i}}"
+            id="value-elem-{{style.index}}"
             class="input"
             contenteditable
-            (input)="setValue(i)"></span>
+            (input)="setValue(style)">
+        </span>
         <span class="symbol">;</span>
     </div>
     <div>{{'}'}}</div>

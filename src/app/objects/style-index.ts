@@ -5,8 +5,8 @@ export class StyleIndex {
     style: Style;
     index: number;
 
-    constructor(style: Style, index: number) {
-        this.style = style;
+    constructor(index: number = 0) {
+        this.style = new Style();
         this.index = index;
     }
 

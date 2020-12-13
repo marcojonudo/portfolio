@@ -4,9 +4,9 @@ import {Subscription} from 'rxjs';
 import {Section} from './objects/sections/section';
 import {WelcomeSection} from './objects/sections/welcome-section';
 import {Constants} from './objects/constants';
-import {StyleIndex} from './objects/style-index';
 import {User} from './objects/users/user';
 import {DevUser} from './objects/users/dev-user';
+import {Style} from './objects/style';
 
 @Component({
     selector: 'app-root',
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     user: User;
     section: Section;
 
-    styles: StyleIndex[];
+    styles: Style[];
 
     constructor() {
         this.user = new DevUser();
@@ -39,13 +39,8 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.styleIndexSubscription = NotificationService.styleIndex$.subscribe((styleIndex: StyleIndex) => {
-            const existent = this.styles.findIndex(style => style.index === styleIndex.index);
-            console.log(existent, styleIndex);
-            if (existent === -1) {
-                this.styles.push(styleIndex);
-            }
-            console.log('app styles', this.styles);
+        this.styleIndexSubscription = NotificationService.styles$.subscribe((styles: Style[]) => {
+            this.styles = styles;
         });
     }
 
@@ -58,9 +53,9 @@ export class AppComponent implements OnInit {
     }
 
     buildStyleObject(
-        user: User = this.user, section: Section = this.section, styles: StyleIndex[] = this.styles
+        user: User = this.user, section: Section = this.section, styles: Style[] = this.styles
     ): { [key: string]: string } {
-        return user.buildStyleObject(section, styles.map(s => s.style));
+        return user.buildStyleObject(section, styles);
     }
 
 }

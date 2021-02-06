@@ -7,6 +7,7 @@ import {User} from './objects/users/user';
 import {Style} from './objects/style';
 import {NormalUser} from './objects/users/normal-user';
 import {WelcomeSection} from './objects/sections/welcome-section';
+import {SkillsSection} from './objects/sections/skills-section';
 
 @Component({
     selector: 'app-root',
@@ -28,7 +29,8 @@ export class AppComponent implements OnInit {
 
     constructor() {
         this.user = new NormalUser();
-        this.section = new WelcomeSection();
+        this.section = new SkillsSection();
+        // this.section = new WelcomeSection();
         this.styles = [];
 
         this.USER_STYLE_BUILDER = {};

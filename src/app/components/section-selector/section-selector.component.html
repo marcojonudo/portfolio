@@ -6,6 +6,9 @@
         [ngClass]="{'selected': checkSelectedSection(aboutSection)}"
         (click)="selectSection(aboutSection)">About me</div>
     <div
+        [ngClass]="{'selected': checkSelectedSection(skillsSection)}"
+        (click)="selectSection(skillsSection)">Skills</div>
+    <div
         [ngClass]="{'selected': checkSelectedSection(projectsSection)}"
         (click)="selectSection(projectsSection)">Projects</div>
 </div>

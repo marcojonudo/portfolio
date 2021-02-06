@@ -4,6 +4,7 @@ import {Section} from '../../objects/sections/section';
 import {WelcomeSection} from '../../objects/sections/welcome-section';
 import {AboutSection} from '../../objects/sections/about-section';
 import {ProjectsSection} from '../../objects/sections/projects-section';
+import {SkillsSection} from '../../objects/sections/skills-section';
 
 @Component({
     selector: 'app-section-selector',
@@ -44,6 +45,10 @@ export class SectionSelectorComponent {
 
     get projectsSection(): Section {
         return new ProjectsSection();
+    }
+
+    get skillsSection(): Section {
+        return new SkillsSection();
     }
 
     // endregion

@@ -8,7 +8,8 @@ export class Constants {
     public static readonly SECTION: any = {
         WELCOME: 'WELCOME',
         ABOUT: 'ABOUT',
-        PROJECTS: 'PROJECTS'
+        PROJECTS: 'PROJECTS',
+        SKILLS: 'SKILLS'
     };
 
 }

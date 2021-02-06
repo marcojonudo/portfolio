@@ -1,0 +1,84 @@
+\:host
+    top: 100%
+    left: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+
+    #skills-container
+        width: 75%
+        height: 75%
+        display: flex
+        justify-content: space-around
+        flex-wrap: wrap
+
+        .skill-container
+            width: 23%
+
+            .skill
+                width: 100%
+                padding-top: 100%
+                position: relative
+                top: 0
+                left: 0
+                text-align: center
+
+                > div, > img
+                    transition: transform .2s, opacity .2s
+
+                    &::after
+                        transition: transform .2s, opacity .2s
+
+                //    width: 100%
+                //    height: 100%
+                //    position: absolute
+                //    top: 0
+                //    left: 0
+                //    display: flex
+                //    flex-direction: column
+
+                .skill-icon
+                    width: 20%
+                    position: absolute
+                    bottom: 80%
+                    left: 50%
+                    transform: translate3d(-50%, 0, 0)
+                    opacity: 0
+
+                .skill-title
+                    width: 100%
+                    position: absolute
+                    top: 50%
+                    left: 50%
+                    transform: translate3d(-50%, -50%, 0)
+                    font-size: 2em
+
+                    &::after
+                        content: ''
+                        width: 75%
+                        height: 1px
+                        position: absolute
+                        top: 100%
+                        left: 50%
+                        transform: translate3d(-50%, .5rem, 0) scale(0)
+                        background-color: #fff
+
+                .skill-description
+                    position: absolute
+                    top: 80%
+                    padding: 0 .5rem
+                    transform: translate3d(0, 0, 0)
+                    opacity: 0
+
+                &:hover
+
+                    .skill-icon
+                        transform: translate3d(-50%, 3rem, 0)
+                        opacity: 1
+
+                    .skill-title::after
+                        transform: translate3d(-50%, .5rem, 0) scale(1)
+
+                    .skill-description
+                        transform: translate3d(0, -3rem, 0)
+                        opacity: 1

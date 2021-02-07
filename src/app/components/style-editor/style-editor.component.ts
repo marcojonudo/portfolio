@@ -1,5 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, ViewChild} from '@angular/core';
-import {Style} from '../../objects/style';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {NotificationService} from '../../services/notification.service';
 import {StyleIndex} from '../../objects/style-index';
 

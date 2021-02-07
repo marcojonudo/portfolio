@@ -1,4 +1,6 @@
-<div *ngIf="checkSelectedUser(normalUser)" id="sections" class="link-container">
+<div
+    class="link-container mode"
+    [ngClass]="{'translate-up': !checkSelectedUser(normalUser)}">
     <div
         [ngClass]="{'selected': checkSelectedSection(welcomeSection)}"
         (click)="selectSection(welcomeSection)">Welcome</div>
@@ -12,4 +14,7 @@
         [ngClass]="{'selected': checkSelectedSection(projectsSection)}"
         (click)="selectSection(projectsSection)">Projects</div>
 </div>
-<app-style-editor *ngIf="checkSelectedUser(devUser)"></app-style-editor>
+<app-style-editor
+    class="mode"
+    [ngClass]="{'translate-down': !checkSelectedUser(devUser)}">
+</app-style-editor>

@@ -8,12 +8,17 @@ export class Style {
         this.value = '';
     }
 
-    empty(): boolean {
+    isEmpty(): boolean {
         return this.property === '' && this.value === '';
     }
 
-    filled(): boolean {
+    isFilled(): boolean {
         return this.property !== '' && this.value !== '';
+    }
+
+    empty(): void {
+        this.property = '';
+        this.value = '';
     }
 
 }

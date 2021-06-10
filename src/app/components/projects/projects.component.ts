@@ -1,15 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Constants} from '../../objects/constants';
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.sass']
+    selector: 'app-projects',
+    templateUrl: './projects.component.html',
+    styleUrls: ['./projects.component.sass'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent {
 
-  constructor() { }
+    selectedProject: any;
+    projects: any[];
 
-  ngOnInit(): void {
-  }
+    get zowiApp(): string {
+        return Constants.PROJECT.ZOWIAPP;
+    }
+
+    get fallApp(): string {
+        return Constants.PROJECT.FALLAPP;
+    }
+
+    get panel(): string {
+        return Constants.PROJECT.PANEL;
+    }
+
+    get schedules(): string {
+        return Constants.PROJECT.SCHEDULES;
+    }
+
+    checkSelectedProject(project: string, selectedProject: string = this.selectedProject): boolean {
+        return project === selectedProject;
+    }
 
 }

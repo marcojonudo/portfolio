@@ -12,4 +12,11 @@ export class Constants {
         SKILLS: 'SKILLS'
     };
 
+    public static readonly PROJECT: any = {
+        FALLAPP: 'FALLAPP',
+        ZOWIAPP: 'ZOWIAPP',
+        PANEL: 'PANEL',
+        SCHEDULES: 'SCHEDULES'
+    };
+
 }

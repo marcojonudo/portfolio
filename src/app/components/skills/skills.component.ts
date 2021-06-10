@@ -9,7 +9,7 @@ import {Skill} from '../../objects/skills/skill';
 })
 export class SkillsComponent {
 
-    skills: any[];
+    skills: Skill[];
 
     constructor() {
         this.skills = [

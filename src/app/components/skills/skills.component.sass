@@ -4,16 +4,20 @@
     display: flex
     justify-content: center
 
-    #skills-container
+    #skills-grid
         width: 75%
-        height: 75vh
-        display: flex
+        height: calc(75vh - 1rem)
+        display: grid
         align-items: center
-        justify-content: space-around
-        flex-wrap: wrap
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+        overflow-y: auto
+        grid-gap: 1rem
+        margin-top: 1rem
 
-        .skill-container
-            width: 23%
+        .skill-cell
+            display: flex
+            align-items: center
+            justify-content: center
 
             .skill
                 width: 100%

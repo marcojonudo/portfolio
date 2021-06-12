@@ -4,7 +4,7 @@ import {Constants} from '../constants';
 export class AboutSection extends Section {
 
     constructor() {
-        super(Constants.SECTION.ABOUT, -100, 0);
+        super(Constants.SECTION.ABOUT, 0, -100);
     }
 
 }

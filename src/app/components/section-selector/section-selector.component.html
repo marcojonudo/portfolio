@@ -1,6 +1,8 @@
-<div
-    class="link-container mode"
-    [ngClass]="{'translate-up': !checkSelectedUser(normalUser)}">
+<nav
+    id="nav"
+    class="mode"
+	[style.width.px]="navWidth"
+    [ngClass]="{'translate-up': !checkSelectedUser(normalUser), 'top': stickTopNav}">
     <div
         [ngClass]="{'selected': checkSelectedSection(welcomeSection)}"
         (click)="selectSection(welcomeSection)">Welcome</div>
@@ -13,7 +15,7 @@
     <div
         [ngClass]="{'selected': checkSelectedSection(projectsSection)}"
         (click)="selectSection(projectsSection)">Projects</div>
-</div>
+</nav>
 <app-style-editor
     class="mode"
     [ngClass]="{'translate-down': !checkSelectedUser(devUser)}">

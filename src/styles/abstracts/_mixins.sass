@@ -1,0 +1,99 @@
+@mixin flex-column
+	display: flex
+	flex-direction: column
+
+@mixin flex-center
+	display: flex
+	align-items: center
+	justify-content: center
+
+@mixin flex-column-center
+	@include flex-center
+	flex-direction: column
+
+@mixin flex-1
+	flex: 1 0 0
+
+@mixin button
+	width: $button-width
+	position: relative
+	@include flex-center
+	cursor: pointer
+
+	&::before, &::after
+		content: ''
+		position: absolute
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		border-radius: .2rem
+		opacity: 0
+		transition: opacity .3s, transform .3s
+
+	&::before
+		border-top: 1px solid $white
+		border-bottom: 1px solid $white
+		transform: scale(0, 1)
+
+	&::after
+		border-left: 1px solid $white
+		border-right: 1px solid $white
+		transform: scale(1, 0)
+
+	&:hover
+
+		&::before, &::after
+			opacity: 1
+			transform: scale(1)
+
+	&.selected::before, &.selected::after
+		opacity: 1
+		transform: scale(1)
+
+@mixin ripple
+	background-position: center
+	transition: background .2s
+
+	&:hover
+		background: $primary radial-gradient(circle, transparent 1%, $primary 1%) center/15000%
+
+	&:active
+		background-color: $light-green
+		background-size: 100%
+		transition: background 0s
+
+@mixin input-item
+	display: flex
+
+	input
+		border-radius: $border-radius 0 0 $border-radius
+		padding-left: $tiny-gap
+		@include flex-1
+		min-width: 0
+		border: 1px solid $grey
+
+		&:only-child
+			border-radius: $border-radius
+
+	button
+		@include ripple
+		border-radius: 0 $border-radius $border-radius 0
+		padding: 0 $tiny-gap
+		color: $primary
+
+@mixin input
+	min-width: 0
+	@include flex-1
+	border-radius: $border-radius
+	padding-left: $tiny-gap
+	border: 1px solid $grey
+
+	&:focus
+		box-shadow: 0 0 $small-gap $grey
+
+@mixin rounded-icon
+	width: $medium-size
+	height: $medium-size
+	@include flex-center
+	border-radius: 100%

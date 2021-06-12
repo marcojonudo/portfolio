@@ -1,15 +1,24 @@
 <div
     id="section-container"
-    [ngStyle]="buildStyleObject()">
-    <app-welcome
-        class="section"
-        [user]="user"
-        (userEmitter)="setUser($event)"></app-welcome>
-    <app-about class="section"></app-about>
-    <app-projects class="section"></app-projects>
-    <app-skills class="section"></app-skills>
+    [ngStyle]="buildStyleObject()"
+    (scroll)="handleScroll($event)">
+    <div id="section-scrollable-container">
+        <div id="welcome-container" class="section" [style.height.px]="screenHeight">
+            <app-welcome
+                #welcome
+                [user]="user"
+                (userEmitter)="setUser($event)">
+            </app-welcome>
+        </div>
+        <app-about #about id="about" class="section" [style.height.px]="screenHeight"></app-about>
+        <app-projects id="projects" class="section" [style.height.px]="screenHeight"></app-projects>
+        <app-skills id="skills" class="section" [style.height.px]="screenHeight"></app-skills>
+    </div>
 </div>
 <app-section-selector
+    #sectionSelector
     [user]="user.type"
-    (sectionEmitter)="setSection($event)">
+    [stickTopNav]="stickTopNav"
+    (sectionEmitter)="setSection($event)"
+    [style.transform]="findNavTranslate()">
 </app-section-selector>

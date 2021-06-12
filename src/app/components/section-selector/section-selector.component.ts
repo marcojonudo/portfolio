@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Constants} from '../../objects/constants';
 import {Section} from '../../objects/sections/section';
 import {WelcomeSection} from '../../objects/sections/welcome-section';
@@ -7,63 +7,71 @@ import {ProjectsSection} from '../../objects/sections/projects-section';
 import {SkillsSection} from '../../objects/sections/skills-section';
 
 @Component({
-    selector: 'app-section-selector',
-    templateUrl: './section-selector.component.html',
-    styleUrls: ['./section-selector.component.sass'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'app-section-selector',
+	templateUrl: './section-selector.component.html',
+	styleUrls: ['./section-selector.component.sass'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SectionSelectorComponent {
 
-    @Input() user: string;
+	private readonly BUTTON_WIDTH_REM: number = 6.5;
+	private readonly SECTIONS: number = 4;
 
-    @Output() sectionEmitter: EventEmitter<Section>;
+	@Input() user: string;
+	@Input() stickTopNav: boolean;
 
-    section: Section;
+	@Output() sectionEmitter: EventEmitter<Section>;
 
-    constructor() {
-        this.section = new WelcomeSection();
-        this.sectionEmitter = new EventEmitter<Section>();
-    }
+	section: Section;
+	navWidth: number;
 
-    // region Getters / setters
+	constructor() {
+		this.section = new WelcomeSection();
+		this.sectionEmitter = new EventEmitter<Section>();
 
-    get normalUser(): string {
-        return Constants.USER.NORMAL;
-    }
+		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+		this.navWidth = this.BUTTON_WIDTH_REM * fontSize * this.SECTIONS;
+	}
 
-    get devUser(): string {
-        return Constants.USER.DEV;
-    }
+	// region Getters / setters
 
-    get welcomeSection(): Section {
-        return new WelcomeSection();
-    }
+	get normalUser(): string {
+		return Constants.USER.NORMAL;
+	}
 
-    get aboutSection(): Section {
-        return new AboutSection();
-    }
+	get devUser(): string {
+		return Constants.USER.DEV;
+	}
 
-    get projectsSection(): Section {
-        return new ProjectsSection();
-    }
+	get welcomeSection(): Section {
+		return new WelcomeSection();
+	}
 
-    get skillsSection(): Section {
-        return new SkillsSection();
-    }
+	get aboutSection(): Section {
+		return new AboutSection();
+	}
 
-    // endregion
+	get projectsSection(): Section {
+		return new ProjectsSection();
+	}
 
-    checkSelectedUser(user: string, selectedUser: string = this.user): boolean {
-        return user === selectedUser;
-    }
+	get skillsSection(): Section {
+		return new SkillsSection();
+	}
 
-    checkSelectedSection(section: Section, selectedSection: Section = this.section): boolean {
-        return section.type === selectedSection.type;
-    }
+	// endregion
 
-    selectSection(section: Section): void {
-        this.section = section;
-        this.sectionEmitter.emit(section);
-    }
+	checkSelectedUser(user: string, selectedUser: string = this.user): boolean {
+		return user === selectedUser;
+	}
+
+	checkSelectedSection(section: Section, selectedSection: Section = this.section): boolean {
+		return section.type === selectedSection.type;
+	}
+
+	selectSection(section: Section): void {
+		this.section = section;
+		this.sectionEmitter.emit(section);
+	}
 
 }

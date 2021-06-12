@@ -1,23 +1,34 @@
 \:host
+    //position: relative
     display: flex
-    flex-direction: column
-    align-items: center
+    //flex-direction: column
+    //align-items: center
     width: 100%
     height: 100%
     color: #fff
     overflow: hidden
 
+    #welcome-container
+        display: flex
+        align-items: center
+        justify-content: center
+
     #section-container
         width: 100%
         height: 100%
+        position: relative
+        overflow: auto
         transform: translate3d(0, 0, 0)
         transition: transform .5s
 
-        .section
-            width: 100%
-            height: 100%
-            position: absolute
+        #section-scrollable-container
+            height: 400%
+
+            .section
+                //width: 100%
+                //height: 100%
+                //position: absolute
 
     app-section-selector
         position: absolute
-        bottom: 0
+        top: 0

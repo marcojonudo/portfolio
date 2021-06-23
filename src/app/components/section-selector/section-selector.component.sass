@@ -1,20 +1,18 @@
-@import "abstracts/variables"
 @import "abstracts/mixins"
 
 \:host
-	//display: flex
 	width: 100%
 	height: $nav-height
-	//position: relative
 	border-radius: $border-radius $border-radius 0 0
 	overflow: hidden
 	transition: transform $ultra-fast-transition
 
+	&.top
+		box-shadow: 0 1px 3px $white
+
 	#nav
-		width: auto
 		height: 100%
-		display: flex
-		justify-content: center
+		@include flex-center
 		background-color: $black-alpha
 		border-radius: $border-radius
 		transition: background-color $medium-transition, width $medium-transition
@@ -23,7 +21,12 @@
 			background-color: $dark-primary
 			width: 100% !important
 
+		#section-title
+			position: absolute
+			left: $section-gap
+
 		& > div
+			height: 100%
 			@include button
 
 			&::before

@@ -4,14 +4,14 @@ import {Section} from '../sections/section';
 
 export class NormalUser implements User {
 
-    type: string;
+	type: string;
 
-    constructor() {
-        this.type = Constants.USER.NORMAL;
-    }
+	constructor() {
+		this.type = Constants.USER.NORMAL;
+	}
 
-    buildStyleObject(section: Section): { [key: string]: string } {
-        return {transform: section.buildTranslateProperty()};
-    }
+	buildStyleObject(section: Section): { [key: string]: string } {
+		return {transform: section.buildTranslateProperty()};
+	}
 
 }

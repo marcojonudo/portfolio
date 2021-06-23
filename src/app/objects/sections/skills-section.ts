@@ -3,8 +3,8 @@ import {Constants} from '../constants';
 
 export class SkillsSection extends Section {
 
-    constructor() {
-        super(Constants.SECTION.SKILLS, -100, -100);
-    }
+	constructor() {
+		super(Constants.SECTION.SKILLS, -100, -100);
+	}
 
 }

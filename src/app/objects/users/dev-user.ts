@@ -5,18 +5,18 @@ import {Style} from '../style';
 
 export class DevUser implements User {
 
-    type: string;
+	type: string;
 
-    constructor() {
-        this.type = Constants.USER.DEV;
-    }
+	constructor() {
+		this.type = Constants.USER.DEV;
+	}
 
-    buildStyleObject(section: Section, styles: Style[]): { [key: string]: string } {
-        const styleObject = {};
-        styles.forEach((style: Style) => {
-            styleObject[style.property] = style.value;
-        });
-        return styleObject;
-    }
+	buildStyleObject(section: Section, styles: Style[]): { [key: string]: string } {
+		const styleObject = {};
+		styles.forEach((style: Style) => {
+			styleObject[style.property] = style.value;
+		});
+		return styleObject;
+	}
 
 }

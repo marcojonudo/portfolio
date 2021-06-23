@@ -4,40 +4,40 @@ import {NormalUser} from '../../objects/users/normal-user';
 import {DevUser} from '../../objects/users/dev-user';
 
 @Component({
-    selector: 'app-welcome',
-    templateUrl: './welcome.component.html',
-    styleUrls: ['./welcome.component.sass'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'app-welcome',
+	templateUrl: './welcome.component.html',
+	styleUrls: ['./welcome.component.sass'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WelcomeComponent {
 
-    @Input() user: User;
+	@Input() user: User;
 
-    @Output() userEmitter: EventEmitter<User>;
+	@Output() userEmitter: EventEmitter<User>;
 
-    constructor() {
-        this.userEmitter = new EventEmitter<User>();
-    }
+	constructor() {
+		this.userEmitter = new EventEmitter<User>();
+	}
 
-    // region Getters / setters
+	// region Getters / setters
 
-    get normalUser(): User {
-        return new NormalUser();
-    }
+	get normalUser(): User {
+		return new NormalUser();
+	}
 
-    get devUser(): User {
-        return new DevUser();
-    }
+	get devUser(): User {
+		return new DevUser();
+	}
 
-    // endregion
+	// endregion
 
-    selectUser(user: User): void {
-        this.user = user;
-        this.userEmitter.emit(user);
-    }
+	selectUser(user: User): void {
+		this.user = user;
+		this.userEmitter.emit(user);
+	}
 
-    checkSelectedUser(user: string, selectedUser: string = this.user.type): boolean {
-        return user === selectedUser;
-    }
+	checkSelectedUser(user: string, selectedUser: string = this.user.type): boolean {
+		return user === selectedUser;
+	}
 
 }

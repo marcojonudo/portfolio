@@ -2,34 +2,34 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Constants} from '../../objects/constants';
 
 @Component({
-    selector: 'app-projects',
-    templateUrl: './projects.component.html',
-    styleUrls: ['./projects.component.sass'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'app-projects',
+	templateUrl: './projects.component.html',
+	styleUrls: ['./projects.component.sass'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectsComponent {
 
-    selectedProject: any;
-    projects: any[];
+	selectedProject: any;
+	projects: any[];
 
-    get zowiApp(): string {
-        return Constants.PROJECT.ZOWIAPP;
-    }
+	get zowiApp(): string {
+		return Constants.PROJECT.ZOWIAPP;
+	}
 
-    get fallApp(): string {
-        return Constants.PROJECT.FALLAPP;
-    }
+	get fallApp(): string {
+		return Constants.PROJECT.FALLAPP;
+	}
 
-    get panel(): string {
-        return Constants.PROJECT.PANEL;
-    }
+	get panel(): string {
+		return Constants.PROJECT.PANEL;
+	}
 
-    get schedules(): string {
-        return Constants.PROJECT.SCHEDULES;
-    }
+	get schedules(): string {
+		return Constants.PROJECT.SCHEDULES;
+	}
 
-    checkSelectedProject(project: string, selectedProject: string = this.selectedProject): boolean {
-        return project === selectedProject;
-    }
+	checkSelectedProject(project: string, selectedProject: string = this.selectedProject): boolean {
+		return project === selectedProject;
+	}
 
 }

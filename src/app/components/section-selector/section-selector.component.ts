@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Constants} from '../../objects/constants';
 import {Section} from '../../objects/sections/section';
 import {WelcomeSection} from '../../objects/sections/welcome-section';
@@ -15,22 +15,24 @@ import {SkillsSection} from '../../objects/sections/skills-section';
 export class SectionSelectorComponent {
 
 	private readonly BUTTON_WIDTH_REM: number = 6.5;
-	private readonly SECTIONS: number = 4;
 
 	@Input() user: string;
 	@Input() stickTopNav: boolean;
+	@Input() section: Section;
 
 	@Output() sectionEmitter: EventEmitter<Section>;
 
-	section: Section;
+	@HostBinding('style.box-shadow') get navBoxShadow(): string {
+		return this.stickTopNav ? '0 1px 2px #717171' : '';
+	}
+
 	navWidth: number;
 
 	constructor() {
-		this.section = new WelcomeSection();
 		this.sectionEmitter = new EventEmitter<Section>();
 
 		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-		this.navWidth = this.BUTTON_WIDTH_REM * fontSize * this.SECTIONS;
+		this.navWidth = this.BUTTON_WIDTH_REM * fontSize * Constants.SECTIONS;
 	}
 
 	// region Getters / setters

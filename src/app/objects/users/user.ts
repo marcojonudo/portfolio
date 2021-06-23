@@ -3,8 +3,8 @@ import {Style} from '../style';
 
 export interface User {
 
-    type: string;
+	type: string;
 
-    buildStyleObject(section: Section, styles: Style[]): { [key: string]: string };
+	buildStyleObject(section: Section, styles: Style[]): { [key: string]: string };
 
 }

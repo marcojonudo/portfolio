@@ -1,3 +1,5 @@
+@import "variables"
+
 @mixin flex-column
 	display: flex
 	flex-direction: column
@@ -51,6 +53,10 @@
 		opacity: 1
 		transform: scale(1)
 
+@mixin dark-background
+	background-color: $black-alpha
+	border-radius: $border-radius
+
 @mixin ripple
 	background-position: center
 	transition: background .2s
@@ -62,38 +68,3 @@
 		background-color: $light-green
 		background-size: 100%
 		transition: background 0s
-
-@mixin input-item
-	display: flex
-
-	input
-		border-radius: $border-radius 0 0 $border-radius
-		padding-left: $tiny-gap
-		@include flex-1
-		min-width: 0
-		border: 1px solid $grey
-
-		&:only-child
-			border-radius: $border-radius
-
-	button
-		@include ripple
-		border-radius: 0 $border-radius $border-radius 0
-		padding: 0 $tiny-gap
-		color: $primary
-
-@mixin input
-	min-width: 0
-	@include flex-1
-	border-radius: $border-radius
-	padding-left: $tiny-gap
-	border: 1px solid $grey
-
-	&:focus
-		box-shadow: 0 0 $small-gap $grey
-
-@mixin rounded-icon
-	width: $medium-size
-	height: $medium-size
-	@include flex-center
-	border-radius: 100%

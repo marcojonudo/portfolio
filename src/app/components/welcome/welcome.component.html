@@ -1,34 +1,34 @@
 <h2 id="name">
-    <span class="bold">M</span>arco <span class="bold">M</span>artínez <span class="bold">Á</span>vila
+	<span class="bold">M</span>arco <span class="bold">M</span>artínez <span class="bold">Á</span>vila
 </h2>
 <div id="details">
-    <div>Full stack dev</div>
-    <div>Sportsman</div>
-    <div>Perfectionist</div>
+	<div>Full stack dev</div>
+	<div>Sportsman</div>
+	<div>Perfectionist</div>
 </div>
 <div id="icons">
-    <a href="mailto: marcomartinezavila@gmail.com">
-        <img src="assets/img/icons/mail.svg" alt="mail-icon">
-    </a>
-    <a href="https://www.linkedin.com/in/marcomartinezavila/">
-        <img src="assets/img/icons/linkedin.svg" alt="linkedin-icon">
-    </a>
-    <a href="https://github.com/marcojonudo">
-        <img src="assets/img/icons/github.svg" alt="github-icon">
-    </a>
-    <a href="https://stackoverflow.com/users/9124473/marco-mart%c3%adnez-%c3%81vila">
-        <img src="assets/img/icons/stack-overflow.svg" alt="stack-overflow-icon">
-    </a>
+	<a href="mailto: marcomartinezavila@gmail.com">
+		<img src="assets/img/icons/mail.svg" alt="mail-icon">
+	</a>
+	<a href="https://www.linkedin.com/in/marcomartinezavila/">
+		<img src="assets/img/icons/linkedin.svg" alt="linkedin-icon">
+	</a>
+	<a href="https://github.com/marcojonudo">
+		<img src="assets/img/icons/github.svg" alt="github-icon">
+	</a>
+	<a href="https://stackoverflow.com/users/9124473/marco-mart%c3%adnez-%c3%81vila">
+		<img src="assets/img/icons/stack-overflow.svg" alt="stack-overflow-icon">
+	</a>
 </div>
 <div id="user-selector" class="link-container">
-    <div
-        [ngClass]="{'selected': checkSelectedUser(normalUser.type)}"
-        (click)="selectUser(normalUser)">
-        Normal user
-    </div>
-    <div
-        [ngClass]="{'selected': checkSelectedUser(devUser.type)}"
-        (click)="selectUser(devUser)">
-        Developer
-    </div>
+	<div
+		[ngClass]="{'selected': checkSelectedUser(normalUser.type)}"
+		(click)="selectUser(normalUser)">
+		Normal user
+	</div>
+	<div
+		[ngClass]="{'selected': checkSelectedUser(devUser.type)}"
+		(click)="selectUser(devUser)">
+		Developer
+	</div>
 </div>

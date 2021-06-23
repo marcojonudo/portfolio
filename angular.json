@@ -1,9 +1,9 @@
 {
-    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-    "version": 1,
-    "newProjectRoot": "projects",
-    "projects": {
-        "portfolio": {
+	"$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+	"version": 1,
+	"newProjectRoot": "projects",
+	"projects": {
+	"portfolio": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -128,10 +128,10 @@
                     }
                 }
             }
-        }
-    },
-    "defaultProject": "portfolio",
-    "cli": {
-        "analytics": "a8b4a1c6-ab9c-4c34-bea2-ba70c29b910f"
-    }
+	}
+	},
+	"defaultProject": "portfolio",
+	"cli": {
+	"analytics": "a8b4a1c6-ab9c-4c34-bea2-ba70c29b910f"
+	}
 }

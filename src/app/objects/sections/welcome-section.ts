@@ -3,8 +3,8 @@ import {Constants} from '../constants';
 
 export class WelcomeSection extends Section {
 
-    constructor() {
-        super(Constants.SECTION.WELCOME, 0, 0);
-    }
+	constructor() {
+		super(Constants.SECTION.WELCOME, 0, 0);
+	}
 
 }

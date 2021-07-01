@@ -1,7 +1,7 @@
 export class Constants {
 
 	public static readonly WELCOME_ITEM_MARGIN: number = 1.5;
-	public static readonly SECTIONS: number = 4;
+	public static readonly SECTIONS: number = 3;
 
 	public static readonly USER: any = {
 		NORMAL: 'NORMAL',

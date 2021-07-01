@@ -1,4 +1,4 @@
-@import "abstracts/variables"
+@import "abstracts/mixins"
 
 \:host
 	display: flex
@@ -6,11 +6,6 @@
 	height: 100%
 	color: #fff
 	overflow: hidden
-
-	#welcome-container
-		display: flex
-		align-items: center
-		justify-content: center
 
 	#section-container
 		width: 100%
@@ -22,6 +17,13 @@
 
 		#section-scrollable-container
 			transition: transform $fast-transition
+
+			.section:not(:first-child)
+				padding: 0 $section-horizontal-padding
+				margin: $section-vertical-margin 0
+
+	#welcome-container
+		@include flex-center
 
 	app-section-selector
 		position: absolute

@@ -41,7 +41,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 	sectionSelectorOffset: number;
 	scrollTop: number;
 	stickTopNav: boolean;
-	scrollableContainerHeight: number;
 	sectionTops: number[];
 
 	user: User;
@@ -56,7 +55,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 		this.section = this.sections[0];
 		this.styles = [];
 		this.scrollTop = 0;
-		this.scrollableContainerHeight = Constants.SECTION * 100;
 		this.sectionTops = [];
 
 		this.USER_STYLE_BUILDER = {};

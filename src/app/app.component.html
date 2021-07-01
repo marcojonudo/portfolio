@@ -3,7 +3,7 @@
 	id="section-container"
 	[ngStyle]="buildStyleObject()"
 	(scroll)="handleScroll($event)">
-	<div id="section-scrollable-container" [style.height.%]="scrollableContainerHeight">
+	<div id="section-scrollable-container">
 		<div #sectionElem id="welcome-container" class="section" [style.height.px]="screenHeight">
 			<app-welcome
 				#welcome
@@ -11,9 +11,9 @@
 				(userEmitter)="setUser($event)">
 			</app-welcome>
 		</div>
-		<app-about #sectionElem id="about" class="section" [style.height.px]="screenHeight"></app-about>
-		<app-skills #sectionElem id="skills" class="section" [style.height.px]="screenHeight"></app-skills>
-		<app-projects #sectionElem id="projects" class="section" [style.height.px]="screenHeight"></app-projects>
+		<app-about #sectionElem id="about" class="section"></app-about>
+		<app-skills #sectionElem id="skills" class="section"></app-skills>
+<!--		<app-projects #sectionElem id="projects" class="section" [style.height.px]="screenHeight"></app-projects>-->
 	</div>
 </div>
 <app-section-selector

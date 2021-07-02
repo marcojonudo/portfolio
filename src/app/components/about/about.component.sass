@@ -13,7 +13,7 @@
 			object-fit: cover
 			border-radius: 50%
 			border: 10px solid rgba(0, 0, 0, 0.3)
-			margin-right: .5rem
+			margin-right: $small-gap
 
 		#me-text
 			@include flex-column
@@ -61,4 +61,24 @@
 					right: .5rem
 					text-align: right
 					font-size: 0.875em
-					color: #e74c3c
+					color: $quote
+
+@media (max-width: 650px)
+
+	#about-container
+		flex-direction: column
+
+		#me-image
+			margin: 0 0 $small-gap 0 !important
+
+		#me-text
+			text-align: center
+			margin: 0 !important
+
+			& > *
+				padding: $small-gap 1rem !important
+				line-height: 1.8
+
+
+			.quote::after
+					bottom: .2rem !important

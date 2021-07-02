@@ -24,6 +24,7 @@
 		font-weight: 200
 
 		> div
+
 			&::after
 				content: '·'
 				margin: 0 1.5rem
@@ -45,3 +46,10 @@
 
 			> svg
 				height: 100%
+
+@media (max-width: 650px)
+
+	#name
+		@include flex-column-center
+		font-size: 4rem !important
+		line-height: normal !important

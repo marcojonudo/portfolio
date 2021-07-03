@@ -4,64 +4,86 @@
 	position: relative
 	@include flex-column
 
-	#about-container
-		@include flex-center
+	#about-container-wrapper
+		width: 100%
+		height: 0
+		position: relative
+		padding-top: 45.07%
+		background-image: url('/assets/img/me-background.jpg')
+		background-size: cover
+		background-repeat: no-repeat
+		background-attachment: fixed
 
-		#me-image
-			height: 15rem
-			width: 15rem
-			object-fit: cover
-			border-radius: 50%
-			border: 10px solid rgba(0, 0, 0, 0.3)
-			margin-right: $small-gap
+		#about-container
+			height: 100%
+			position: absolute
+			top: 0
+			@include flex-center
+			justify-content: flex-end
+			padding-right: $big-gap
 
-		#me-text
-			@include flex-column
-			margin-left: $small-gap
+			#me-image
+				display: none
+				height: 15rem
+				width: 15rem
+				object-fit: cover
+				border-radius: 50%
+				border: 10px solid rgba(0, 0, 0, 0.3)
+				margin-right: $small-gap
 
-			& > *
-				@include dark-background
-				padding: $small-gap
-				margin-bottom: $small-gap
+			#me-text
+				width: 66%
+				@include flex-column
+				//position: absolute
+				//right: $big-gap
 
-			.bold
-				font-weight: 600
+				& > *
+					@include darkest-background
+					padding: $small-gap
 
-			> div
-				padding: .5rem
-				margin: .5rem 0
+					&:not(:last-child)
+						margin-bottom: $small-gap
 
-			.quote
-				position: relative
-				border-width: 1px 0
-				border-style: solid
-				border-color: #fff
-				font-weight: 200
-				padding: 1.5rem .5rem 1.8em
-				margin: 1.5rem auto
+				.bold
+					font-weight: 600
 
-				&::before
-					content: '\201C'
-					position: absolute
-					top: 0
-					left: 50%
-					transform: translate3d(-50%, -50%, 0)
-					background-color: #fff
-					width: 2rem
-					height: 2rem
-					font: 5em/.95em 'PT Sans', sans-serif
-					color: #0f172b
-					text-align: center
-					border-radius: .1rem
+				> div
+					padding: .5rem
 
-				&::after
-					content: "\2013 \2003" attr(cite)
-					position: absolute
-					bottom: .5rem
-					right: .5rem
-					text-align: right
-					font-size: 0.875em
-					color: $quote
+					&:not(:last-child)
+						margin: .5rem 0
+
+				.quote
+					position: relative
+					border-width: 1px 0
+					border-style: solid
+					border-color: #fff
+					font-weight: 200
+					padding: 1.5rem .5rem 1.8em
+					margin: 1.5rem auto
+
+					&::before
+						content: '\201C'
+						position: absolute
+						top: 0
+						left: 50%
+						transform: translate3d(-50%, -50%, 0)
+						background-color: #fff
+						width: 2rem
+						height: 2rem
+						font: 5em/.95em 'PT Sans', sans-serif
+						color: #0f172b
+						text-align: center
+						border-radius: .1rem
+
+					&::after
+						content: "\2013 \2003" attr(cite)
+						position: absolute
+						bottom: .5rem
+						right: .5rem
+						text-align: right
+						font-size: 0.875em
+						color: $quote
 
 @media (max-width: 650px)
 

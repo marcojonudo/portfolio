@@ -17,7 +17,7 @@ import {Style} from './objects/style';
 import {NormalUser} from './objects/users/normal-user';
 import {WelcomeSection} from './objects/sections/welcome-section';
 import {SkillsSection} from './objects/sections/skills-section';
-import {ProjectsSection} from './objects/sections/projects-section';
+import {BlogSection} from './objects/sections/blog-section';
 import {AboutSection} from './objects/sections/about-section';
 
 @Component({
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 	constructor(private cdRef: ChangeDetectorRef) {
 		this.user = new NormalUser();
-		this.sections = [new WelcomeSection(), new AboutSection(), new SkillsSection(), new ProjectsSection()];
+		this.sections = [new WelcomeSection(), new AboutSection(), new SkillsSection(), new BlogSection()];
 		this.section = this.sections[0];
 		this.styles = [];
 		this.scrollTop = 0;

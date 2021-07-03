@@ -1,7 +1,7 @@
 export class Constants {
 
 	public static readonly WELCOME_ITEM_MARGIN: number = 1.5;
-	public static readonly SECTIONS: number = 3;
+	public static readonly SECTIONS: number = 4;
 
 	public static readonly USER: any = {
 		NORMAL: 'NORMAL',
@@ -11,8 +11,8 @@ export class Constants {
 	public static readonly SECTION: any = {
 		WELCOME: 'welcome',
 		ABOUT: 'about',
-		PROJECTS: 'projects',
-		SKILLS: 'skills'
+		SKILLS: 'skills',
+		BLOG: 'blog'
 	};
 
 	public static readonly PROJECT: any = {

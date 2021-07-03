@@ -1,10 +1,10 @@
 import {Section} from './section';
 import {Constants} from '../constants';
 
-export class ProjectsSection extends Section {
+export class BlogSection extends Section {
 
 	constructor() {
-		super(Constants.SECTION.PROJECTS, 0, -100);
+		super(Constants.SECTION.BLOG, 0, -100);
 	}
 
 }

@@ -80,8 +80,16 @@ body
 			transform: scale(1)
 
 .section-title
+	@include flex-center
+	justify-content: space-between
 	padding: $small-gap $big-gap
 	margin-bottom: $small-gap
+
+	&-link
+		padding: $small-gap
+		font-size: .7em
+		cursor: pointer
+		transition: background-color $fast-transition
 
 .disabled
 	color: #6b6b6b

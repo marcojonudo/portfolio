@@ -8,7 +8,11 @@ import {ProjectsComponent} from './components/projects/projects.component';
 import {SectionSelectorComponent} from './components/section-selector/section-selector.component';
 import {StyleEditorComponent} from './components/style-editor/style-editor.component';
 import {SkillsComponent} from './components/skills/skills.component';
+import { BlogPreviewComponent } from './components/blog-preview/blog-preview.component';
+import { AppRoutingModule } from './app-routing.module';
 import { BlogComponent } from './components/blog/blog.component';
+import { HomeComponent } from './components/home/home.component';
+import { PostCardComponent } from './components/post-card/post-card.component';
 
 @NgModule({
 	declarations: [
@@ -19,13 +23,16 @@ import { BlogComponent } from './components/blog/blog.component';
 		SectionSelectorComponent,
 		StyleEditorComponent,
 		SkillsComponent,
-		BlogComponent
+		BlogPreviewComponent,
+		BlogComponent,
+		HomeComponent,
+		PostCardComponent
 	],
 	imports: [
-		BrowserModule
+		BrowserModule,
+		AppRoutingModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

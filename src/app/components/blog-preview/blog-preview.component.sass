@@ -1,0 +1,106 @@
+@import "abstracts/mixins"
+
+\:host
+	position: relative
+	@include flex-column
+
+	.section-title-link
+		position: relative
+
+		&::before
+			content: ''
+			position: absolute
+			top: 0
+			left: 0
+			right: 0
+			bottom: 0
+			opacity: 0
+			transition: opacity $fast-transition, transform $fast-transition
+			border-bottom: 1px solid $white
+			transform: scale(0, 1)
+
+		&:hover
+
+			&::before
+				opacity: 1
+				transform: scale(1)
+
+	#posts-container
+		display: flex
+		justify-content: space-around
+		flex-wrap: wrap
+		padding: 0 $bigger-gap
+
+		.post-cell
+			width: 350px
+
+			//&::after
+			//	content: ''
+			//	width: 100%
+			//	padding-top: 100%
+
+			.post
+				width: 100%
+				padding-top: 100%
+				position: relative
+				text-align: center
+
+				//> div, > img
+				//	transition: transform .2s, opacity .2s
+				//
+				//	&::after
+				//		transition: transform .2s, opacity .2s
+				//
+				//.skill-icon
+				//	width: 20%
+				//	position: absolute
+				//	bottom: 80%
+				//	left: 50%
+				//	transform: translate3d(-50%, 0, 0)
+				//	opacity: 0
+				//
+				//.skill-title
+				//	width: 100%
+				//	position: absolute
+				//	top: 50%
+				//	left: 50%
+				//	transform: translate3d(-50%, -50%, 0)
+				//	font-size: 2em
+				//
+				//	&::after
+				//		content: ''
+				//		width: 75%
+				//		height: 1px
+				//		position: absolute
+				//		top: 100%
+				//		left: 50%
+				//		transform: translate3d(-50%, .5rem, 0) scale(0)
+				//		background-color: #fff
+				//
+				//.skill-description
+				//	position: absolute
+				//	top: 80%
+				//	padding: 0 .5rem
+				//	transform: translate3d(0, 0, 0)
+				//	opacity: 0
+				//
+				//&:hover
+				//
+				//	.skill-icon
+				//		transform: translate3d(-50%, 3rem, 0)
+				//		opacity: 1
+				//
+				//	.skill-title::after
+				//		transform: translate3d(-50%, .5rem, 0) scale(1)
+				//
+				//	.skill-description
+				//		transform: translate3d(0, -3rem, 0)
+				//		opacity: 1
+
+@media (max-width: 650px)
+
+	#skills-container
+		flex-direction: column
+
+		.skill-cell
+			width: 100% !important

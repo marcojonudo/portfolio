@@ -1,15 +1,14 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 
 @Component({
-	selector: 'app-blog',
-	templateUrl: './blog.component.html',
-	styleUrls: ['./blog.component.sass'],
+	selector: 'app-blog-preview',
+	templateUrl: './blog-preview.component.html',
+	styleUrls: ['./blog-preview.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BlogComponent implements OnInit {
+export class BlogPreviewComponent implements OnInit {
 
 	constructor() {
-		console.log(1);
 	}
 
 	ngOnInit(): void {

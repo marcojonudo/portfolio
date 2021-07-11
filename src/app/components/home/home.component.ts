@@ -20,6 +20,7 @@ import {SkillsSection} from '../../objects/sections/skills-section';
 import {BlogSection} from '../../objects/sections/blog-section';
 import {Constants} from '../../objects/constants';
 import {NotificationService} from '../../services/notification.service';
+import {Utils} from '../../objects/utils';
 
 @Component({
 	selector: 'app-home',
@@ -42,6 +43,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 	scrollTop: number;
 	stickTopNav: boolean;
 	sectionTops: number[];
+	fontSize: number;
 
 	user: User;
 	sections: Section[];
@@ -61,6 +63,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 		this.USER_STYLE_BUILDER[Constants.USER.NORMAL] = (section: Section) => section.buildTranslateProperty();
 		this.USER_STYLE_BUILDER[Constants.USER.DEV] = (section: Section) => section.buildTranslateProperty();
 
+		this.fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 		NotificationService.init();
 	}
 
@@ -80,14 +83,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
 				const welcomeBottom = this.welcome.nativeElement.getBoundingClientRect().bottom;
 				this.sectionSelectorOffset = welcomeBottom + margin;
 				this.cdRef.detectChanges();
+
+				this.sectionElements.toArray().forEach(section => {
+					this.sectionTops.push(section.nativeElement.getBoundingClientRect().top);
+				});
 			},
 			0
 		);
 
-		this.sectionElements.toArray().forEach(section => {
-			this.sectionTops.push(section.nativeElement.getBoundingClientRect().top);
-		});
-		fromEvent(this.scrollableContainer.nativeElement, 'scroll').subscribe((e: any) => {
+		fromEvent(this.scrollableContainer.nativeElement, Constants.EVENT.SCROLL).subscribe((e: any) => {
 			const topSections = this.sectionTops.filter(top => e.target.scrollTop >= top);
 			const sectionIndex = this.sectionTops.indexOf(topSections[topSections.length - 1]);
 			this.section = this.sections[sectionIndex];
@@ -108,8 +112,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
 		this.user = user;
 	}
 
-	setSection(section: Section): void {
+	setSection(section: Section, sections: Section[] = this.sections, sectionTops: number[] = this.sectionTops): void {
 		this.section = section;
+		const sectionIndex = sections.findIndex(s => s.type === section.type);
+		const top = sectionTops[sectionIndex] - Utils.remToPx(Constants.NAV_HEIGHT_REM, this.fontSize);
+		this.scrollableContainer.nativeElement.scrollTop = top;
 	}
 
 	buildStyleObject(

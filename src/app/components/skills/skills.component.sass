@@ -5,15 +5,14 @@
 	@include flex-column
 
 	#skills-container
-		display: flex
-		flex-wrap: wrap
+		display: grid
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
+		grid-gap: $default-gap
 		padding: 0 $bigger-gap
 
 		.skill-cell
-			width: 20%
 			position: relative
 			@include flex-center
-			padding: $small-gap
 
 			.skill
 				width: 100%

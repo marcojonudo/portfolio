@@ -52,6 +52,16 @@ export class SkillsComponent {
 				'OpenAPI',
 				'Technical documentation may be quite more interesting than a verbose one; however, I also love writing, just in case',
 				'swagger'
+			),
+			new Skill(
+				'Git',
+				'How to improve projects or deploy new versions without knowing what has been going on before?',
+				'git'
+			),
+			new Skill(
+				'Gradle',
+				'Mix front with back technologies, auto-generated documentation and some custom dependencies with style',
+				'gradle'
 			)
 		];
 		// CI/CD, HTLM, cSS, Javascript, Java, Docker, Spock, Gradle

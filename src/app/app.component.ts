@@ -1,24 +1,16 @@
 import {
-	AfterViewInit,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	ElementRef,
-	OnInit, QueryList,
-	ViewChild,
-	ViewChildren
+	OnDestroy,
+	OnInit
 } from '@angular/core';
 import {NotificationService} from './services/notification.service';
-import {fromEvent, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {Section} from './objects/sections/section';
-import {Constants} from './objects/constants';
 import {User} from './objects/users/user';
-import {Style} from './objects/style';
 import {NormalUser} from './objects/users/normal-user';
 import {WelcomeSection} from './objects/sections/welcome-section';
-import {SkillsSection} from './objects/sections/skills-section';
-import {BlogSection} from './objects/sections/blog-section';
-import {AboutSection} from './objects/sections/about-section';
 
 @Component({
 	selector: 'app-root',
@@ -26,6 +18,36 @@ import {AboutSection} from './objects/sections/about-section';
 	styleUrls: ['./app.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
 	title = 'portfolio';
+
+	user: User;
+	section: Section;
+	stickTopNav: boolean;
+	translateY: number;
+
+	private navbarInfoSubscription: Subscription;
+
+	constructor(private cdRef: ChangeDetectorRef) {
+		this.user = new NormalUser();
+		this.section = new WelcomeSection();
+		NotificationService.init();
+	}
+
+	ngOnInit(): void {
+		this.navbarInfoSubscription = NotificationService.navbarInfo$.subscribe(navbarInfo => {
+			navbarInfo.execute(this);
+			this.cdRef.detectChanges();
+		});
+	}
+
+	ngOnDestroy(): void {
+		this.navbarInfoSubscription.unsubscribe();
+	}
+
+	findNavTranslate(stickTopNav: boolean = this.stickTopNav, translateY: number = this.translateY): string {
+		const offset = stickTopNav ? 0 : translateY;
+		return `translateY(${offset}px)`;
+	}
+
 }

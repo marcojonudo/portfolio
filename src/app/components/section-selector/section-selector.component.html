@@ -2,7 +2,7 @@
 	id="nav"
 	class="mode"
 	[style.width.px]="navWidth"
-	[ngClass]="{'translate-up': !checkSelectedUser(normalUser), 'top': stickTopNav}">
+	[ngClass]="{'translate-up': !checkSelectedUser(normalUser), 'top': stickTop}">
 	<div
 		[ngClass]="{'selected': checkSelectedSection(welcomeSection)}"
 		(click)="selectSection(welcomeSection)">Welcome</div>

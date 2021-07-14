@@ -27,4 +27,12 @@ export class Constants {
 		SCROLL: 'scroll'
 	};
 
+	public static readonly NAVBAR_INFO: any = {
+		USER: 'USER',
+		SECTION: 'SECTION',
+		STICK: 'STICK',
+		TRANSLATE: 'TRANSLATE',
+		INFO: 'INFO'
+	};
+
 }

@@ -18,8 +18,11 @@
 		#section-scrollable-container
 			transition: transform $fast-transition
 
-			.section:not(:first-child)
-				margin: $big-gap 0
+			.section
+				padding: $medium-gap 0
+
+				&:first-of-type
+					padding-top: 0
 
 	#welcome-container
 		@include flex-center

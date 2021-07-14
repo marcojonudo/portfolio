@@ -5,6 +5,7 @@ import {WelcomeSection} from '../../objects/sections/welcome-section';
 import {AboutSection} from '../../objects/sections/about-section';
 import {BlogSection} from '../../objects/sections/blog-section';
 import {SkillsSection} from '../../objects/sections/skills-section';
+import {NotificationService} from '../../services/notification.service';
 
 @Component({
 	selector: 'app-section-selector',
@@ -17,20 +18,16 @@ export class SectionSelectorComponent {
 	private readonly BUTTON_WIDTH_REM: number = 6.5;
 
 	@Input() user: string;
-	@Input() stickTopNav: boolean;
+	@Input() stickTop: boolean;
 	@Input() section: Section;
 
-	@Output() sectionEmitter: EventEmitter<Section>;
-
 	@HostBinding('style.box-shadow') get navBoxShadow(): string {
-		return this.stickTopNav ? '0 1px 2px #717171' : '';
+		return this.stickTop ? '0 1px 2px #717171' : '';
 	}
 
 	navWidth: number;
 
 	constructor() {
-		this.sectionEmitter = new EventEmitter<Section>();
-
 		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 		this.navWidth = this.BUTTON_WIDTH_REM * fontSize * Constants.SECTIONS;
 	}
@@ -73,7 +70,7 @@ export class SectionSelectorComponent {
 
 	selectSection(section: Section): void {
 		this.section = section;
-		this.sectionEmitter.emit(section);
+		NotificationService.notifySection(this.section);
 	}
 
 }

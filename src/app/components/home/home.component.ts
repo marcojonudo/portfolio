@@ -3,7 +3,7 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	ElementRef,
+	ElementRef, OnDestroy,
 	OnInit,
 	QueryList,
 	ViewChild,
@@ -21,6 +21,7 @@ import {BlogSection} from '../../objects/sections/blog-section';
 import {Constants} from '../../objects/constants';
 import {NotificationService} from '../../services/notification.service';
 import {Utils} from '../../objects/utils';
+import {TranslateInfoNavbarInfo} from '../../objects/navbar/translate-info-navbar-info';
 
 @Component({
 	selector: 'app-home',
@@ -28,13 +29,14 @@ import {Utils} from '../../objects/utils';
 	styleUrls: ['./home.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	@ViewChild('welcome', { read: ElementRef }) welcome: ElementRef;
 	@ViewChild('scrollableContainer') scrollableContainer: ElementRef;
 	@ViewChildren('sectionElem', { read: ElementRef }) sectionElements: QueryList<ElementRef>;
 
 	private styleIndexSubscription: Subscription;
+	private sectionSubscription: Subscription;
 
 	private readonly USER_STYLE_BUILDER: any;
 
@@ -64,17 +66,25 @@ export class HomeComponent implements OnInit, AfterViewInit {
 		this.USER_STYLE_BUILDER[Constants.USER.DEV] = (section: Section) => section.buildTranslateProperty();
 
 		this.fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-		NotificationService.init();
 	}
 
 	ngOnInit(): void {
 		this.styleIndexSubscription = NotificationService.styles$.subscribe((styles: Style[]) => {
 			this.styles = styles;
 		});
+		this.sectionSubscription = NotificationService.section$.subscribe((section: Section) => {
+			this.setSection(section);
+		});
+	}
+
+	ngOnDestroy(): void {
+		this.styleIndexSubscription.unsubscribe();
+		this.sectionSubscription.unsubscribe();
 	}
 
 	ngAfterViewInit(): void {
 		this.screenHeight = window.innerHeight;
+		console.log('screen height', this.screenHeight);
 
 		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 		const margin = Constants.WELCOME_ITEM_MARGIN * fontSize;
@@ -82,7 +92,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
 			() => {
 				const welcomeBottom = this.welcome.nativeElement.getBoundingClientRect().bottom;
 				this.sectionSelectorOffset = welcomeBottom + margin;
-				this.cdRef.detectChanges();
+				NotificationService.notifyNavbarInfo(
+					new TranslateInfoNavbarInfo(this.section, this.stickTopNav, this.findNavTranslate())
+				);
 
 				this.sectionElements.toArray().forEach(section => {
 					this.sectionTops.push(section.nativeElement.getBoundingClientRect().top);
@@ -91,10 +103,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 			0
 		);
 
-		fromEvent(this.scrollableContainer.nativeElement, Constants.EVENT.SCROLL).subscribe((e: any) => {
-			const topSections = this.sectionTops.filter(top => e.target.scrollTop >= top);
-			const sectionIndex = this.sectionTops.indexOf(topSections[topSections.length - 1]);
-			this.section = this.sections[sectionIndex];
+		fromEvent(this.scrollableContainer.nativeElement, Constants.EVENT.SCROLL).subscribe((event: any) => {
+			this.handleScroll(event);
 		});
 		this.cdRef.detectChanges();
 	}
@@ -103,20 +113,24 @@ export class HomeComponent implements OnInit, AfterViewInit {
 		stickTopNav: boolean = this.stickTopNav,
 		sectionSelectorOffset: number = this.sectionSelectorOffset,
 		scrollTop: number = this.scrollTop
-	): string {
-		const offset = stickTopNav ? 0 : sectionSelectorOffset - scrollTop;
-		return `translateY(${offset}px)`;
+	): number {
+		return stickTopNav ? 0 : sectionSelectorOffset - scrollTop;
+		// return `translateY(${offset}px)`;
 	}
 
 	setUser(user: User): void {
 		this.user = user;
 	}
 
-	setSection(section: Section, sections: Section[] = this.sections, sectionTops: number[] = this.sectionTops): void {
+	setSection(section: Section): void {
 		this.section = section;
+		this.scrollToSection(this.section);
+	}
+
+	scrollToSection(section: Section, sections: Section[] = this.sections, sectionTops: number[] = this.sectionTops): void {
 		const sectionIndex = sections.findIndex(s => s.type === section.type);
-		const top = sectionTops[sectionIndex] - Utils.remToPx(Constants.NAV_HEIGHT_REM, this.fontSize);
-		this.scrollableContainer.nativeElement.scrollTop = top;
+		this.scrollableContainer.nativeElement.scrollTop =
+			sectionTops[sectionIndex] - Utils.remToPx(Constants.NAV_HEIGHT_REM, this.fontSize);
 	}
 
 	buildStyleObject(
@@ -127,7 +141,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 	handleScroll(event: any, sectionSelectorOffset: number = this.sectionSelectorOffset): void {
 		this.scrollTop = event.target.scrollTop;
-		this.stickTopNav = this.scrollTop > sectionSelectorOffset;
+
+		const navScrollTop = this.scrollTop + Utils.remToPx(Constants.NAV_HEIGHT_REM, this.fontSize);
+		const topSections = this.sectionTops.filter(top => navScrollTop >= (top - this.screenHeight / 2));
+		const sectionIndex = this.sectionTops.indexOf(topSections[topSections.length - 1]);
+		this.section = this.sections[sectionIndex];
+
+		this.stickTopNav = navScrollTop	 > sectionSelectorOffset;
+
+		NotificationService.notifyNavbarInfo(
+			new TranslateInfoNavbarInfo(this.section, this.stickTopNav, this.findNavTranslate())
+		);
 	}
 
 }

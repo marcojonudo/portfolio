@@ -1,10 +1,9 @@
 <div
 	#scrollableContainer
 	id="section-container"
-	[ngStyle]="buildStyleObject()"
-	(scroll)="handleScroll($event)">
+	[ngStyle]="buildStyleObject()">
 	<div id="section-scrollable-container">
-		<div #sectionElem id="welcome-container" class="section" [style.height.px]="screenHeight">
+		<div #sectionElem id="welcome-container" [style.height.px]="screenHeight">
 			<app-welcome
 				#welcome
 				[user]="user"
@@ -16,10 +15,3 @@
 		<app-blog-preview #sectionElem class="section"></app-blog-preview>
 	</div>
 </div>
-<app-section-selector
-	[user]="user.type"
-	[stickTopNav]="stickTopNav"
-	[section]="section"
-	(sectionEmitter)="setSection($event)"
-	[style.transform]="findNavTranslate()">
-</app-section-selector>

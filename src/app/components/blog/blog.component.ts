@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {NavService} from '../../services/nav.service';
 
 @Component({
 	selector: 'app-blog',
@@ -6,13 +7,10 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 	styleUrls: ['./blog.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BlogComponent implements OnInit {
+export class BlogComponent {
 
-	constructor() {
-		console.log(1);
-	}
-
-	ngOnInit(): void {
+	constructor(private navService: NavService) {
+		this.navService.scrolling = false;
 	}
 
 }

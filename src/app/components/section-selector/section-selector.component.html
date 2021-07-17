@@ -1,25 +1,27 @@
-<nav
-	id="nav"
-	class="mode"
-	[style.width.px]="navWidth"
-	[ngClass]="{'translate-up': !checkSelectedUser(normalUser), 'top': stickTop}">
-	<div
-		[ngClass]="{'selected': checkSelectedSection(welcomeSection)}"
-		(click)="selectSection(welcomeSection)">Welcome</div>
-	<div
-		[ngClass]="{'selected': checkSelectedSection(aboutSection)}"
-		(click)="selectSection(aboutSection)">About me</div>
-	<div
-		[ngClass]="{'selected': checkSelectedSection(skillsSection)}"
-		(click)="selectSection(skillsSection)">Skills</div>
-	<div
-		[ngClass]="{'selected': checkSelectedSection(blogSection)}"
-		(click)="selectSection(blogSection)">Blog</div>
-<!--	<div-->
-<!--		[ngClass]="{'selected': checkSelectedSection(projectsSection)}"-->
-<!--		(click)="selectSection(projectsSection)">Projects</div>-->
-</nav>
-<app-style-editor
-	class="mode"
-	[ngClass]="{'translate-down': !checkSelectedUser(devUser)}">
-</app-style-editor>
+<div id="nav-container" [class.stick]="scrolling" [style.transform]="findNavTranslate()">
+	<nav
+		id="nav"
+		class="mode"
+		[style.width.px]="navWidth"
+		[ngClass]="{'translate-up': !checkSelectedUser(normalUser), 'top': stickTop}">
+		<div
+			[ngClass]="{'selected': checkSelectedSection(welcomeSection)}"
+			(click)="selectSection(welcomeSection)">
+			<i class="fas fa-home"></i>
+		</div>
+		<div
+			[ngClass]="{'selected': checkSelectedSection(aboutSection)}"
+			(click)="selectSection(aboutSection)">About</div>
+		<div
+			[ngClass]="{'selected': checkSelectedSection(skillsSection)}"
+			(click)="selectSection(skillsSection)">Skills</div>
+		<div
+			[ngClass]="{'selected': blog || checkSelectedSection(blogSection)}"
+			(click)="navigateTo(blogUrl)">Blog</div>
+		<input *ngIf="blog" id="filter" type="text" [(ngModel)]="filterText" placeholder="Search">
+	</nav>
+	<app-style-editor
+		class="mode"
+		[ngClass]="{'translate-down': !checkSelectedUser(devUser)}">
+	</app-style-editor>
+</div>

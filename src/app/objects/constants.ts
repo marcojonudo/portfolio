@@ -35,4 +35,9 @@ export class Constants {
 		INFO: 'INFO'
 	};
 
+	public static readonly URL: any = {
+		HOME: '/home',
+		BLOG: '/blog'
+	};
+
 }

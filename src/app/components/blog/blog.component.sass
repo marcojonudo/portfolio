@@ -1,0 +1,14 @@
+@import "abstracts/mixins"
+
+\:host
+	height: 100%
+	@include flex-column-center
+	padding-top: $nav-height
+
+	#posts-container
+		width: 100%
+		display: grid
+		grid-template-columns: repeat(4, 1fr)
+		grid-gap: $medium-gap
+		padding: $medium-gap $bigger-gap 0
+		overflow: auto

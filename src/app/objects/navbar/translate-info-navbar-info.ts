@@ -1,24 +1,20 @@
 import {NavbarInfo} from './navbar-info';
 import {Constants} from '../constants';
-import {AppComponent} from '../../app.component';
-import {Section} from '../sections/section';
+import {SectionSelectorComponent} from '../../components/section-selector/section-selector.component';
 
 export class TranslateInfoNavbarInfo extends NavbarInfo {
 
-	section: Section;
 	stickTop: boolean;
 	translateY: number;
 
-	constructor(section: Section, stickTop: boolean, translateY: number) {
+	constructor(translateY: number, stickTop: boolean = false) {
 		super(Constants.NAVBAR_INFO.INFO);
-		this.section = section;
-		this.stickTop = stickTop;
 		this.translateY = translateY;
+		this.stickTop = stickTop;
 	}
 
-	execute(component: AppComponent): void {
-		component.section = this.section;
-		component.stickTopNav = this.stickTop;
+	execute(component: SectionSelectorComponent): void {
+		component.stickTop = this.stickTop;
 		component.translateY = this.translateY;
 	}
 

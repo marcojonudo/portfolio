@@ -1,4 +1,4 @@
-import {AppComponent} from '../../app.component';
+import {SectionSelectorComponent} from '../../components/section-selector/section-selector.component';
 
 export abstract class NavbarInfo {
 
@@ -8,6 +8,6 @@ export abstract class NavbarInfo {
 		this.type = type;
 	}
 
-	abstract execute(component: AppComponent): void;
+	abstract execute(component: SectionSelectorComponent): void;
 
 }

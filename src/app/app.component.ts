@@ -18,36 +18,16 @@ import {WelcomeSection} from './objects/sections/welcome-section';
 	styleUrls: ['./app.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
 	title = 'portfolio';
 
 	user: User;
 	section: Section;
-	stickTopNav: boolean;
-	translateY: number;
 
-	private navbarInfoSubscription: Subscription;
-
-	constructor(private cdRef: ChangeDetectorRef) {
+	constructor() {
 		this.user = new NormalUser();
 		this.section = new WelcomeSection();
 		NotificationService.init();
-	}
-
-	ngOnInit(): void {
-		this.navbarInfoSubscription = NotificationService.navbarInfo$.subscribe(navbarInfo => {
-			navbarInfo.execute(this);
-			this.cdRef.detectChanges();
-		});
-	}
-
-	ngOnDestroy(): void {
-		this.navbarInfoSubscription.unsubscribe();
-	}
-
-	findNavTranslate(stickTopNav: boolean = this.stickTopNav, translateY: number = this.translateY): string {
-		const offset = stickTopNav ? 0 : translateY;
-		return `translateY(${offset}px)`;
 	}
 
 }

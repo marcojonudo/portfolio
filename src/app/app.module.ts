@@ -13,7 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BlogComponent } from './components/blog/blog.component';
 import { HomeComponent } from './components/home/home.component';
 import { PostCardComponent } from './components/post-card/post-card.component';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {FormsModule} from '@angular/forms';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -30,7 +31,9 @@ import { PostCardComponent } from './components/post-card/post-card.component';
 	],
 	imports: [
 		BrowserModule,
-		AppRoutingModule
+		AppRoutingModule,
+		InfiniteScrollModule,
+		FormsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

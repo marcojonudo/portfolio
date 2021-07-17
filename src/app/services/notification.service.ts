@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Style} from '../objects/style';
 import {NavbarInfo} from '../objects/navbar/navbar-info';
 import {Section} from '../objects/sections/section';
+import {WelcomeSection} from '../objects/sections/welcome-section';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,7 +16,7 @@ export class NotificationService {
 	private static navbarInfoSubject: Subject<NavbarInfo>;
 	static navbarInfo$: Observable<NavbarInfo>;
 
-	private static sectionSubject: Subject<Section>;
+	private static sectionSubject: BehaviorSubject<Section>;
 	static section$: Observable<Section>;
 
 	// endregion
@@ -27,7 +28,7 @@ export class NotificationService {
 		this.navbarInfoSubject = new Subject<NavbarInfo>();
 		this.navbarInfo$ = this.navbarInfoSubject.asObservable();
 
-		this.sectionSubject = new Subject<Section>();
+		this.sectionSubject = new BehaviorSubject<Section>(new WelcomeSection());
 		this.section$ = this.sectionSubject.asObservable();
 	}
 

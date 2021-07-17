@@ -6,12 +6,4 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 	styleUrls: ['./blog-preview.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BlogPreviewComponent implements OnInit {
-
-	constructor() {
-	}
-
-	ngOnInit(): void {
-	}
-
-}
+export class BlogPreviewComponent {}

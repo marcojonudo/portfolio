@@ -3,7 +3,7 @@
 	"version": 1,
 	"newProjectRoot": "projects",
 	"projects": {
-	"portfolio": {
+		"portfolio": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -28,14 +28,18 @@
                             "src/assets"
                         ],
                         "styles": [
-                            "src/styles/main.sass"
+                            "src/styles/main.sass",
+							"node_modules/prismjs/themes/prism-okaidia.css"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
                                 "src/styles"
                             ]
                         },
-                        "scripts": []
+                        "scripts": [
+							"node_modules/marked/lib/marked.js",
+							"node_modules/prismjs/prism.js"
+						]
                     },
                     "configurations": {
                         "production": {
@@ -128,7 +132,7 @@
                     }
                 }
             }
-	}
+		}
 	},
 	"defaultProject": "portfolio",
 	"cli": {

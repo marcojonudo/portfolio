@@ -121,7 +121,6 @@ export class SectionSelectorComponent implements OnInit, OnDestroy {
 		this.navigateTo(Constants.URL.HOME);
 		this.navService.section = section;
 		NotificationService.notifySection(this.navService.section);
-		console.log('select section', section);
 	}
 
 	navigateTo(path: string): void {

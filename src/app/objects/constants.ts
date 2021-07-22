@@ -3,6 +3,7 @@ export class Constants {
 	public static readonly WELCOME_ITEM_MARGIN: number = 1.5;
 	public static readonly SECTIONS: number = 4;
 	public static readonly NAV_HEIGHT_REM: number = 3.5;
+	public static readonly TOC_PATH: string = 'assets/posts/toc.json';
 
 	public static readonly USER: any = {
 		NORMAL: 'NORMAL',

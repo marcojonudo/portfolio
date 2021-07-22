@@ -1,12 +1,8 @@
 import {
 	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	OnDestroy,
-	OnInit
+	Component
 } from '@angular/core';
 import {NotificationService} from './services/notification.service';
-import {Subscription} from 'rxjs';
 import {Section} from './objects/sections/section';
 import {User} from './objects/users/user';
 import {NormalUser} from './objects/users/normal-user';

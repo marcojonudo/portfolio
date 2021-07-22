@@ -1,0 +1,38 @@
+@import "src/styles/abstracts/mixins"
+
+\:host
+	position: relative
+	@include flex-column
+
+	.section-title-link
+
+		&::before
+			content: ''
+			position: absolute
+			top: 0
+			left: 0
+			right: 0
+			bottom: 0
+			opacity: 0
+			transition: opacity $fast-transition, transform $fast-transition
+			border-bottom: 1px solid $white
+			transform: scale(0, 1)
+
+		&:hover
+
+			&::before
+				opacity: 1
+				transform: scale(1)
+
+	#posts-container
+		display: grid
+		grid-template-columns: repeat(4, 1fr)
+		grid-gap: $medium-gap
+
+@media (max-width: 650px)
+
+	#skills-container
+		flex-direction: column
+
+		.skill-cell
+			width: 100% !important

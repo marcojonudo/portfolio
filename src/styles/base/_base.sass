@@ -80,13 +80,16 @@ body
 			transform: scale(1)
 
 .section-title
+	position: relative
 	@include flex-center
-	justify-content: space-between
-	padding: $small-gap $big-gap
-	margin-bottom: $small-gap
+	margin: $big-gap $biggest-gap $medium-gap
+	font-weight: 100
 
 	&-link
-		padding: $small-gap
+		height: 100%
+		position: absolute
+		right: 0
+		@include flex-center
 		font-size: .7em
 		cursor: pointer
 		transition: background-color $fast-transition

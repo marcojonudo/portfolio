@@ -4,6 +4,7 @@ export class Constants {
 	public static readonly SECTIONS: number = 4;
 	public static readonly NAV_HEIGHT_REM: number = 3.5;
 	public static readonly TOC_PATH: string = 'assets/posts/toc.json';
+	public static readonly MOBILE_STICK_NAV_THRESHOLD: number = 200;
 
 	public static readonly USER: any = {
 		NORMAL: 'NORMAL',

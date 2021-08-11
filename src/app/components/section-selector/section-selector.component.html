@@ -1,21 +1,27 @@
-<div id="nav-container" [class.stick]="scrolling" [style.transform]="findNavTranslate()">
+<div
+	id="nav-container"
+	[class.pin]="!navService.transition"
+	[style.transform]="findNavTranslate()">
 	<nav
 		id="nav"
 		class="mode"
 		[style.width.px]="navWidth"
-		[ngClass]="{'translate-up': !checkSelectedUser(normalUser), 'top': stickTop}">
+		[ngClass]="{'translate-up': !checkSelectedUser(normalUser), 'stick': navService.stickNav, 'blog': blog}">
 		<div
 			[ngClass]="{'selected': checkSelectedSection(welcomeSection)}"
 			(click)="selectSection(welcomeSection)">
 			<i class="fas fa-home"></i>
 		</div>
 		<div
+			*ngIf="!blog"
 			[ngClass]="{'selected': checkSelectedSection(aboutSection)}"
 			(click)="selectSection(aboutSection)">About</div>
 		<div
+			*ngIf="!blog"
 			[ngClass]="{'selected': checkSelectedSection(skillsSection)}"
 			(click)="selectSection(skillsSection)">Skills</div>
 		<div
+			*ngIf="!blog"
 			[ngClass]="{'selected': blog || checkSelectedSection(blogSection)}"
 			(click)="navigateTo(blogUrl)">Blog</div>
 		<input *ngIf="blog" id="filter" type="text" [(ngModel)]="filterText" placeholder="Search">

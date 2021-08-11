@@ -1,4 +1,5 @@
 import {
+	AfterViewInit,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
@@ -28,33 +29,33 @@ export class SectionSelectorComponent implements OnInit, OnDestroy {
 	private readonly BUTTON_WIDTH_REM: number = 6.5;
 
 	navWidth: number;
-	stickTop: boolean;
-	translateY: number;
+	translateY: string;
 
 	url: string;
 	blog: boolean;
 	filterText: string;
 
-	navbarInfoSubscription: Subscription;
-
-	constructor(private navService: NavService, private router: Router, private cdRef: ChangeDetectorRef) {
+	constructor(public navService: NavService, private router: Router, private cdRef: ChangeDetectorRef) {
 		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 		this.navWidth = this.BUTTON_WIDTH_REM * fontSize * Constants.SECTIONS;
+
+		this.navService.translateY.asObservable().subscribe(translateY => {
+			this.translateY = translateY;
+			this.cdRef.detectChanges();
+		});
 	}
 
 	ngOnInit(): void {
-		this.navbarInfoSubscription = NotificationService.navbarInfo$.subscribe(navbarInfo => {
-			navbarInfo.execute(this);
-			this.cdRef.detectChanges();
-		});
 		this.router.events.subscribe(event => {
 			if (event instanceof NavigationEnd) {
 				this.url = event.urlAfterRedirects;
+				this.navService.transition = true;
 				if (this.url === Constants.URL.BLOG) {
-					this.stickTop = true;
+					this.navService.stickNav = true;
 					this.blog = true;
 					this.cdRef.detectChanges();
 				} else {
+					this.navService.stickNav = false;
 					this.blog = false;
 				}
 			}
@@ -62,14 +63,10 @@ export class SectionSelectorComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.navbarInfoSubscription.unsubscribe();
+		this.navService.translateY.unsubscribe();
 	}
 
 	// region Getters / setters
-
-	get scrolling(): boolean {
-		return this.navService.scrolling;
-	}
 
 	get blogUrl(): string {
 		return Constants.URL.BLOG;
@@ -105,8 +102,8 @@ export class SectionSelectorComponent implements OnInit, OnDestroy {
 
 	// endregion
 
-	findNavTranslate(blog: boolean = this.blog, translateY: number = this.translateY): string {
-		return `translateY(${blog ? 0 : translateY}px)`;
+	findNavTranslate(blog: boolean = this.blog, translateY: string = this.translateY): string {
+		return `translateY(${blog ? 0 : translateY})`;
 	}
 
 	checkSelectedUser(user: string, selectedUser: string = this.user.type): boolean {

@@ -5,14 +5,14 @@
 	#nav-container
 		width: 100%
 		height: $nav-height
-		position: absolute
+		position: fixed
 		top: 0
 		border-radius: $border-radius $border-radius 0 0
 		overflow: hidden
 		color: $white
 		transition: transform $medium-transition
 
-		&.stick
+		&.pin
 			transition: none
 
 		#nav
@@ -22,7 +22,10 @@
 			border-radius: $border-radius
 			transition: background-color $medium-transition, width $medium-transition
 
-			&.top
+			&.blog
+				justify-content: space-between
+
+			&.stick
 				background-color: $dark-primary
 				width: 100% !important
 				border-bottom: 1px solid #38425d
@@ -50,12 +53,8 @@
 					&::before
 						transform: scale(1)
 
-				&.selected::before
-					transform: scale(1)
-
 			#filter
-				width: 10%
-				position: absolute
+				margin-right: $medium-gap
 				right: $bigger-gap
 				padding: $smaller-gap
 				border-radius: $bigger-gap
@@ -78,16 +77,8 @@
 				transform: translate3d(-50%, calc(-50% + 5rem), 0)
 				opacity: 0
 
-@media (max-width: 650px)
+@media (max-width: 40.5rem)
 
-	\:host
-		position: fixed
-		top: 100%
-		transform: translateY(-100%) !important
+	#nav-container
+		transition: transform $medium-transition !important
 
-		#nav
-			width: 100% !important
-			background-color: $dark-primary !important
-
-			& > div
-				@include flex-1

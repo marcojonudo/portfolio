@@ -15,8 +15,6 @@ export class BlogComponent {
 	posts: Post[];
 
 	constructor(private navService: NavService, private blogService: BlogService, private cdRef: ChangeDetectorRef) {
-		this.navService.scrolling = false;
-
 		this.blogService.getToc().subscribe(posts => {
 			this.posts = posts;
 			this.cdRef.detectChanges();

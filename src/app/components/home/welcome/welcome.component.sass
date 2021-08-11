@@ -7,27 +7,39 @@
 		margin: 1.5rem 0
 
 	#name
-		line-height: 5rem
-		font-size: 5rem
+		@include flex-column-center
+		//line-height: 5rem
+		//font-size: 5rem
 		font-weight: 200
 		letter-spacing: 0.1rem
+		font-size: 4rem !important
+		line-height: normal !important
 
-		.bold
-			font-weight: 700 !important
+		> span
+			line-height: 1.2
+
+			.bold
+				font-weight: 700 !important
 
 	#details
-		display: flex
-		justify-content: space-around
+		@include flex-column
 		background-color: rgba(0, 0, 0, .3)
 		padding: 1.5rem
 		border-radius: .2rem
 		font-weight: 200
 
 		> div
+			position: relative
+			@include flex-center
+			padding: $small-gap 0
 
 			&::after
 				content: '·'
-				margin: 0 1.5rem
+				height: 1px
+				position: absolute
+				bottom: 0
+				@include flex-center
+				//margin: $default-gap 0
 
 			&:last-child::after
 				content: ''
@@ -47,9 +59,25 @@
 			> svg
 				height: 100%
 
-@media (max-width: 650px)
+@media (min-width: 40.5rem)
 
 	#name
+		display: block !important
+
+	#details
+		flex-direction: row !important
+		justify-content: space-around !important
+
+		> div
+			padding: 0 !important
+
+			&::after
+				position: relative !important
+				//bottom: 0
+				//@include flex-center
+				margin: 0 1.5rem
+//margin: $default-gap 0
+	//#name
 		@include flex-column-center
 		font-size: 4rem !important
 		line-height: normal !important

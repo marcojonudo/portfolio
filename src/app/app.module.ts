@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { PostComponent } from './components/blog/post/post.component';
 import {MarkdownModule} from 'ngx-markdown';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { TitlePipe } from './pipes/title.pipe';
 
 @NgModule({
 	declarations: [
@@ -32,7 +33,8 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 		BlogComponent,
 		HomeComponent,
 		PostCardComponent,
-		PostComponent
+		PostComponent,
+		TitlePipe
 	],
 	imports: [
 		BrowserModule,

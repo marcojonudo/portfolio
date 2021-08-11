@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Post} from '../objects/blog/post';
 import {Constants} from '../objects/constants';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Injectable({
@@ -11,11 +11,13 @@ import {map} from 'rxjs/operators';
 export class BlogService {
 
 	posts: Post[];
+	filterTextSubject: BehaviorSubject<string>;
 
 	constructor(private http: HttpClient) {
 		this.http.get(Constants.TOC_PATH).subscribe((data: any[]) => {
 			this.posts = data.map(post => new Post(post));
 		});
+		this.filterTextSubject = new BehaviorSubject<string>(undefined);
 	}
 
 	getToc(): Observable<Post[]> {
@@ -32,6 +34,10 @@ export class BlogService {
 				})
 			)
 		);
+	}
+
+	search(text: string): void {
+		this.filterTextSubject.next(text);
 	}
 
 }

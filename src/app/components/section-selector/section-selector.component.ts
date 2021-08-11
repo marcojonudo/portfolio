@@ -1,5 +1,4 @@
 import {
-	AfterViewInit,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
@@ -14,9 +13,9 @@ import {BlogSection} from '../../objects/sections/blog-section';
 import {SkillsSection} from '../../objects/sections/skills-section';
 import {NotificationService} from '../../services/notification.service';
 import {NavigationEnd, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
 import {NavService} from '../../services/nav.service';
 import {User} from '../../objects/users/user';
+import {BlogService} from '../../services/blog.service';
 
 @Component({
 	selector: 'app-section-selector',
@@ -35,7 +34,9 @@ export class SectionSelectorComponent implements OnInit, OnDestroy {
 	blog: boolean;
 	filterText: string;
 
-	constructor(public navService: NavService, private router: Router, private cdRef: ChangeDetectorRef) {
+	constructor(
+		public navService: NavService, private blogService: BlogService, private router: Router, private cdRef: ChangeDetectorRef
+	) {
 		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 		this.navWidth = this.BUTTON_WIDTH_REM * fontSize * Constants.SECTIONS;
 
@@ -122,6 +123,10 @@ export class SectionSelectorComponent implements OnInit, OnDestroy {
 
 	navigateTo(path: string): void {
 		this.router.navigate([path]);
+	}
+
+	search(): void {
+		this.blogService.search(this.filterText);
 	}
 
 }

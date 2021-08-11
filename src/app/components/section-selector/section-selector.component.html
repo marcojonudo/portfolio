@@ -24,7 +24,7 @@
 			*ngIf="!blog"
 			[ngClass]="{'selected': blog || checkSelectedSection(blogSection)}"
 			(click)="navigateTo(blogUrl)">Blog</div>
-		<input *ngIf="blog" id="filter" type="text" [(ngModel)]="filterText" placeholder="Search">
+		<input *ngIf="blog" id="filter" type="text" [(ngModel)]="filterText" placeholder="Search" (keyup)="search()">
 	</nav>
 	<app-style-editor
 		class="mode"

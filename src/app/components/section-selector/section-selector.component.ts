@@ -32,6 +32,7 @@ export class SectionSelectorComponent implements OnInit, OnDestroy {
 
 	url: string;
 	blog: boolean;
+	post: boolean;
 	filterText: string;
 
 	constructor(
@@ -51,9 +52,10 @@ export class SectionSelectorComponent implements OnInit, OnDestroy {
 			if (event instanceof NavigationEnd) {
 				this.url = event.urlAfterRedirects;
 				this.navService.transition = true;
-				if (this.url === Constants.URL.BLOG) {
+				if (this.url.includes(Constants.URL.BLOG)) {
 					this.navService.stickNav = true;
 					this.blog = true;
+					this.post = this.url !== Constants.URL.BLOG;
 					this.cdRef.detectChanges();
 				} else {
 					this.navService.stickNav = false;

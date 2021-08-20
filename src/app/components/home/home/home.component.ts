@@ -38,7 +38,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	sectionSelectorOffset: number;
 	scrollTop: number;
-	fontSize: number;
 
 	styles: Style[];
 
@@ -58,8 +57,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	ngAfterViewInit(): void {
-		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-		const margin = Constants.WELCOME_ITEM_MARGIN * fontSize;
+		const margin = Constants.WELCOME_ITEM_MARGIN * this.navService.fontSize;
 		setTimeout(
 			() => {
 				const welcomeBottom = this.welcome.nativeElement.getBoundingClientRect().bottom;
@@ -109,7 +107,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	): void {
 		const sectionIndex = sections.findIndex(s => s.type === section.type);
 		this.scrollableContainer.nativeElement.scrollTop =
-			sectionTops[sectionIndex] - Utils.remToPx(Constants.NAV_HEIGHT_REM, this.fontSize);
+			sectionTops[sectionIndex] - Utils.remToPx(Constants.NAV_HEIGHT_REM, this.navService.fontSize);
 	}
 
 	buildStyleObject(

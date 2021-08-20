@@ -31,10 +31,12 @@
 				border-bottom: 1px solid #38425d
 
 			.section-wrapper
-				@include flex-1
 				height: 100%
 				display: flex
 				align-items: center
+
+				&.flex-1
+					@include flex-1
 
 				& > div
 					height: 100%

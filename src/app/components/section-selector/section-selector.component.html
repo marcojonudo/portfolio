@@ -13,7 +13,7 @@
 			(click)="selectSection(welcomeSection)">
 			<i class="fas fa-home"></i>
 		</div>
-		<div *ngIf="blog; else sections" class="section-wrapper">
+		<div *ngIf="blog; else sections" class="section-wrapper" [class.flex-1]="post">
 			<div *ngIf="post">
 				<div class="button" (click)="navigateTo(blogUrl)">Blog</div>
 				<div id="post-title">How to implement async call in Micronaut</div>

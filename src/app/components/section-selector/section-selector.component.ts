@@ -40,29 +40,24 @@ export class SectionSelectorComponent implements OnInit, OnDestroy {
 	) {
 		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 		this.navWidth = this.BUTTON_WIDTH_REM * fontSize * Constants.SECTIONS;
-
-		this.navService.translateY.asObservable().subscribe(translateY => {
-			this.translateY = translateY;
-			this.cdRef.detectChanges();
-		});
 	}
 
 	ngOnInit(): void {
-		this.router.events.subscribe(event => {
-			if (event instanceof NavigationEnd) {
-				this.url = event.urlAfterRedirects;
-				this.navService.transition = true;
-				if (this.url.includes(Constants.URL.BLOG)) {
-					this.navService.stickNav = true;
-					this.blog = true;
-					this.post = this.url !== Constants.URL.BLOG;
-					this.cdRef.detectChanges();
-				} else {
-					this.navService.stickNav = false;
-					this.blog = false;
-				}
-			}
-		});
+		// this.router.events.subscribe(event => {
+		// 	if (event instanceof NavigationEnd) {
+		// 		this.url = event.urlAfterRedirects;
+		// 		this.navService.transition = true;
+		// 		if (this.url.includes(Constants.URL.BLOG)) {
+		// 			this.navService.stickNav = true;
+		// 			this.blog = true;
+		// 			this.post = this.url !== Constants.URL.BLOG;
+		// 			this.cdRef.detectChanges();
+		// 		} else {
+		// 			this.navService.stickNav = false;
+		// 			this.blog = false;
+		// 		}
+		// 	}
+		// });
 	}
 
 	ngOnDestroy(): void {

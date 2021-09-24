@@ -96,10 +96,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	// endregion
 
-	setUser(user: User): void {
-		// this.user = user;
-	}
-
 	scrollToSection(
 		section: Section,
 		sections: Section[] = this.navService.sections,

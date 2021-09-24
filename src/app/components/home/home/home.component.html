@@ -4,11 +4,7 @@
 	[ngStyle]="buildStyleObject()">
 	<div id="section-scrollable-container">
 		<div #sectionElem id="welcome-container" [style.height.px]="screenHeight">
-			<app-welcome
-				#welcome
-				[user]="user"
-				(userEmitter)="setUser($event)">
-			</app-welcome>
+			<app-welcome #welcome></app-welcome>
 		</div>
 		<app-about #sectionElem class="section"></app-about>
 		<app-skills #sectionElem class="section"></app-skills>

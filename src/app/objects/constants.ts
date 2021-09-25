@@ -26,7 +26,10 @@ export class Constants {
 	};
 
 	public static readonly EVENT: any = {
-		SCROLL: 'scroll'
+		SCROLL: 'scroll',
+		POINTER_DOWN: 'pointerdown',
+		POINTER_MOVE: 'pointermove',
+		POINTER_UP: 'pointerup'
 	};
 
 	public static readonly NAVBAR_INFO: any = {
@@ -40,6 +43,10 @@ export class Constants {
 	public static readonly URL: any = {
 		HOME: '/home',
 		BLOG: '/blog'
+	};
+
+	public static ELEMENT: any = {
+		DOCUMENT: 'document'
 	};
 
 }

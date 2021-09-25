@@ -1,4 +1,4 @@
-<div id="style-container" class="dark-background">
+<div id="style-container" class="dark-background" [style.transform]="findTransform()">
 	<div>element.style {{'{'}}</div>
 	<div *ngFor="let style of styles" class="property-container">
 	<span

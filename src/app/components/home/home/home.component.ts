@@ -53,6 +53,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	ngOnInit(): void {
 		this.styleIndexSubscription = NotificationService.styles$.subscribe((styles: Style[]) => {
 			this.styles = styles;
+			console.log('styles', this.styles);
 		});
 	}
 

@@ -13,6 +13,7 @@ import { Constants } from '../objects/constants';
 import { SmallWidthDevice } from '../objects/device/small-width-device';
 import { MediumWidthDevice } from '../objects/device/medium-width-device';
 import { DevUser } from '../objects/users/dev-user';
+import { Coordinates } from '../objects/coordinates';
 
 @Injectable({
 	providedIn: 'root'
@@ -24,6 +25,7 @@ export class NavService {
 	user: User;
 	userSubject: Subject<User>;
 	user$: Observable<User>;
+
 	sections: Section[];
 	section: Section;
 
@@ -35,6 +37,9 @@ export class NavService {
 	sectionTops: number[];
 
 	fontSize: number;
+
+	coordinatesSubject: Subject<Coordinates>;
+	coordinates$: Observable<Coordinates>;
 
 	constructor() {
 		this.screenHeight = window.innerHeight;
@@ -52,6 +57,9 @@ export class NavService {
 
 		this.translateY = new Subject<string>();
 		this.fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+		this.coordinatesSubject = new Subject<Coordinates>();
+		this.coordinates$ = this.coordinatesSubject.asObservable();
 	}
 
 	buildUser(type: string, userBuilder: { [key: string]: User } = this.USER_BUILDER): User {
@@ -94,6 +102,10 @@ export class NavService {
 	setUser(user: User): void {
 		this.user = user;
 		this.userSubject.next(user);
+	}
+
+	move(coordinates: Coordinates): void {
+		this.coordinatesSubject.next(coordinates);
 	}
 
 }

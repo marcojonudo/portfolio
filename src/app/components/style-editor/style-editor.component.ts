@@ -1,6 +1,9 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
-import {NotificationService} from '../../services/notification.service';
-import {StyleIndex} from '../../objects/style-index';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding } from '@angular/core';
+import { NotificationService } from '../../services/notification.service';
+import { StyleIndex } from '../../objects/style-index';
+import { NavService } from '../../services/nav.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Coordinates } from '../../objects/coordinates';
 
 @Component({
 	selector: 'app-style-editor',
@@ -12,10 +15,21 @@ export class StyleEditorComponent {
 
 	styles: StyleIndex[];
 	addedStyles: StyleIndex[];
+	coordinates: Coordinates;
 
-	constructor() {
+	constructor(private navService: NavService, private sanitizer: DomSanitizer, private cdRef: ChangeDetectorRef) {
 		this.styles = [new StyleIndex()];
 		this.addedStyles = [];
+
+		this.coordinates = new Coordinates();
+		this.navService.coordinates$.subscribe(coordinates => {
+			this.coordinates = coordinates;
+			this.cdRef.detectChanges();
+		});
+	}
+
+	findTransform(): string {
+		return `translate3d(${this.coordinates.x}px, ${this.coordinates.y}px, 0)`;
 	}
 
 	checkDisabledTrash(styleIndex: StyleIndex): boolean {

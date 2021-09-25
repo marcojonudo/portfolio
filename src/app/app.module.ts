@@ -20,6 +20,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TitlePipe } from './pipes/title.pipe';
 import { NormalNavComponent } from './components/nav/normal-nav/normal-nav.component';
+import { DraggableDirective } from './directives/draggable.directive';
 
 @NgModule({
 	declarations: [
@@ -36,7 +37,8 @@ import { NormalNavComponent } from './components/nav/normal-nav/normal-nav.compo
 		PostCardComponent,
 		PostComponent,
 		TitlePipe,
-		NormalNavComponent
+		NormalNavComponent,
+		DraggableDirective
 	],
 	imports: [
 		BrowserModule,

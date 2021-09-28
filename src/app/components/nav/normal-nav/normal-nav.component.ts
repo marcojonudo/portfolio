@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NavService } from '../../../services/nav.service';
 import { BlogService } from '../../../services/blog.service';
 import { NavigationEnd, Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { AboutSection } from '../../../objects/sections/about-section';
 import { SkillsSection } from '../../../objects/sections/skills-section';
 import { BlogSection } from '../../../objects/sections/blog-section';
 import { NotificationService } from '../../../services/notification.service';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-normal-nav',
@@ -17,7 +18,7 @@ import { NotificationService } from '../../../services/notification.service';
 	styleUrls: ['./normal-nav.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NormalNavComponent implements OnInit {
+export class NormalNavComponent implements OnInit, OnDestroy {
 
 	private readonly BUTTON_WIDTH_REM: number = 6.5;
 
@@ -29,6 +30,8 @@ export class NormalNavComponent implements OnInit {
 	post: boolean;
 	filterText: string;
 
+	private translateYSubscription: Subscription;
+
 	constructor(
 		public navService: NavService,
 		private blogService: BlogService,
@@ -37,11 +40,6 @@ export class NormalNavComponent implements OnInit {
 	) {
 		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 		this.navWidth = this.BUTTON_WIDTH_REM * fontSize * Constants.SECTIONS;
-
-		this.navService.translateY.asObservable().subscribe(translateY => {
-			this.translateY = translateY;
-			this.cdRef.detectChanges();
-		});
 	}
 
 	ngOnInit(): void {
@@ -60,6 +58,15 @@ export class NormalNavComponent implements OnInit {
 				}
 			}
 		});
+
+		this.translateYSubscription = this.navService.translateY.asObservable().subscribe(translateY => {
+			this.translateY = translateY;
+			this.cdRef.detectChanges();
+		});
+	}
+
+	ngOnDestroy(): void {
+		this.translateYSubscription.unsubscribe();
 	}
 
 	// region Getters / setters
@@ -70,14 +77,6 @@ export class NormalNavComponent implements OnInit {
 
 	get user(): User {
 		return this.navService.user;
-	}
-
-	get normalUser(): string {
-		return Constants.USER.NORMAL;
-	}
-
-	get devUser(): string {
-		return Constants.USER.DEV;
 	}
 
 	get welcomeSection(): Section {
@@ -100,10 +99,6 @@ export class NormalNavComponent implements OnInit {
 
 	findNavTranslate(blog: boolean = this.blog, translateY: string = this.translateY): string {
 		return `translateY(${blog ? 0 : translateY})`;
-	}
-
-	checkSelectedUser(user: string, selectedUser: string = this.user.type): boolean {
-		return user === selectedUser;
 	}
 
 	checkSelectedSection(section: Section, url: string = this.url, selectedSection: Section = this.navService.section): boolean {

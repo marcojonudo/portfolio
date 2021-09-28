@@ -2,10 +2,12 @@ export class Style {
 
 	property: string;
 	value: string;
+	div: string;
 
-	constructor() {
+	constructor(div: string) {
 		this.property = '';
 		this.value = '';
+		this.div = div;
 	}
 
 	isEmpty(): boolean {

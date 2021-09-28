@@ -1,10 +1,12 @@
-import {Section} from '../sections/section';
-import {Style} from '../style';
+import { Style } from '../style';
 
 export interface User {
 
 	type: string;
+	backgroundAttachment: string;
 
-	buildStyleObject(section: Section, styles: Style[]): { [key: string]: string };
+	buildStyleObject(styles: Style[], div: string): { [key: string]: string };
+
+	init(): void;
 
 }

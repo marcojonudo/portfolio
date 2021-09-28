@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { User } from '../../../objects/users/user';
 
 @Component({
 	selector: 'app-about',
@@ -6,4 +7,8 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 	styleUrls: ['./about.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AboutComponent {}
+export class AboutComponent {
+
+	@Input() user: User;
+
+}

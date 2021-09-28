@@ -1,7 +1,9 @@
-import { AfterViewInit, Directive, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Constants } from '../objects/constants';
 import { Coordinates } from '../objects/coordinates';
 import { NavService } from '../services/nav.service';
+import { Device } from '../objects/device/device';
+import { MediumWidthDevice } from '../objects/device/medium-width-device';
 
 @Directive({
 	selector: '[appDraggable]'
@@ -20,7 +22,6 @@ export class DraggableDirective implements OnInit, AfterViewInit, OnDestroy {
 	private pointerMoveListener: () => void;
 	private pointerUpListener: () => void;
 
-	private init: boolean;
 	private windowWidth: number;
 	private windowHeight: number;
 
@@ -29,16 +30,17 @@ export class DraggableDirective implements OnInit, AfterViewInit, OnDestroy {
 		private renderer: Renderer2,
 		private navService: NavService
 	) {
-		this.init = false;
 		[this.windowWidth, this.windowHeight] = [window.innerWidth, window.innerHeight];
 	}
 
 	ngOnInit() {
-		this.pointerDownListener = this.renderer.listen(
-			this.element.nativeElement,
-			Constants.EVENT.POINTER_DOWN,
-			this.handleClick.bind(this)
-		);
+		if (!this.navService.checkSmallDevice()) {
+			this.pointerDownListener = this.renderer.listen(
+				this.element.nativeElement,
+				Constants.EVENT.POINTER_DOWN,
+				this.handleClick.bind(this)
+			);
+		}
 	}
 
 	ngAfterViewInit(): void {
@@ -46,8 +48,10 @@ export class DraggableDirective implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.pointerMoveListener();
-		this.pointerUpListener();
+		if (this.pointerMoveListener) {
+			this.pointerMoveListener();
+			this.pointerUpListener();
+		}
 	}
 
 	handleClick(event: PointerEvent): void {

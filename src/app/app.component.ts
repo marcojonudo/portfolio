@@ -9,6 +9,8 @@ import { NormalUser } from './objects/users/normal-user';
 import { WelcomeSection } from './objects/sections/welcome-section';
 import { Constants } from './objects/constants';
 import { NavService } from './services/nav.service';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { Device } from './objects/device/device';
 
 @Component({
 	selector: 'app-root',
@@ -21,15 +23,16 @@ export class AppComponent {
 
 	user: User;
 	section: Section;
+	device: Device;
 
 	constructor(private navService: NavService) {
 		this.user = new NormalUser();
 		this.section = new WelcomeSection();
+		this.device = this.navService.device;
 		NotificationService.init();
 
 		this.navService.user$.subscribe(user => {
 			this.user = user;
-			console.log(1, this.user);
 		});
 	}
 

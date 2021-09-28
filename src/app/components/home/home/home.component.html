@@ -1,12 +1,12 @@
 <div
-	#scrollableContainer
-	id="section-container"
-	[ngStyle]="buildStyleObject()">
-	<div id="section-scrollable-container">
+	#scrollableContainerElem
+	[id]="scrollableContainer"
+	[ngStyle]="buildStyleObject(scrollableContainer)">
+	<div [id]="sectionsContainer" [ngStyle]="buildStyleObject(sectionsContainer)">
 		<div #sectionElem id="welcome-container" [style.height.px]="screenHeight">
 			<app-welcome #welcome></app-welcome>
 		</div>
-		<app-about #sectionElem class="section"></app-about>
+		<app-about #sectionElem class="section" [user]="user"></app-about>
 		<app-skills #sectionElem class="section"></app-skills>
 		<app-blog-preview #sectionElem class="section"></app-blog-preview>
 	</div>

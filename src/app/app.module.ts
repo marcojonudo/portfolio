@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/home/welcome/welcome.component';
 import { AboutComponent } from './components/home/about/about.component';
 import { ProjectsComponent } from './components/home/projects/projects.component';
-import { SectionSelectorComponent } from './components/section-selector/section-selector.component';
 import { StyleEditorComponent } from './components/style-editor/style-editor.component';
 import { SkillsComponent } from './components/home/skills/skills.component';
 import { BlogPreviewComponent } from './components/home/blog-preview/blog-preview.component';
@@ -21,6 +20,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TitlePipe } from './pipes/title.pipe';
 import { NormalNavComponent } from './components/nav/normal-nav/normal-nav.component';
 import { DraggableDirective } from './directives/draggable.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
 	declarations: [
@@ -28,7 +28,6 @@ import { DraggableDirective } from './directives/draggable.directive';
 		WelcomeComponent,
 		AboutComponent,
 		ProjectsComponent,
-		SectionSelectorComponent,
 		StyleEditorComponent,
 		SkillsComponent,
 		BlogPreviewComponent,
@@ -47,6 +46,7 @@ import { DraggableDirective } from './directives/draggable.directive';
 		FormsModule,
 		HttpClientModule,
 		MarkdownModule.forRoot({ loader: HttpClient }),
+		BrowserAnimationsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

@@ -6,7 +6,7 @@ import { WelcomeSection } from '../objects/sections/welcome-section';
 import { AboutSection } from '../objects/sections/about-section';
 import { SkillsSection } from '../objects/sections/skills-section';
 import { BlogSection } from '../objects/sections/blog-section';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Device } from '../objects/device/device';
 import { Utils } from '../objects/utils';
 import { Constants } from '../objects/constants';
@@ -31,7 +31,8 @@ export class NavService {
 
 	screenHeight: number;
 	device: Device;
-	translateY: Subject<string>;
+	translateY: BehaviorSubject<string>;
+	translateY$: Observable<string>;
 	stickNav: boolean;
 	transition: boolean;
 	sectionTops: number[];
@@ -55,7 +56,9 @@ export class NavService {
 		this.section = this.sections[0];
 		this.sectionTops = [];
 
-		this.translateY = new Subject<string>();
+		this.translateY = new BehaviorSubject<string>(undefined);
+		this.translateY$ = this.translateY.asObservable();
+
 		this.fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 
 		this.coordinatesSubject = new Subject<Coordinates>();
@@ -66,8 +69,12 @@ export class NavService {
 		return userBuilder[type];
 	}
 
-	findDevice(screenWidth: number, screenHeight: number, sectionSelectorOffset: number): Device {
-		return screenWidth < 600 ? new SmallWidthDevice(screenHeight) : new MediumWidthDevice(sectionSelectorOffset);
+	checkSmallDevice(): boolean {
+		return window.innerWidth < Constants.SCREEN_WIDTH_THRESHOLD;
+	}
+
+	findDevice(screenHeight: number, sectionSelectorOffset: number): Device {
+		return this.checkSmallDevice() ? new SmallWidthDevice(screenHeight) : new MediumWidthDevice(sectionSelectorOffset);
 	}
 
 	setSection(index: number): Section {
@@ -76,7 +83,7 @@ export class NavService {
 	}
 
 	setDevice(sectionSelectorOffset: number, screenHeight: number = this.screenHeight): void {
-		this.device = this.findDevice(window.innerWidth, screenHeight, sectionSelectorOffset);
+		this.device = this.findDevice(screenHeight, sectionSelectorOffset);
 		this.setTranslateY(this.device.findTranslateY(0));
 	}
 
@@ -101,6 +108,7 @@ export class NavService {
 
 	setUser(user: User): void {
 		this.user = user;
+		this.user.init();
 		this.userSubject.next(user);
 	}
 

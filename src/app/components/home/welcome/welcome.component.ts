@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {User} from '../../../objects/users/user';
-import {NormalUser} from '../../../objects/users/normal-user';
-import {DevUser} from '../../../objects/users/dev-user';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NavService } from '../../../services/nav.service';
+import { Constants } from '../../../objects/constants';
 
 @Component({
 	selector: 'app-welcome',
@@ -11,32 +10,26 @@ import {DevUser} from '../../../objects/users/dev-user';
 })
 export class WelcomeComponent {
 
-	@Input() user: User;
-
-	@Output() userEmitter: EventEmitter<User>;
-
-	constructor() {
-		this.userEmitter = new EventEmitter<User>();
-	}
+	constructor(private navService: NavService) {}
 
 	// region Getters / setters
 
-	get normalUser(): User {
-		return new NormalUser();
+	get normalUser(): string {
+		return Constants.USER.NORMAL;
 	}
 
-	get devUser(): User {
-		return new DevUser();
+	get devUser(): string {
+		return Constants.USER.DEV;
 	}
 
 	// endregion
 
-	selectUser(user: User): void {
-		this.user = user;
-		this.userEmitter.emit(user);
+	selectUser(type: string): void {
+		const user = this.navService.buildUser(type);
+		this.navService.setUser(user);
 	}
 
-	checkSelectedUser(user: string, selectedUser: string = this.user.type): boolean {
+	checkSelectedUser(user: string, selectedUser: string = this.navService.user.type): boolean {
 		return user === selectedUser;
 	}
 

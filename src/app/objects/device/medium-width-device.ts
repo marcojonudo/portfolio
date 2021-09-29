@@ -1,5 +1,4 @@
-import {Device} from './device';
-import {Constants} from '../constants';
+import { Device } from './device';
 
 export class MediumWidthDevice extends Device {
 

@@ -4,9 +4,8 @@
 	[style.transform]="findNavTranslate()">
 	<nav
 		id="nav"
-		class="mode"
 		[style.width.px]="navWidth"
-		[ngClass]="{'translate-up': !checkSelectedUser(normalUser), 'stick': navService.stickNav, 'blog': blog}">
+		[ngClass]="{'stick': navService.stickNav, 'blog': blog}">
 		<div
 			class="button"
 			[ngClass]="{'selected': checkSelectedSection(welcomeSection)}"
@@ -37,8 +36,4 @@
 			</div>
 		</ng-template>
 	</nav>
-	<app-style-editor
-		class="mode"
-		[ngClass]="{'translate-down': !checkSelectedUser(devUser)}">
-	</app-style-editor>
 </div>

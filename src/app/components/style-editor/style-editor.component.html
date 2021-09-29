@@ -1,5 +1,17 @@
-<div id="style-container" class="dark-background">
-	<div>element.style {{'{'}}</div>
+<div id="menu-button" (click)="toggleOpened()" [@inOutAnimation]>
+	<div id="menu-button-lines-wrapper">
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+</div>
+<div id="style-container" [style.transform]="findTransform()">
+	<div>
+		<select id="styled-div-select" [(ngModel)]="selectedDiv" (change)="updateDiv()">
+			<option *ngFor="let styledDiv of styledDivs" [value]="styledDiv">{{styledDiv}}</option>
+		</select>
+		<span>.style {{'{'}}</span>
+	</div>
 	<div *ngFor="let style of styles" class="property-container">
 	<span
 		id="property-elem-{{style.index}}"

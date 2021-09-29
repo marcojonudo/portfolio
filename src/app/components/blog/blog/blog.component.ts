@@ -20,7 +20,6 @@ export class BlogComponent {
 		this.blogService.getToc().pipe(
 			switchMap(posts => {
 				this.posts = posts;
-				console.log(this.posts);
 				return this.blogService.filterTextSubject.asObservable();
 			})
 		).subscribe(filterText => {

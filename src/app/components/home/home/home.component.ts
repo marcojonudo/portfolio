@@ -28,7 +28,7 @@ import {DeviceDetectorService} from 'ngx-device-detector';
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	@ViewChild('welcome', { read: ElementRef }) welcome: ElementRef;
-	@ViewChild('scrollableContainer') scrollableContainer: ElementRef;
+	@ViewChild('scrollableContainerElem') scrollableContainerElem: ElementRef;
 	@ViewChildren('sectionElem', { read: ElementRef }) sectionElements: QueryList<ElementRef>;
 
 	private styleIndexSubscription: Subscription;
@@ -53,6 +53,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	ngOnInit(): void {
 		this.styleIndexSubscription = NotificationService.styles$.subscribe((styles: Style[]) => {
 			this.styles = styles;
+			this.cdRef.detectChanges();
 		});
 	}
 
@@ -73,7 +74,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 			0
 		);
 
-		fromEvent(this.scrollableContainer.nativeElement, Constants.EVENT.SCROLL).subscribe((event: any) => {
+		fromEvent(this.scrollableContainerElem.nativeElement, Constants.EVENT.SCROLL).subscribe((event: any) => {
 			this.handleScroll(event);
 		});
 		this.cdRef.detectChanges();
@@ -94,11 +95,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 		return this.navService.screenHeight;
 	}
 
-	// endregion
-
-	setUser(user: User): void {
-		// this.user = user;
+	get scrollableContainer(): string {
+		return Constants.STYLED_DIV.SCROLLABLE_CONTAINER;
 	}
+
+	get sectionsContainer(): string {
+		return Constants.STYLED_DIV.SECTIONS_CONTAINER;
+	}
+
+	// endregion
 
 	scrollToSection(
 		section: Section,
@@ -106,14 +111,14 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 		sectionTops: number[] = this.navService.sectionTops
 	): void {
 		const sectionIndex = sections.findIndex(s => s.type === section.type);
-		this.scrollableContainer.nativeElement.scrollTop =
+		this.scrollableContainerElem.nativeElement.scrollTop =
 			sectionTops[sectionIndex] - Utils.remToPx(Constants.NAV_HEIGHT_REM, this.navService.fontSize);
 	}
 
 	buildStyleObject(
-		user: User = this.navService.user, section: Section = this.navService.section, styles: Style[] = this.styles
+		div: string, user: User = this.navService.user, section: Section = this.navService.section, styles: Style[] = this.styles
 	): { [key: string]: string } {
-		return {}; // user.buildStyleObject(section, styles);
+		return user.buildStyleObject(styles, div);
 	}
 
 	handleScroll(event: any): void {

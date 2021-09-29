@@ -1,12 +1,12 @@
-import {Style} from './style';
+import { Style } from './style';
 
 export class StyleIndex {
 
 	style: Style;
 	index: number;
 
-	constructor(index: number = 0) {
-		this.style = new Style();
+	constructor(div: string, index: number = 0) {
+		this.style = new Style(div);
 		this.index = index;
 	}
 

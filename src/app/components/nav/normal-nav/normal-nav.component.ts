@@ -1,29 +1,24 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	OnDestroy,
-	OnInit
-} from '@angular/core';
-import {Constants} from '../../objects/constants';
-import {Section} from '../../objects/sections/section';
-import {WelcomeSection} from '../../objects/sections/welcome-section';
-import {AboutSection} from '../../objects/sections/about-section';
-import {BlogSection} from '../../objects/sections/blog-section';
-import {SkillsSection} from '../../objects/sections/skills-section';
-import {NotificationService} from '../../services/notification.service';
-import {NavigationEnd, Router} from '@angular/router';
-import {NavService} from '../../services/nav.service';
-import {User} from '../../objects/users/user';
-import {BlogService} from '../../services/blog.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { NavService } from '../../../services/nav.service';
+import { BlogService } from '../../../services/blog.service';
+import { NavigationEnd, Router } from '@angular/router';
+import { Constants } from '../../../objects/constants';
+import { User } from '../../../objects/users/user';
+import { Section } from '../../../objects/sections/section';
+import { WelcomeSection } from '../../../objects/sections/welcome-section';
+import { AboutSection } from '../../../objects/sections/about-section';
+import { SkillsSection } from '../../../objects/sections/skills-section';
+import { BlogSection } from '../../../objects/sections/blog-section';
+import { NotificationService } from '../../../services/notification.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-	selector: 'app-section-selector',
-	templateUrl: './section-selector.component.html',
-	styleUrls: ['./section-selector.component.sass'],
+	selector: 'app-normal-nav',
+	templateUrl: './normal-nav.component.html',
+	styleUrls: ['./normal-nav.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SectionSelectorComponent implements OnInit, OnDestroy {
+export class NormalNavComponent implements OnInit, OnDestroy {
 
 	private readonly BUTTON_WIDTH_REM: number = 6.5;
 
@@ -35,16 +30,16 @@ export class SectionSelectorComponent implements OnInit, OnDestroy {
 	post: boolean;
 	filterText: string;
 
+	private translateYSubscription: Subscription;
+
 	constructor(
-		public navService: NavService, private blogService: BlogService, private router: Router, private cdRef: ChangeDetectorRef
+		public navService: NavService,
+		private blogService: BlogService,
+		private router: Router,
+		private cdRef: ChangeDetectorRef
 	) {
 		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 		this.navWidth = this.BUTTON_WIDTH_REM * fontSize * Constants.SECTIONS;
-
-		this.navService.translateY.asObservable().subscribe(translateY => {
-			this.translateY = translateY;
-			this.cdRef.detectChanges();
-		});
 	}
 
 	ngOnInit(): void {
@@ -63,10 +58,15 @@ export class SectionSelectorComponent implements OnInit, OnDestroy {
 				}
 			}
 		});
+
+		this.translateYSubscription = this.navService.translateY.asObservable().subscribe(translateY => {
+			this.translateY = translateY;
+			this.cdRef.detectChanges();
+		});
 	}
 
 	ngOnDestroy(): void {
-		this.navService.translateY.unsubscribe();
+		this.translateYSubscription.unsubscribe();
 	}
 
 	// region Getters / setters
@@ -77,14 +77,6 @@ export class SectionSelectorComponent implements OnInit, OnDestroy {
 
 	get user(): User {
 		return this.navService.user;
-	}
-
-	get normalUser(): string {
-		return Constants.USER.NORMAL;
-	}
-
-	get devUser(): string {
-		return Constants.USER.DEV;
 	}
 
 	get welcomeSection(): Section {
@@ -107,10 +99,6 @@ export class SectionSelectorComponent implements OnInit, OnDestroy {
 
 	findNavTranslate(blog: boolean = this.blog, translateY: string = this.translateY): string {
 		return `translateY(${blog ? 0 : translateY})`;
-	}
-
-	checkSelectedUser(user: string, selectedUser: string = this.user.type): boolean {
-		return user === selectedUser;
 	}
 
 	checkSelectedSection(section: Section, url: string = this.url, selectedSection: Section = this.navService.section): boolean {

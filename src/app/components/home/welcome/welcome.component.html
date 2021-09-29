@@ -24,13 +24,13 @@
 </div>
 <div id="user-selector" class="link-container">
 	<div
-		[ngClass]="{'selected': checkSelectedUser(normalUser.type)}"
+		[ngClass]="{'selected': checkSelectedUser(normalUser)}"
 		(click)="selectUser(normalUser)">
 		Normal user
 	</div>
-<!--	<div-->
-<!--		[ngClass]="{'selected': checkSelectedUser(devUser.type)}"-->
-<!--		(click)="selectUser(devUser)">-->
-<!--		Developer-->
-<!--	</div>-->
+	<div
+		[ngClass]="{'selected': checkSelectedUser(devUser)}"
+		(click)="selectUser(devUser)">
+		Developer
+	</div>
 </div>

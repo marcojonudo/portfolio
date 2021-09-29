@@ -5,10 +5,10 @@
 	#nav-container
 		width: 100%
 		height: $nav-height
+		@include flex-center
 		position: fixed
 		top: 0
 		border-radius: $border-radius $border-radius 0 0
-		overflow: hidden
 		color: $white
 		transition: transform $medium-transition
 
@@ -72,22 +72,6 @@
 				border-radius: $bigger-gap
 				background-color: $light-grey
 				text-align: center
-
-		.mode
-			position: absolute
-			top: 50%
-			left: 50%
-			transform: translate3d(-50%, -50%, 0)
-			opacity: 1
-			transition: transform .3s, opacity .3s
-
-			&.translate-up
-				transform: translate3d(-50%, calc(-50% - 5rem), 0)
-				opacity: 0
-
-			&.translate-down
-				transform: translate3d(-50%, calc(-50% + 5rem), 0)
-				opacity: 0
 
 @media (max-width: 40rem)
 

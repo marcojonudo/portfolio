@@ -9,7 +9,6 @@ import { NormalUser } from './objects/users/normal-user';
 import { WelcomeSection } from './objects/sections/welcome-section';
 import { Constants } from './objects/constants';
 import { NavService } from './services/nav.service';
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Device } from './objects/device/device';
 
 @Component({

@@ -21,6 +21,8 @@ import { TitlePipe } from './pipes/title.pipe';
 import { NormalNavComponent } from './components/nav/normal-nav/normal-nav.component';
 import { DraggableDirective } from './directives/draggable.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../environments/environment';
 
 @NgModule({
 	declarations: [
@@ -46,7 +48,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		FormsModule,
 		HttpClientModule,
 		MarkdownModule.forRoot({ loader: HttpClient }),
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		AngularFireModule.initializeApp(environment.firebaseConfig)
 	],
 	providers: [],
 	bootstrap: [AppComponent]

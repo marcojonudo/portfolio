@@ -3,6 +3,8 @@ import {NavService} from '../../../services/nav.service';
 import {Post} from '../../../objects/blog/post';
 import {BlogService} from '../../../services/blog.service';
 import {switchMap} from 'rxjs/operators';
+import { FirestoreService } from '../../../services/firestore.service';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-blog',
@@ -12,20 +14,25 @@ import {switchMap} from 'rxjs/operators';
 })
 export class BlogComponent {
 
-	posts: Post[];
+	posts: Observable<any[]>;
 	filterText: string;
 
-	constructor(private navService: NavService, private blogService: BlogService, private cdRef: ChangeDetectorRef) {
-		this.posts = [];
-		this.blogService.getToc().pipe(
-			switchMap(posts => {
-				this.posts = posts;
-				return this.blogService.filterTextSubject.asObservable();
-			})
-		).subscribe(filterText => {
-			this.filterText = filterText;
-			this.cdRef.detectChanges();
-		});
+	constructor(
+		private navService: NavService,
+		private firestore: FirestoreService,
+		private blogService: BlogService,
+		private cdRef: ChangeDetectorRef
+	) {
+		this.posts = this.firestore.getPosts();
+		// this.blogService.getToc().pipe(
+		// 	switchMap(posts => {
+		// 		this.posts = posts;
+		// 		return this.blogService.filterTextSubject.asObservable();
+		// 	})
+		// ).subscribe(filterText => {
+		// 	this.filterText = filterText;
+		// 	this.cdRef.detectChanges();
+		// });
 	}
 
 }

@@ -1,0 +1,19 @@
+@import "abstracts/variables"
+
+\:host
+	height: 100%
+	display: flex
+	padding: $nav-height 0 0
+
+	#post
+		height: 100%
+		padding: $default-gap 1.5rem
+		background-color: $white
+
+@media (min-width: 75rem)
+
+	\:host
+		padding: $nav-height $biggest-gap 0 !important
+
+	#post
+		padding: $default-gap $medium-gap !important

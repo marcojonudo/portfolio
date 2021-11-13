@@ -1,0 +1,43 @@
+Project client = project(':client')
+Project server = project(':server')
+
+static Task getTask(Project project, String taskName) {
+    return project.getTasksByName(taskName, false)[0]
+}
+
+task copyClientResources() {
+    group = 'build'
+    description = 'Copy client resources into server'
+
+    doFirst {
+        copy {
+            from "${client.projectDir}/dist/client"
+            into "${server.buildDir}/resources/client/static"
+        }
+    }
+}
+
+task buildAndCopyClientResources() {
+    group = 'build'
+    description = 'Build and copy client resources into server'
+    dependsOn(getTask(client, 'build'))
+    dependsOn(copyClientResources)
+    copyClientResources.mustRunAfter(getTask(client, 'build'))
+}
+
+task assembleServerAndClient() {
+    group = 'build'
+    description = 'Build server and client and generate executable JAR'
+    dependsOn(buildAndCopyClientResources)
+    dependsOn(getTask(server, 'shadowJar'))
+    getTask(server, 'shadowJar').mustRunAfter(buildAndCopyClientResources)
+}
+
+task runAll() {
+    group = 'application'
+    description = 'Run server and client'
+    dependsOn(getTask(client, 'buildDev'))
+    dependsOn(copyClientResources)
+    dependsOn(getTask(server, 'run'))
+    getTask(server, 'run').mustRunAfter(copyClientResources.mustRunAfter(getTask(client, 'buildDev')))
+}

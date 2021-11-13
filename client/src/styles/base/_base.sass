@@ -1,0 +1,106 @@
+@import "abstracts/variables"
+
+html, body
+	height: 100%
+
+body
+	background-image: linear-gradient(rgba(9, 32, 63, 0.97) 0%, rgba(9, 32, 63, 0.97) 100%), url('../assets/img/tiles_background.gif')
+	background-position: 0 0, center
+	background-repeat: repeat, repeat
+	background-size: cover, 600px
+	user-select: none
+
+::-webkit-scrollbar
+	height: 9px
+	width: 9px
+	background-color: rgba(0, 0, 0, .3)
+	border-radius: 25%
+
+::-webkit-scrollbar-thumb
+	background: #000
+	border-radius: 10px
+
+::-webkit-scrollbar-thumb:hover
+	background: rgba(0, 0, 0, .7)
+
+.dark-background
+	background-color: rgba(0, 0, 0, .3)
+	border-radius: .2rem
+
+.darkest-background
+	background-color: rgba(0, 0, 0, .6)
+	border-radius: .2rem
+
+.link-container
+	display: flex
+	align-items: center
+	justify-content: space-around
+
+	> *
+		width: 6.5rem
+		height: 3rem
+		position: relative
+		display: flex
+		align-items: center
+		justify-content: center
+		margin: 0 .5rem
+		background-color: rgba(0, 0, 0, .3)
+		border-radius: .2rem
+		cursor: pointer
+		border: 1px solid transparent
+
+		&::before, &::after
+			content: ''
+			position: absolute
+			top: 0
+			left: 0
+			right: 0
+			bottom: 0
+			border-radius: .2rem
+			opacity: 0
+			transition: opacity .3s, transform .3s
+
+		&::before
+			border-top: 1px solid #fff
+			border-bottom: 1px solid #fff
+			transform: scale(0, 1)
+
+		&::after
+			border-left: 1px solid #fff
+			border-right: 1px solid #fff
+			transform: scale(1, 0)
+
+		&:hover
+
+			&::before, &::after
+				opacity: 1
+				transform: scale(1)
+
+		&.selected::before, &.selected::after
+			opacity: 1
+			transform: scale(1)
+
+.section-title
+	position: relative
+	@include flex-center
+	margin: $big-gap 0 $medium-gap
+	font-weight: 100
+
+	&-link
+		height: 100%
+		position: absolute
+		right: 0
+		@include flex-center
+		font-size: .7em
+		cursor: pointer
+		transition: background-color $fast-transition
+
+.disabled
+	color: #6b6b6b
+	pointer-events: none
+
+@media (max-width: 650px)
+
+	::-webkit-scrollbar
+		height: 3px
+		width: 3px

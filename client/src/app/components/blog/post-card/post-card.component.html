@@ -1,0 +1,11 @@
+<a [routerLink]="['/blog', name]">
+	<div class="image-container">
+		<div>
+			<img src="assets/img/posts/{{image}}" class="image">
+		</div>
+	</div>
+	<div class="content">
+		<div class="title">{{title}}</div>
+		<div class="metadata">{{day | date: 'dd/MM/yyyy'}}</div>
+	</div>
+</a>

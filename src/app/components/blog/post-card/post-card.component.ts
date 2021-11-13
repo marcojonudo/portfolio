@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {Dayjs} from 'dayjs';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Dayjs } from 'dayjs';
 
 @Component({
 	selector: 'app-post-card',
@@ -13,5 +13,9 @@ export class PostCardComponent {
 	@Input() title: string;
 	@Input() day: Dayjs;
 	@Input() image: string;
+
+	getDay(day: Dayjs = this.day): Date {
+		return day.toDate();
+	}
 
 }

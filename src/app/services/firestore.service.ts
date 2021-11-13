@@ -7,10 +7,17 @@ import { Observable } from 'rxjs';
 })
 export class FirestoreService {
 
-	constructor(private firestore: AngularFirestore) {}
+	constructor(private firestore: AngularFirestore) {
+		this.firestore.collection('posts').snapshotChanges().subscribe((posts) => {
+			console.log('---', posts);
+			posts.forEach(post => {
+				console.log('post', post.payload.doc.data());
+			});
+		});
+	}
 
 	getPosts(): Observable<any[]> {
-		return this.firestore.collection('posts').snapshotChanges();
+		return this.firestore.collection('posts').valueChanges();
 	}
 
 }

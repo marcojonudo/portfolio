@@ -15,7 +15,6 @@ import { PostCardComponent } from './components/blog/post-card/post-card.compone
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FormsModule } from '@angular/forms';
 import { PostComponent } from './components/blog/post/post.component';
-import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TitlePipe } from './pipes/title.pipe';
 import { NormalNavComponent } from './components/nav/normal-nav/normal-nav.component';
@@ -23,6 +22,9 @@ import { DraggableDirective } from './directives/draggable.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
+import { MarkdownModule } from 'ngx-markdown';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
 	declarations: [
@@ -49,7 +51,9 @@ import { environment } from '../environments/environment';
 		HttpClientModule,
 		MarkdownModule.forRoot({ loader: HttpClient }),
 		BrowserAnimationsModule,
-		AngularFireModule.initializeApp(environment.firebaseConfig)
+		AngularFireModule.initializeApp(environment.firebaseConfig),
+		RouterModule,
+		CommonModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

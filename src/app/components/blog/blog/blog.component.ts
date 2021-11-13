@@ -24,6 +24,7 @@ export class BlogComponent {
 		private cdRef: ChangeDetectorRef
 	) {
 		this.posts = this.firestore.getPosts();
+		console.log(1, this.posts);
 		// this.blogService.getToc().pipe(
 		// 	switchMap(posts => {
 		// 		this.posts = posts;

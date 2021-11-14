@@ -2,8 +2,6 @@ import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit, Rendere
 import { Constants } from '../objects/constants';
 import { Coordinates } from '../objects/coordinates';
 import { NavService } from '../services/nav.service';
-import { Device } from '../objects/device/device';
-import { MediumWidthDevice } from '../objects/device/medium-width-device';
 
 @Directive({
 	selector: '[appDraggable]'

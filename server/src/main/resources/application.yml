@@ -1,10 +1,10 @@
 micronaut:
     application:
-        name: portfolio
+        name: blog-api
     server:
         cors:
             enabled: true
-        port: 8080
+        port: 8090
     router:
         static-resources:
             default:
@@ -30,27 +30,36 @@ endpoints:
     loggers:
         enabled: true
         sensitive: false
+flyway:
+    datasources:
+        default:
+            enabled: true
 
-#host:
-#    ip: ${HOST_IP:localhost}
-#    local-mysql-port: ${MYSQL_PORT:3306}
-#
-#database:
-#    credentials:
-#        username: root
-#        password: root
+db:
+    url: ${DB_URL:localhost}
+    port: ${DB_PORT:5432}
+    credentials:
+        username: postgres
+        password: root
 
-#hibernate:
-#    hbm2ddl:
-#        auto: 'none'
-#
+datasources:
+    default:
+        #    url: ${JDBC_URL:`jdbc:h2:mem:default;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE`}
+        #    username: ${JDBC_USER:sa}
+        #    password: ${JDBC_PASSWORD:""}
+        #    driverClassName: ${JDBC_DRIVER:org.h2.Driver}
+        url: jdbc:postgresql://localhost:5432/blog
+        username: postgres
+        password: root
+        driverClassName: org.postgresql.Driver
+
 #dataSource:
 #    dbCreate: validate
-#    driverClassName: com.mysql.jdbc.Driver
-#    dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-#    url: jdbc:mysql://${db.ip}:${db.port}/portfolio?useSSL=false&serverTimezone=Europe/Madrid
-#    username: ${database.credentials.username}
-#    password: ${database.credentials.password}
+#    driverClassName: org.postgresql.Driver
+#    dialect: org.hibernate.dialect.PostgreSQL10Dialect
+#    url: jdbc:postgresql://${db.url}:${db.port}/blog
+#    username: ${db.credentials.username}
+#    password: ${db.credentials.password}
 #    properties:
 #        initialSize: 1
 #        maxActive: 1

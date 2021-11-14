@@ -1,5 +1,5 @@
 applicationType: default
-defaultPackage: server
+defaultPackage: blog-api
 testFramework: spock
 sourceLanguage: groovy
 buildTool: gradle

@@ -1,4 +1,4 @@
-package server
+package blog.api
 
 import io.micronaut.runtime.Micronaut
 import groovy.transform.CompileStatic

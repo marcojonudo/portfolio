@@ -5,7 +5,7 @@ plugins {
 }
 
 version = "0.1"
-group = "server"
+group = "blog.api"
 
 repositories {
     mavenCentral()
@@ -16,10 +16,9 @@ micronaut {
     testRuntime("spock2")
     processing {
         incremental(true)
-        annotations("server.*")
+        annotations("blog-api.*")
     }
 }
-
 dependencies {
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut.groovy:micronaut-runtime-groovy")
@@ -27,15 +26,23 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
     implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
-    implementation("io.micronaut.groovy:micronaut-hibernate-gorm")
-    runtimeOnly("com.h2database:h2")
-    runtimeOnly("org.apache.tomcat:tomcat-jdbc")
-    implementation("mysql:mysql-connector-java:8.0.26")
+
+    implementation("io.micronaut.security:micronaut-security-jwt")
+    implementation "org.springframework.security:spring-security-crypto:5.2.1.RELEASE"
     implementation("io.micronaut:micronaut-management")
+
+    annotationProcessor("io.micronaut.data:micronaut-data-processor")
+    implementation("io.micronaut.data:micronaut-data-jdbc")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    runtimeOnly("org.postgresql:postgresql")
+    implementation("io.micronaut.flyway:micronaut-flyway")
+
+    implementation("io.micronaut.rxjava3:micronaut-rxjava3")
 }
 
+
 application {
-    mainClass.set("server.Application")
+    mainClass.set("blog.api.Application")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("1.8")

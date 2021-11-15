@@ -21,6 +21,8 @@ import { TitlePipe } from './pipes/title.pipe';
 import { NormalNavComponent } from './components/nav/normal-nav/normal-nav.component';
 import { DraggableDirective } from './directives/draggable.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
 	declarations: [
@@ -46,7 +48,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		FormsModule,
 		HttpClientModule,
 		MarkdownModule.forRoot({ loader: HttpClient }),
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		RouterModule,
+		CommonModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

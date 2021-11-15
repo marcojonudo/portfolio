@@ -8,8 +8,8 @@ micronaut:
     router:
         static-resources:
             default:
-                mapping: /blog/**
-                paths: [classpath:blog]
+                mapping: /**
+                paths: [classpath:static]
 
 endpoints:
     beans:
@@ -30,6 +30,7 @@ endpoints:
     loggers:
         enabled: true
         sensitive: false
+
 flyway:
     datasources:
         default:
@@ -44,28 +45,7 @@ db:
 
 datasources:
     default:
-        #    url: ${JDBC_URL:`jdbc:h2:mem:default;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE`}
-        #    username: ${JDBC_USER:sa}
-        #    password: ${JDBC_PASSWORD:""}
-        #    driverClassName: ${JDBC_DRIVER:org.h2.Driver}
-        url: jdbc:postgresql://localhost:5432/blog
-        username: postgres
-        password: root
+        url: jdbc:postgresql://${db.url}:${db.port}/blog
+        username: ${db.credentials.username}
+        password: ${db.credentials.password}
         driverClassName: org.postgresql.Driver
-
-#dataSource:
-#    dbCreate: validate
-#    driverClassName: org.postgresql.Driver
-#    dialect: org.hibernate.dialect.PostgreSQL10Dialect
-#    url: jdbc:postgresql://${db.url}:${db.port}/blog
-#    username: ${db.credentials.username}
-#    password: ${db.credentials.password}
-#    properties:
-#        initialSize: 1
-#        maxActive: 1
-#        minIdle: 1
-#        maxIdle: 1
-#        testOnBorrow: true
-#        validationQuery: SELECT 1
-#        validationInterval: 15000
-#    logSql: true

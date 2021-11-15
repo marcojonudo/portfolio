@@ -11,7 +11,7 @@ task copyClientResources() {
 
     doFirst {
         copy {
-            from "${client.projectDir}/dist/client"
+            from "${client.projectDir}/dist/portfolio"
             into "${server.buildDir}/resources/client/static"
         }
     }

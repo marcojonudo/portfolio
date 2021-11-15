@@ -14,4 +14,8 @@ export class PostCardComponent {
 	@Input() day: Dayjs;
 	@Input() image: string;
 
+	getDay(day: Dayjs = this.day): Date {
+		return day.toDate();
+	}
+
 }

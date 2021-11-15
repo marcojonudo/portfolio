@@ -27,8 +27,6 @@ dependencies {
     implementation("io.micronaut:micronaut-validation")
     implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
 
-    implementation("io.micronaut.security:micronaut-security-jwt")
-    implementation "org.springframework.security:spring-security-crypto:5.2.1.RELEASE"
     implementation("io.micronaut:micronaut-management")
 
     annotationProcessor("io.micronaut.data:micronaut-data-processor")
@@ -50,7 +48,5 @@ java {
 }
 
 processResources {
-    from("build/resources/client")
+    from 'build/resources/client'
 }
-
-

@@ -10,6 +10,8 @@ services:
     db:
         image: postgres
         restart: always
+        volumes:
+            - ./init-postgres.sql:/docker-entrypoint-initdb.d/init.sql
 #        volumes:
 #            - "/var/data/postgres:/var/lib/postgresql/data"
         container_name: db
@@ -32,19 +34,21 @@ services:
         networks:
             - local-network
 
-#    blog-api:
-#        image: marcojonudo/blog-api
-#        restart: always
-#        container_name: blog-api
-#        environment:
-#            - MAX_MEMORY=128m
+    blog-api:
+        image: marcojonudo/blog-api
+        restart: always
+        container_name: blog-api
+        environment:
+            - MAX_MEMORY=128m
 #            - ENV=prod
 #        volumes:
 #            - /u/projects/db-api/logs:/logs
-#        networks:
-#            - local-network
-#        depends_on:
-#            - db
+        ports:
+            - "8090:8090"
+        networks:
+            - local-network
+        depends_on:
+            - db
 
 networks:
     local-network:

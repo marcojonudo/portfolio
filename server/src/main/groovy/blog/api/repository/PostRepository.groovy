@@ -20,4 +20,5 @@ class PostRepository {
     private MongoCollection<Post> getCollection() {
         return mongoClient.getDatabase(postConfig.name).getCollection(postConfig.collection, Post)
     }
+
 }

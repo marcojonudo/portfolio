@@ -38,14 +38,14 @@ flyway:
 
 db:
     url: ${DB_URL:localhost}
-    port: ${DB_PORT:5432}
+    port: ${DB_PORT:27017}
     credentials:
-        username: postgres
+        username: root
         password: root
+    config:
+        post:
+            name: blog
+            collection: post
 
-datasources:
-    default:
-        url: jdbc:postgresql://${db.url}:${db.port}/blog
-        username: ${db.credentials.username}
-        password: ${db.credentials.password}
-        driverClassName: org.postgresql.Driver
+mongodb:
+    uri: mongodb://${db.credentials.username}:${db.credentials.password}@${db.url}:${db.port}

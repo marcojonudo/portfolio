@@ -28,16 +28,9 @@ dependencies {
     implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
 
     implementation("io.micronaut:micronaut-management")
-
-    annotationProcessor("io.micronaut.data:micronaut-data-processor")
-    implementation("io.micronaut.data:micronaut-data-jdbc")
-    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
-    runtimeOnly("org.postgresql:postgresql")
     implementation("io.micronaut.flyway:micronaut-flyway")
-
-    implementation("io.micronaut.rxjava3:micronaut-rxjava3")
+    implementation("io.micronaut.mongodb:micronaut-mongo-sync")
 }
-
 
 application {
     mainClass.set("blog.api.Application")

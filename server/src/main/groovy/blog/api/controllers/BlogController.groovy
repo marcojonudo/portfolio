@@ -1,7 +1,7 @@
 package blog.api.controllers
 
 import blog.api.domains.Post
-import blog.api.repositories.PostRepository
+import blog.api.repository.PostRepository
 import groovy.transform.CompileStatic
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
@@ -14,7 +14,7 @@ class BlogController {
 	@Inject PostRepository postRepository
 
 	@Get("/posts")
-    Iterable<Post> getPosts() {
+	List<Post> getPosts() {
 		return postRepository.findAll()
     }
 

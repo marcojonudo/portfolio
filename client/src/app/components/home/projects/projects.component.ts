@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Constants} from '../../../objects/constants';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Constants } from '../../../utils/constants';
 
 @Component({
 	selector: 'app-projects',

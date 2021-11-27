@@ -3,15 +3,15 @@ import * as dayjs from 'dayjs';
 
 export class Post {
 
-	name: string;
 	title: string;
-	day: Dayjs;
+	content: string;
+	date: Dayjs;
 	image: string;
 
 	constructor(post: any) {
-		this.name = post.name;
 		this.title = post.title;
-		this.day = dayjs(post.day);
+		this.content = post.content;
+		this.date = dayjs(post.date);
 		this.image = post.image;
 	}
 

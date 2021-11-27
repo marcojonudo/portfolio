@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NavService } from '../../../services/nav.service';
-import { Constants } from '../../../objects/constants';
+import { Constants } from '../../../utils/constants';
 
 @Component({
 	selector: 'app-welcome',

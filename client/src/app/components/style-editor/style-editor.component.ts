@@ -4,8 +4,8 @@ import { StyleIndex } from '../../objects/style-index';
 import { NavService } from '../../services/nav.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Coordinates } from '../../objects/coordinates';
-import { Constants } from '../../objects/constants';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { Constants } from '../../utils/constants';
 
 @Component({
 	selector: 'app-style-editor',

@@ -1,7 +1,7 @@
-import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-import { Constants } from '../objects/constants';
+import { AfterViewInit, Directive, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Coordinates } from '../objects/coordinates';
 import { NavService } from '../services/nav.service';
+import { Constants } from '../utils/constants';
 
 @Directive({
 	selector: '[appDraggable]'

@@ -1,19 +1,36 @@
-@import "abstracts/variables"
+@import "abstracts/mixins"
 
 \:host
 	height: 100%
-	display: flex
+	@include flex-column
 	padding: $nav-height 0 0
+	overflow-y: auto
+
+	#header-image
+		height: 40%
+		object-fit: cover
 
 	#post
-		height: 100%
-		padding: $default-gap 1.5rem
 		background-color: $white
+		border-radius: $border-radius $border-radius 0 0
+
+		&-header
+			@include flex-column-center
+			border-radius: $border-radius
+
+		&-content
+			padding: 0 1.5rem
 
 @media (min-width: 75rem)
 
-	\:host
-		padding: $nav-height $biggest-gap 0 !important
-
 	#post
-		padding: $default-gap $medium-gap !important
+		margin: 0 $biggest-gap
+
+		&-header
+			position: relative
+			top: -1.5rem
+			background-color: $white
+
+		&-content
+			position: relative
+			top: -1.5rem

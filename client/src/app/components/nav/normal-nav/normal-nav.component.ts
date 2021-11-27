@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { NavService } from '../../../services/nav.service';
 import { BlogService } from '../../../services/blog.service';
 import { NavigationEnd, Router } from '@angular/router';
-import { Constants } from '../../../objects/constants';
 import { User } from '../../../objects/users/user';
 import { Section } from '../../../objects/sections/section';
 import { WelcomeSection } from '../../../objects/sections/welcome-section';
@@ -11,6 +10,8 @@ import { SkillsSection } from '../../../objects/sections/skills-section';
 import { BlogSection } from '../../../objects/sections/blog-section';
 import { NotificationService } from '../../../services/notification.service';
 import { Subscription } from 'rxjs';
+import { Constants } from '../../../utils/constants';
+import { Post } from '../../../objects/blog/post';
 
 @Component({
 	selector: 'app-normal-nav',
@@ -117,6 +118,10 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 
 	search(): void {
 		this.blogService.search(this.filterText);
+	}
+
+	findSelectedPost(): Post {
+		return this.blogService.post;
 	}
 
 }

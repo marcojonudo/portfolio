@@ -1,7 +1,6 @@
-import {User} from './user';
-import {Constants} from '../constants';
-import {Section} from '../sections/section';
-import {Style} from '../style';
+import { User } from './user';
+import { Style } from '../style';
+import { Constants } from '../../utils/constants';
 
 export class DevUser implements User {
 
@@ -24,6 +23,5 @@ export class DevUser implements User {
 	}
 
 	init(): void {}
-
 
 }

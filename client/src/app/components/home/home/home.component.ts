@@ -9,15 +9,15 @@ import {
 	ViewChild,
 	ViewChildren
 } from '@angular/core';
-import {fromEvent, Subscription} from 'rxjs';
-import {User} from '../../../objects/users/user';
-import {Section} from '../../../objects/sections/section';
-import {Style} from '../../../objects/style';
-import {Constants} from '../../../objects/constants';
-import {NotificationService} from '../../../services/notification.service';
-import {Utils} from '../../../objects/utils';
-import {NavService} from '../../../services/nav.service';
-import {DeviceDetectorService} from 'ngx-device-detector';
+import { fromEvent, Subscription } from 'rxjs';
+import { User } from '../../../objects/users/user';
+import { Section } from '../../../objects/sections/section';
+import { Style } from '../../../objects/style';
+import { NotificationService } from '../../../services/notification.service';
+import { NavService } from '../../../services/nav.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { Constants } from '../../../utils/constants';
+import { Utils } from '../../../utils/utils';
 
 @Component({
 	selector: 'app-home',

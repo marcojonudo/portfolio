@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {NavService} from '../../../services/nav.service';
-import {Post} from '../../../objects/blog/post';
-import {BlogService} from '../../../services/blog.service';
-import {switchMap} from 'rxjs/operators';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { NavService } from '../../../services/nav.service';
+import { Post } from '../../../objects/blog/post';
+import { BlogService } from '../../../services/blog.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-blog',
@@ -10,17 +10,20 @@ import {switchMap} from 'rxjs/operators';
 	styleUrls: ['./blog.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BlogComponent {
+export class BlogComponent implements OnInit {
 
 	posts: Post[];
 	filterText: string;
 
 	constructor(private navService: NavService, private blogService: BlogService, private cdRef: ChangeDetectorRef) {
 		this.posts = [];
-		this.blogService.getToc().pipe(
+	}
+
+	ngOnInit(): void {
+		this.blogService.posts$.pipe(
 			switchMap(posts => {
 				this.posts = posts;
-				return this.blogService.filterTextSubject.asObservable();
+				return this.blogService.filterText$;
 			})
 		).subscribe(filterText => {
 			this.filterText = filterText;

@@ -69,8 +69,20 @@
                                     "maximumError": "10kb"
                                 }
                             ]
-                        }
-                    }
+                        },
+						"development": {
+							"optimization": false,
+							"outputHashing": "all",
+							"sourceMap": true,
+							"extractCss": true,
+							"namedChunks": false,
+							"extractLicenses": true,
+							"vendorChunk": true,
+							"buildOptimizer": false,
+							"budgets": []
+						}
+                    },
+					"defaultConfiguration": "development"
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
@@ -78,10 +90,11 @@
                         "browserTarget": "portfolio:build"
                     },
                     "configurations": {
-                        "production": {
-                            "browserTarget": "portfolio:build:production"
-                        }
-                    }
+						"development": {
+							"browserTarget": "portfolio:build:development"
+						}
+                    },
+					"defaultConfiguration": "development"
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",

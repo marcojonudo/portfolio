@@ -1,6 +1,9 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Subscription} from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { BlogService } from '../../../services/blog.service';
+import { Post } from '../../../objects/blog/post';
+import { tap } from 'rxjs/operators';
+import { Dayjs } from 'dayjs';
 
 @Component({
 	selector: 'app-post',
@@ -8,23 +11,29 @@ import {Subscription} from 'rxjs';
 	styleUrls: ['./post.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PostComponent implements OnInit, OnDestroy {
+export class PostComponent implements OnDestroy{
 
-	private postSubscription: Subscription;
-	postPath: string;
+	postSubscription: Subscription;
+	post: Post;
 
-	constructor(private route: ActivatedRoute) {}
-
-	ngOnInit() {
-		this.postSubscription = this.route.params.subscribe((params: { id: string }) => {
-			this.postPath = `./assets/posts/${params.id}.md`;
+	constructor(private blogService: BlogService) {
+		this.postSubscription = this.findContent().subscribe(post => {
+			this.post = post;
 		});
 	}
 
-	ngOnDestroy() {
-		if (this.postSubscription) {
-			this.postSubscription.unsubscribe();
-		}
+	ngOnDestroy(): void {
+		this.postSubscription.unsubscribe();
+	}
+
+	findContent(): Observable<Post> {
+		return this.blogService.post$.pipe(
+			tap(post => console.log(post))
+		);
+	}
+
+	getDay(date: Dayjs = this.post.date): Date {
+		return date.toDate();
 	}
 
 }

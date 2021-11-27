@@ -1,5 +1,5 @@
-import {Device} from './device';
-import {Constants} from '../constants';
+import { Device } from './device';
+import { Constants } from '../../utils/constants';
 
 export class SmallWidthDevice extends Device {
 

@@ -1,8 +1,7 @@
 import {User} from './user';
-import {Constants} from '../constants';
-import {Section} from '../sections/section';
 import { NotificationService } from '../../services/notification.service';
 import { Style } from '../style';
+import { Constants } from '../../utils/constants';
 
 export class NormalUser implements User {
 

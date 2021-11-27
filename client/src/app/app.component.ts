@@ -7,9 +7,9 @@ import { Section } from './objects/sections/section';
 import { User } from './objects/users/user';
 import { NormalUser } from './objects/users/normal-user';
 import { WelcomeSection } from './objects/sections/welcome-section';
-import { Constants } from './objects/constants';
 import { NavService } from './services/nav.service';
 import { Device } from './objects/device/device';
+import { Constants } from './utils/constants';
 
 @Component({
 	selector: 'app-root',

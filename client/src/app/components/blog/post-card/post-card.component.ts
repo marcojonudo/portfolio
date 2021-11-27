@@ -1,5 +1,8 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {Dayjs} from 'dayjs';
+import { BlogService } from '../../../services/blog.service';
+import { Post } from '../../../objects/blog/post';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-post-card',
@@ -9,13 +12,17 @@ import {Dayjs} from 'dayjs';
 })
 export class PostCardComponent {
 
-	@Input() name: string;
-	@Input() title: string;
-	@Input() day: Dayjs;
-	@Input() image: string;
+	@Input() post: Post;
 
-	getDay(day: Dayjs = this.day): Date {
-		return day.toDate();
+	constructor(private blogService: BlogService, private router: Router) {}
+
+	getDay(date: Dayjs = this.post.date): Date {
+		return date.toDate();
+	}
+
+	selectPost(): void {
+		this.blogService.selectPost(this.post);
+		this.router.navigate(['/blog', this.blogService.parseTitle(this.post.title)]);
 	}
 
 }

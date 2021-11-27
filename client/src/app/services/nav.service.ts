@@ -8,12 +8,12 @@ import { SkillsSection } from '../objects/sections/skills-section';
 import { BlogSection } from '../objects/sections/blog-section';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Device } from '../objects/device/device';
-import { Utils } from '../objects/utils';
-import { Constants } from '../objects/constants';
 import { SmallWidthDevice } from '../objects/device/small-width-device';
 import { MediumWidthDevice } from '../objects/device/medium-width-device';
 import { DevUser } from '../objects/users/dev-user';
 import { Coordinates } from '../objects/coordinates';
+import { Constants } from '../utils/constants';
+import { Utils } from '../utils/utils';
 
 @Injectable({
 	providedIn: 'root'

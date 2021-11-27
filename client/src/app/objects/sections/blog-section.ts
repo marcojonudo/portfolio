@@ -1,5 +1,5 @@
-import {Section} from './section';
-import {Constants} from '../constants';
+import { Section } from './section';
+import { Constants } from '../../utils/constants';
 
 export class BlogSection extends Section {
 

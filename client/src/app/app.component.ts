@@ -1,6 +1,5 @@
 import {
-	ChangeDetectionStrategy,
-	Component
+	ChangeDetectionStrategy, Component, HostBinding
 } from '@angular/core';
 import { NotificationService } from './services/notification.service';
 import { Section } from './objects/sections/section';
@@ -10,6 +9,7 @@ import { WelcomeSection } from './objects/sections/welcome-section';
 import { NavService } from './services/nav.service';
 import { Device } from './objects/device/device';
 import { Constants } from './utils/constants';
+import { AestheticsService } from './services/aesthetics.service';
 
 @Component({
 	selector: 'app-root',
@@ -20,11 +20,14 @@ import { Constants } from './utils/constants';
 export class AppComponent {
 	title = 'portfolio';
 
+	@HostBinding(`style.${Constants.PROPERTY.BACKGROUND_IMAGE}`) backgroundImage: string;
+	@HostBinding(`style.${Constants.PROPERTY.COLOR}`) color: string;
+
 	user: User;
 	section: Section;
 	device: Device;
 
-	constructor(private navService: NavService) {
+	constructor(private navService: NavService, private aestheticsService: AestheticsService) {
 		this.user = new NormalUser();
 		this.section = new WelcomeSection();
 		this.device = this.navService.device;
@@ -32,6 +35,10 @@ export class AppComponent {
 
 		this.navService.user$.subscribe(user => {
 			this.user = user;
+		});
+		this.aestheticsService.palette$.subscribe(palette => {
+			this.backgroundImage = palette.buildBackgroundImage();
+			this.color = palette.color;
 		});
 	}
 

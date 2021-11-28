@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavService } from '../../../services/nav.service';
 import { Constants } from '../../../utils/constants';
+import { AestheticsService } from '../../../services/aesthetics.service';
+import { Palette } from '../../../objects/palette/palette';
 
 @Component({
 	selector: 'app-welcome',
@@ -8,9 +10,24 @@ import { Constants } from '../../../utils/constants';
 	styleUrls: ['./welcome.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WelcomeComponent {
+export class WelcomeComponent implements OnInit {
 
-	constructor(private navService: NavService) {}
+	palette: Palette;
+	translucentStyles: any;
+
+	constructor(
+		private navService: NavService,
+		private aestheticsService: AestheticsService,
+		private cdRef: ChangeDetectorRef
+	) {}
+
+	ngOnInit(): void {
+		this.aestheticsService.palette$.subscribe(palette => {
+			this.palette = palette;
+			this.translucentStyles = palette.buildTranslucentStyles();
+			this.cdRef.detectChanges();
+		});
+	}
 
 	// region Getters / setters
 

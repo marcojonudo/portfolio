@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {Style} from '../objects/style';
-import {Section} from '../objects/sections/section';
-import {WelcomeSection} from '../objects/sections/welcome-section';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Style } from '../objects/style';
+import { Section } from '../objects/sections/section';
+import { WelcomeSection } from '../objects/sections/welcome-section';
 
 @Injectable({
 	providedIn: 'root'

@@ -4,6 +4,9 @@
 	position: relative
 	@include flex-column
 	cursor: pointer
+	background-color: $white
+	color: $black
+	border-radius: $border-radius
 
 	.image-container
 		width: 100%
@@ -19,6 +22,7 @@
 				position: absolute
 				top: 0
 				object-fit: cover
+				border-radius: $border-radius $border-radius 0 0
 
 	.content
 		@include flex-column-center
@@ -28,9 +32,9 @@
 			font-size: 1.2em
 			font-weight: 600
 			margin-top: 1rem
-			color: $white
+			//color: $white
 
 		.metadata
 			font-size: .8em
-			color: $light-grey
+			color: $dark-grey
 

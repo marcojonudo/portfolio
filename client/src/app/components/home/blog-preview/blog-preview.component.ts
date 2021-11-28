@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Post } from '../../../objects/blog/post';
 import { BlogService } from '../../../services/blog.service';
+import { AestheticsService } from '../../../services/aesthetics.service';
 
 @Component({
 	selector: 'app-blog-preview',
@@ -12,7 +13,7 @@ export class BlogPreviewComponent implements OnInit {
 
 	posts: Post[];
 
-	constructor(private blogService: BlogService, private cdRef: ChangeDetectorRef) {}
+	constructor(private blogService: BlogService, public aestheticsService: AestheticsService, private cdRef: ChangeDetectorRef) {}
 
 	ngOnInit(): void {
 		this.blogService.posts$.subscribe(posts => {

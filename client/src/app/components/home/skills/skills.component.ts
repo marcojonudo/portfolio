@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {Skill} from '../../../objects/skills/skill';
+import { AestheticsService } from '../../../services/aesthetics.service';
 
 @Component({
 	selector: 'app-skills',
@@ -7,11 +8,12 @@ import {Skill} from '../../../objects/skills/skill';
 	styleUrls: ['./skills.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkillsComponent {
+export class SkillsComponent implements OnInit {
 
 	skills: Skill[];
+	translucentStyles: any;
 
-	constructor() {
+	constructor(private aestheticsService: AestheticsService, private cdRef: ChangeDetectorRef) {
 		this.skills = [
 			new Skill(
 				'Groovy',
@@ -64,7 +66,13 @@ export class SkillsComponent {
 				'gradle'
 			)
 		];
-		// CI/CD, HTLM, cSS, Javascript, Java, Docker, Spock, Gradle
+	}
+
+	ngOnInit(): void {
+		this.aestheticsService.palette$.subscribe(palette => {
+			this.translucentStyles = palette.buildTranslucentStyles();
+			this.cdRef.detectChanges();
+		});
 	}
 
 }

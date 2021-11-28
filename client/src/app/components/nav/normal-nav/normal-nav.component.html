@@ -5,7 +5,8 @@
 	<nav
 		id="nav"
 		[style.width.px]="navWidth"
-		[ngClass]="{'stick': navService.stickNav, 'blog': blog}">
+		[ngClass]="{'stick': navService.stickNav, 'blog': blog}"
+		[ngStyle]="palette.buildTranslucentStyles(navService.stickNav)">
 		<div
 			class="button"
 			[ngClass]="{'selected': checkSelectedSection(welcomeSection)}"
@@ -35,5 +36,13 @@
 					(click)="navigateTo(blogUrl)">Blog</div>
 			</div>
 		</ng-template>
+		<div *ngIf="navService.stickNav" id="color-selector" (click)="togglePalette()" [@inOutAnimation]>
+			<div
+				*ngFor="let palette of palettes; let i = index"
+				[style.transform]="'translateX(' + findTranslatePaletteValue(i) + '%)'">
+				<div [style.background-color]="palette.backgroundColor"></div>
+				<div [style.background-color]="palette.color"></div>
+			</div>
+		</div>
 	</nav>
 </div>

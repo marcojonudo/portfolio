@@ -18,7 +18,7 @@
 		#nav
 			height: 100%
 			@include flex-center
-			background-color: $black-alpha
+			position: relative
 			border-radius: $border-radius
 			transition: background-color $medium-transition, width $medium-transition
 
@@ -50,7 +50,7 @@
 				&::before
 					border-radius: 0
 					border-top: 0
-					border-bottom: 1px solid $white
+					border-bottom: 2px solid $white
 					transform: scale(0, 1)
 
 				&::after
@@ -74,6 +74,34 @@
 				background-color: $light-grey
 				text-align: center
 
+			#color-selector
+				height: 1.5rem
+				width: 1.5rem
+				min-width: 1.5rem
+				position: relative
+				margin: 0 $small-gap
+				border-radius: 50%
+				overflow: hidden
+				cursor: pointer
+				@include elevation
+
+				& > div
+					height: 100%
+					width: 100%
+					display: flex
+					position: absolute
+					transition: transform $fast-transition
+
+					& > div
+						height: 100%
+						@include flex-1
+
+						&:first-child
+							background-color: $white
+
+						&:last-child
+							background-color: $black
+
 @media (max-width: 40rem)
 
 	#nav-container
@@ -83,7 +111,12 @@
 
 	#filter
 		margin-left: auto
-		margin-right: $medium-gap
+		margin-right: 3.5rem
+
+	#color-selector
+		position: absolute !important
+		right: $default-gap !important
+		margin: 0 !important
 
 @media (min-width: 75rem)
 

@@ -12,12 +12,33 @@ import { NotificationService } from '../../../services/notification.service';
 import { Subscription } from 'rxjs';
 import { Constants } from '../../../utils/constants';
 import { Post } from '../../../objects/blog/post';
+import { AestheticsService } from '../../../services/aesthetics.service';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { Palette } from '../../../objects/palette/palette';
 
 @Component({
 	selector: 'app-normal-nav',
 	templateUrl: './normal-nav.component.html',
 	styleUrls: ['./normal-nav.component.sass'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	animations: [
+		trigger('inOutAnimation', [
+			transition(
+				':enter',
+				[
+					style({ opacity: 0 }),
+					animate('.2s', style({ opacity: 1 }))
+				]
+			),
+			transition(
+				':leave',
+				[
+					style({ opacity: 1 }),
+					animate('.2s', style({ opacity: 0 }))
+				]
+			)
+		])
+	]
 })
 export class NormalNavComponent implements OnInit, OnDestroy {
 
@@ -30,17 +51,23 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 	blog: boolean;
 	post: boolean;
 	filterText: string;
+	palette: Palette;
 
 	private translateYSubscription: Subscription;
 
 	constructor(
 		public navService: NavService,
 		private blogService: BlogService,
+		private aestheticsService: AestheticsService,
 		private router: Router,
 		private cdRef: ChangeDetectorRef
 	) {
 		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 		this.navWidth = this.BUTTON_WIDTH_REM * fontSize * Constants.SECTIONS;
+
+		this.aestheticsService.palette$.subscribe(palette => {
+			this.palette = palette;
+		});
 	}
 
 	ngOnInit(): void {
@@ -96,6 +123,10 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 		return new BlogSection();
 	}
 
+	get palettes(): Palette[] {
+		return this.aestheticsService.palettes;
+	}
+
 	// endregion
 
 	findNavTranslate(blog: boolean = this.blog, translateY: string = this.translateY): string {
@@ -122,6 +153,15 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 
 	findSelectedPost(): Post {
 		return this.blogService.post;
+	}
+
+	findTranslatePaletteValue(i: number): number {
+		const findSelectedIndex = this.palettes.indexOf(this.aestheticsService.palette);
+		return (i - findSelectedIndex) * 100;
+	}
+
+	togglePalette(): void {
+		this.aestheticsService.togglePalette();
 	}
 
 }

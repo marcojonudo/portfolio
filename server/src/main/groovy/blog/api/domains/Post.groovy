@@ -12,11 +12,17 @@ class Post {
 	String title
 
 	@NotNull
+	String author
+
+	@NotNull
 	String content
 
 	@JsonFormat(pattern = Constants.DateTimeFormat.yyyy_MM_dd_HH_mm_ss, timezone = Constants.SPAIN_TIMEZONE)
 	LocalDateTime date
 
-	String image
+	String header
+	String headerBackground
+	String logo
+	String color
 
 }

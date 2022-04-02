@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Post } from '../objects/blog/post';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Url } from '../utils/url';
 import { LocalStorageService } from './local-storage.service';
@@ -21,9 +21,10 @@ export class BlogService {
 	filterText$: Observable<string>;
 
 	constructor(private http: HttpClient) {
-		this.post = new Post(LocalStorageService.getItem('post'));
+		const post = LocalStorageService.getItem('post');
+		this.post = post ? new Post(post) : undefined;
 		this.findPosts().subscribe((data: any[]) => {
-			this.posts = data.map(post => new Post(post));
+			this.posts = data.map(p => new Post(p));
 			this.postsSubject.next(this.posts);
 		});
 		this.postsSubject = new BehaviorSubject<Post[]>([]);

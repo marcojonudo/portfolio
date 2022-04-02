@@ -1,37 +1,93 @@
 @import "abstracts/mixins"
 
 \:host
-	height: 100%
 	@include flex-column
-	padding: $nav-height 0 0
-	overflow-y: auto
-	color: $black
 
-	#header-image
-		height: 40%
-		object-fit: cover
+	header
+		width: 100%
+		position: relative
+		background-color: $white
+
+		& > div
+			width: 100%
+			padding-top: calc(100% + 50px)
+
+			.header-image
+				height: calc(100% - 50px)
+				position: absolute
+				top: 50px
+
+				&.landscape
+					display: none
+
+			& > img
+
+				&:first-child
+					width: 100%
+
+				&:last-child
+					position: absolute
+					bottom: 0
 
 	#post
-		background-color: $white
-		border-radius: $border-radius $border-radius 0 0
 
 		&-header
 			@include flex-column-center
-			border-radius: $border-radius
+			padding: 1rem
+			background-image: url('/assets/img/post-title-background.svg')
+
+			.author
+				@include flex-column-center
+				font-weight: bold
+
+				.personal-image-container
+					width: 125px
+
+					.personal-image
+						border: 5px solid $black-alpha
+
+			h1
+				text-align: center
+
+			.date
+				font-size: .8em
+				color: $dark-grey
 
 		&-content
-			padding: 0 1.5rem
+			padding: 1rem
+			background-color: $white
+
+@media (min-width: 40rem)
+
+	header
+		height: 400px
+
+		& > div
+			@include flex-center
+			padding: 0 !important
+
+			.header-image
+
+				&.landscape
+					display: block !important
+
+				&.squared
+					display: none
 
 @media (min-width: 75rem)
 
+	header
+		@include elevation
+
 	#post
-		margin: 0 $biggest-gap
+		margin: $small-gap $biggest-gap
 
 		&-header
-			position: relative
-			top: -1.5rem
-			background-color: $white
+			@include elevation
+			border-radius: $border-radius
 
 		&-content
 			position: relative
-			top: -1.5rem
+			margin-top: $small-gap
+			border-radius: $border-radius
+			@include elevation

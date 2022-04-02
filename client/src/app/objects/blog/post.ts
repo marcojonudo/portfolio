@@ -4,15 +4,23 @@ import * as dayjs from 'dayjs';
 export class Post {
 
 	title: string;
+	author: string;
 	content: string;
 	date: Dayjs;
-	image: string;
+	header: string;
+	headerBackground: string;
+	logo: string;
+	color: string;
 
 	constructor(post: any) {
 		this.title = post.title;
+		this.author = post.author;
 		this.content = post.content;
 		this.date = dayjs(post.date);
-		this.image = post.image;
+		this.header = post.header;
+		this.headerBackground = post.headerBackground;
+		this.logo = post.logo;
+		this.color = post.color;
 	}
 
 }

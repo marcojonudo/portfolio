@@ -33,9 +33,7 @@
 
 		&-header
 			@include flex-column-center
-			padding: 1rem 0
-			@include elevation
-			border-radius: $border-radius
+			padding: 1rem
 			background-image: url('/assets/img/post-title-background.svg')
 
 			.author
@@ -48,15 +46,15 @@
 					.personal-image
 						border: 5px solid $black-alpha
 
+			h1
+				text-align: center
+
 			.date
 				font-size: .8em
 				color: $dark-grey
 
 		&-content
-			padding: 1rem 1.5rem
-			margin-top: $small-gap
-			border-radius: $border-radius
-			@include elevation
+			padding: 1rem
 			background-color: $white
 
 @media (min-width: 40rem)
@@ -85,7 +83,11 @@
 		margin: $small-gap $biggest-gap
 
 		&-header
-			background-color: $white
+			@include elevation
+			border-radius: $border-radius
 
 		&-content
 			position: relative
+			margin-top: $small-gap
+			border-radius: $border-radius
+			@include elevation

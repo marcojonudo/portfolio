@@ -43,6 +43,9 @@
 					height: 100%
 					@include flex-center
 
+				i
+					display: none
+
 			.button
 				height: 100%
 				@include button
@@ -123,8 +126,11 @@
 
 @media (min-width: 75rem)
 
-	#post-title
-		display: block !important
-		position: absolute
-		left: 17.5rem
+	nav
+		.section-wrapper i
+			display: inline-block !important
+
+		#post-title
+			display: block !important
+			padding-left: 2rem
 

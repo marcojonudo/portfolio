@@ -16,6 +16,7 @@
 		<div *ngIf="blog; else sections" class="section-wrapper" [class.flex-1]="post">
 			<div *ngIf="post">
 				<div class="button" (click)="navigateTo(blogUrl)">Blog</div>
+				<i class="fas fa-angle-right"></i>
 				<div id="post-title">{{findSelectedPost().title}}</div>
 			</div>
 			<input id="filter" type="text" [(ngModel)]="filterText" placeholder="Search" (keyup)="search()">

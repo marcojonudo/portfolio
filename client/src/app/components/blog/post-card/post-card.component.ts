@@ -1,10 +1,8 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
-import {Dayjs} from 'dayjs';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Dayjs } from 'dayjs';
 import { BlogService } from '../../../services/blog.service';
 import { Post } from '../../../objects/blog/post';
 import { Router } from '@angular/router';
-import { Constants } from '../../../utils/constants';
-import { AestheticsService } from '../../../services/aesthetics.service';
 
 @Component({
 	selector: 'app-post-card',

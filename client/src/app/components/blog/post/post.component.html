@@ -1,10 +1,16 @@
-<img [src]="post.image" id="header-image">
+<header>
+	<div>
+		<img [src]="post.headerBackground" class="header-image landscape">
+		<img [src]="post.header" class="header-image landscape">
+		<img [src]="post.logo" class="header-image squared">
+	</div>
+</header>
 <div id="post">
 	<div id="post-header">
 		<h1>{{post.title}}</h1>
 		<div>{{getDay() | date: 'dd/MM/yyyy'}}</div>
 	</div>
 	<div id="post-content">
-		<markdown [data]="post.content"></markdown>
+		<markdown emoji [data]="post.content"></markdown>
 	</div>
 </div>

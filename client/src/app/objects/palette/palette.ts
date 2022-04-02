@@ -18,7 +18,7 @@ export class Palette {
 	}
 
 	buildBackgroundImage(): string {
-		return `linear-gradient(${this.backgroundColor} 0%, ${this.backgroundColor} 100%), url('/assets/img/tiles_background.gif')`;
+		return `linear-gradient(${this.backgroundColor} 0%, ${this.backgroundColor} 100%), url('/assets/img/tiles-background.gif')`;
 	}
 
 	buildTranslucentStyles(dark: boolean = false): any {

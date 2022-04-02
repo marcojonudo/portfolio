@@ -1,37 +1,78 @@
 @import "abstracts/mixins"
 
 \:host
-	height: 100%
 	@include flex-column
-	padding: $nav-height 0 0
-	overflow-y: auto
-	color: $black
 
-	#header-image
-		height: 40%
-		object-fit: cover
+	header
+		width: 100%
+		position: relative
+		background-color: $white
+
+		& > div
+			width: 100%
+			padding-top: calc(100% + 50px)
+
+			.header-image
+				height: calc(100% - 50px)
+				position: absolute
+				top: 50px
+
+				&.landscape
+					display: none
+
+			& > img
+
+				&:first-child
+					width: 100%
+
+				&:last-child
+					position: absolute
+					bottom: 0
 
 	#post
 		background-color: $white
 		border-radius: $border-radius $border-radius 0 0
+		@include elevation
 
 		&-header
 			@include flex-column-center
+			padding: 1rem 0
 			border-radius: $border-radius
 
+			& > div
+				font-size: .8em
+				color: $dark-grey
+
 		&-content
-			padding: 0 1.5rem
+			padding: 0 1.5rem 1.5rem
+
+@media (min-width: 40rem)
+
+	header
+		height: 400px
+
+		& > div
+			@include flex-center
+			padding: 0 !important
+
+			.header-image
+
+				&.landscape
+					display: block !important
+
+				&.squared
+					display: none
 
 @media (min-width: 75rem)
 
+	header
+		@include elevation
+
 	#post
-		margin: 0 $biggest-gap
+		margin: $small-gap $biggest-gap
 
 		&-header
-			position: relative
-			top: -1.5rem
 			background-color: $white
 
 		&-content
 			position: relative
-			top: -1.5rem

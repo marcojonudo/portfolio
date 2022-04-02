@@ -8,23 +8,9 @@
 		width: 100%
 		@include flex-column-center
 
-		#me-image-container
+		.personal-image-container
 			width: 75%
-			max-width: 25rem
 			margin-bottom: $small-gap
-
-			> div
-				position: relative
-				padding-top: 100%
-
-				#me-image
-					width: 100%
-					height: 100%
-					position: absolute
-					top: 0
-					object-fit: cover
-					border-radius: 50%
-					border: 10px solid rgba(0, 0, 0, 0.3)
 
 		#me-text
 			@include flex-column
@@ -89,7 +75,7 @@
 		background-size: cover
 		background-repeat: no-repeat
 
-		#me-image-container
+		.about-image-container
 			display: none
 
 		#me-text

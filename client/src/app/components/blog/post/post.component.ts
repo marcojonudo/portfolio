@@ -15,7 +15,7 @@ import { AestheticsService } from '../../../services/aesthetics.service';
 })
 export class PostComponent implements AfterViewInit, OnDestroy {
 
-	private readonly HEADER_IMAGE = 'header-image';
+	private readonly FIXED_IMAGE = 'fixed-image';
 
 	@HostBinding(`style.${Constants.PROPERTY.BACKGROUND_IMAGE}`) backgroundImage: string;
 
@@ -50,7 +50,7 @@ export class PostComponent implements AfterViewInit, OnDestroy {
 
 	setImagesWidth(images: HTMLImageElement[]): void {
 		images.forEach(image => {
-			if (!image.className.includes(this.HEADER_IMAGE)) {
+			if (!image.className.includes(this.FIXED_IMAGE)) {
 				const w = image.alt.split('.')[0].split('_').reverse()[0];
 				const width = w && parseInt(w, 10) > 10 ? parseInt(w, 10) : 80;
 				image.style.width = `${width}%`;
@@ -67,5 +67,7 @@ export class PostComponent implements AfterViewInit, OnDestroy {
 	getDay(date: Dayjs = this.post.date): Date {
 		return date.toDate();
 	}
+
+	find
 
 }

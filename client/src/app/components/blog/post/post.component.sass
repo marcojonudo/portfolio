@@ -30,21 +30,34 @@
 					bottom: 0
 
 	#post
-		background-color: $white
-		border-radius: $border-radius $border-radius 0 0
-		@include elevation
 
 		&-header
 			@include flex-column-center
 			padding: 1rem 0
+			@include elevation
 			border-radius: $border-radius
+			background-image: url('/assets/img/post-title-background.svg')
 
-			& > div
+			.author
+				@include flex-column-center
+				font-weight: bold
+
+				.personal-image-container
+					width: 125px
+
+					.personal-image
+						border: 5px solid $black-alpha
+
+			.date
 				font-size: .8em
 				color: $dark-grey
 
 		&-content
-			padding: 0 1.5rem 1.5rem
+			padding: 1rem 1.5rem
+			margin-top: $small-gap
+			border-radius: $border-radius
+			@include elevation
+			background-color: $white
 
 @media (min-width: 40rem)
 

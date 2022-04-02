@@ -1,14 +1,25 @@
 <header>
 	<div>
-		<img [src]="post.headerBackground" class="header-image landscape">
-		<img [src]="post.header" class="header-image landscape">
-		<img [src]="post.logo" class="header-image squared">
+		<img [src]="post.headerBackground" class="header-image fixed-image landscape">
+		<img [src]="post.header" class="header-image fixed-image landscape">
+		<img [src]="post.logo" class="header-image fixed-image squared">
 	</div>
 </header>
 <div id="post">
 	<div id="post-header">
+		<div class="author">
+			<div class="personal-image-container">
+				<div>
+					<img
+						src="../../../../assets/img/me-portrait.jpg"
+						class="personal-image fixed-image"
+						[style.border-color]="post.color">
+				</div>
+			</div>
+			<span>{{post.author}}</span>
+		</div>
 		<h1>{{post.title}}</h1>
-		<div>{{getDay() | date: 'dd/MM/yyyy'}}</div>
+		<div class="date" [style.color]="post.color">{{getDay() | date: 'dd/MM/yyyy'}}</div>
 	</div>
 	<div id="post-content">
 		<markdown emoji [data]="post.content"></markdown>

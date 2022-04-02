@@ -37,8 +37,8 @@ flyway:
             enabled: true
 
 db:
-    url: ${DB_URL:localhost}
     port: ${DB_PORT:27017}
+    url: ${DB_IP:localhost}:${db.port}
     credentials:
         username: root
         password: root
@@ -48,4 +48,4 @@ db:
             collection: post
 
 mongodb:
-    uri: mongodb://${db.credentials.username}:${db.credentials.password}@${db.url}:${db.port}
+    uri: mongodb://${db.credentials.username}:${db.credentials.password}@${db.url}

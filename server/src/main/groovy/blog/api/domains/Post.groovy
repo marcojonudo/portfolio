@@ -24,5 +24,6 @@ class Post {
 	String headerBackground
 	String logo
 	String color
+	String path
 
 }

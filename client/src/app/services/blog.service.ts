@@ -64,8 +64,4 @@ export class BlogService {
 		this.postSubject.next(this.post);
 	}
 
-	parseTitle(title: string): string {
-		return title.toLowerCase().replace(' ', '-');
-	}
-
 }

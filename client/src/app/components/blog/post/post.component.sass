@@ -1,70 +1,78 @@
 @import "abstracts/mixins"
 
 \:host
+	height: 100%
 	@include flex-column
+	padding-top: $nav-height
 
-	header
-		width: 100%
-		position: relative
-		background-color: $white
+	#post-wrapper
+		height: 100%
 
-		& > div
+		header
 			width: 100%
-			padding-top: calc(100% + 50px)
-
-			.header-image
-				height: calc(100% - 50px)
-				position: absolute
-				top: 50px
-
-				&.landscape
-					display: none
-
-			& > img
-
-				&:first-child
-					width: 100%
-
-				&:last-child
-					position: absolute
-					bottom: 0
-
-	#post
-
-		&-header
-			@include flex-column-center
-			padding: 1rem
-			background-image: url('/assets/img/post-title-background.svg')
-
-			.author
-				@include flex-column-center
-				font-weight: bold
-
-				.personal-image-container
-					width: 125px
-
-					.personal-image
-						border: 5px solid $black-alpha
-
-			h1
-				text-align: center
-
-			.date
-				font-size: .8em
-				color: $dark-grey
-
-		&-content
-			padding: 1rem
+			position: relative
 			background-color: $white
+
+			& > div
+				width: 100%
+				padding-top: 100%
+
+				.header-image
+					height: 100%
+					position: absolute
+					top: 0
+
+					&.landscape
+						display: none
+
+				& > img
+
+					&:first-child
+						width: 100%
+
+					&:last-child
+						position: absolute
+						bottom: 0
+
+		#post
+
+			&-header
+				@include flex-column-center
+				padding: 1rem
+				background-image: url('/assets/img/post-title-background.svg')
+
+				.author
+					@include flex-column-center
+					font-weight: bold
+
+					.personal-image-container
+						width: 125px
+
+						.personal-image
+							border: 5px solid $black-alpha
+
+				h1
+					text-align: center
+
+				.date
+					font-size: .8em
+					color: $dark-grey
+
+			&-content
+				padding: 1rem
+				background-color: $white
 
 @media (min-width: 40rem)
 
 	header
-		height: 400px
+		height: $header-height
 
 		& > div
 			@include flex-center
 			padding: 0 !important
+
+			#header-image
+				width: 90%
 
 			.header-image
 
@@ -76,18 +84,26 @@
 
 @media (min-width: 75rem)
 
-	header
-		@include elevation
+	#post-wrapper
+		overflow-y: auto
+
+		header
+			@include elevation
+
+		#post
+			margin: $small-gap $bigger-gap
+
+			&-header
+				@include elevation
+				border-radius: $border-radius
+
+			&-content
+				position: relative
+				margin-top: $small-gap
+				border-radius: $border-radius
+				@include elevation
+
+@media (min-width: 100rem)
 
 	#post
-		margin: $small-gap $section-horizontal-padding
-
-		&-header
-			@include elevation
-			border-radius: $border-radius
-
-		&-content
-			position: relative
-			margin-top: $small-gap
-			border-radius: $border-radius
-			@include elevation
+		margin: $small-gap $section-horizontal-padding !important

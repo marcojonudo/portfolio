@@ -11,6 +11,7 @@ export class Post {
 	headerBackground: string;
 	logo: string;
 	color: string;
+	path: string;
 
 	constructor(post: any) {
 		this.title = post.title;
@@ -21,6 +22,7 @@ export class Post {
 		this.headerBackground = post.headerBackground;
 		this.logo = post.logo;
 		this.color = post.color;
+		this.path = post.path;
 	}
 
 }

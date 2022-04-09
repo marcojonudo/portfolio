@@ -18,7 +18,9 @@
 			</div>
 			<span>{{post.author}}</span>
 		</div>
-		<h1>{{post.title}}</h1>
+		<h1>
+			<markdown>{{post.title}}</markdown>
+		</h1>
 		<div class="date" [style.color]="post.color">{{getDay() | date: 'dd/MM/yyyy'}}</div>
 	</div>
 	<div id="post-content">

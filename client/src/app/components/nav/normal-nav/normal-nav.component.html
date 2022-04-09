@@ -17,7 +17,7 @@
 			<div *ngIf="post">
 				<div class="button" (click)="navigateTo(blogUrl)">Blog</div>
 				<i class="fas fa-angle-right"></i>
-				<div id="post-title">{{findSelectedPost().title}}</div>
+				<markdown id="post-title">{{findSelectedPost().title}}</markdown>
 			</div>
 			<input id="filter" type="text" [(ngModel)]="filterText" placeholder="Search" (keyup)="search()">
 		</div>

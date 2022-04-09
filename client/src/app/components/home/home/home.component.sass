@@ -4,7 +4,6 @@
 	display: flex
 	width: 100%
 	height: 100%
-	//color: red
 	overflow: hidden
 
 	#scrollable-container
@@ -18,7 +17,12 @@
 			transition: transform $fast-transition
 
 			.section
-				margin: 0 1.5rem
+				margin: 0 $default-gap
 
 	#welcome-container
 		@include flex-center
+
+@media (min-width: 75rem)
+
+	#scrollable-container
+		overflow-x: hidden

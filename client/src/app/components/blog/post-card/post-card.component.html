@@ -4,7 +4,7 @@
 			<img [src]="post.logo" class="image">
 		</div>
 	</div>
-	<div class="content">
+	<div class="content" [ngStyle]="palette.buildTextBlockStyles()">
 		<markdown class="title">{{post.title}}</markdown>
 		<div class="metadata">{{getDay() | date: 'dd/MM/yyyy'}}</div>
 	</div>

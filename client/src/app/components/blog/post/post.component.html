@@ -7,7 +7,7 @@
 		</div>
 	</header>
 	<div id="post">
-		<div id="post-header">
+		<div id="post-header" [ngStyle]="textBlockStyles">
 			<div class="author">
 				<div class="personal-image-container">
 					<div>
@@ -24,7 +24,7 @@
 			</h1>
 			<div class="date" [style.color]="post.color">{{getDay() | date: 'dd/MM/yyyy'}}</div>
 		</div>
-		<div id="post-content">
+		<div id="post-content" [ngStyle]="textBlockStyles">
 			<markdown emoji [data]="post.content"></markdown>
 		</div>
 	</div>

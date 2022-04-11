@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Post } from '../../../objects/blog/post';
 import { BlogService } from '../../../services/blog.service';
 import { AestheticsService } from '../../../services/aesthetics.service';
+import { Palette } from '../../../objects/palette/palette';
 
 @Component({
 	selector: 'app-blog-preview',
@@ -10,6 +11,8 @@ import { AestheticsService } from '../../../services/aesthetics.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlogPreviewComponent implements OnInit {
+
+	@Input() palette: Palette;
 
 	posts: Post[];
 

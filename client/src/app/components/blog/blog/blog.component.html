@@ -2,6 +2,6 @@
 	<app-post-card
 		*ngFor="let post of posts | title: filterText"
 		[post]="post"
-		class="dark-background">
+		[palette]="palette">
 	</app-post-card>
 </div>

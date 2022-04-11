@@ -10,6 +10,7 @@ import {
 import { User } from '../../../objects/users/user';
 import { fromEvent } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Palette } from '../../../objects/palette/palette';
 
 @Component({
 	selector: 'app-about',
@@ -20,6 +21,7 @@ import { tap } from 'rxjs/operators';
 export class AboutComponent implements AfterViewInit {
 
 	@Input() user: User;
+	@Input() palette: Palette;
 
 	private readonly LEFT_CARD_UP = 'left-card-up';
 	private readonly LEFT_CARD_DOWN = 'left-card-down';

@@ -4,8 +4,6 @@
 	position: relative
 	@include flex-column
 	cursor: pointer
-	background-color: $white
-	color: $black
 	border-radius: $border-radius
 	@include elevation
 
@@ -24,10 +22,14 @@
 				top: 0
 				object-fit: cover
 				border-radius: $border-radius $border-radius 0 0
+				background-color: $white
 
 	.content
 		@include flex-column-center
 		padding: 0 $small-gap $default-gap
+		border-radius: 0 0 $border-radius $border-radius
+		text-align: center
+		box-shadow: none !important
 
 		.title
 			font-size: 1.2em

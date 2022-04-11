@@ -18,6 +18,8 @@ import { NavService } from '../../../services/nav.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Constants } from '../../../utils/constants';
 import { Utils } from '../../../utils/utils';
+import { AestheticsService } from '../../../services/aesthetics.service';
+import { Palette } from '../../../objects/palette/palette';
 
 @Component({
 	selector: 'app-home',
@@ -39,9 +41,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	sectionSelectorOffset: number;
 	scrollTop: number;
 
+	palette: Palette;
 	styles: Style[];
 
-	constructor(private navService: NavService, private deviceDetector: DeviceDetectorService, private cdRef: ChangeDetectorRef) {
+	constructor(
+		private navService: NavService,
+		private deviceDetector: DeviceDetectorService,
+		private aestheticsService: AestheticsService,
+		private cdRef: ChangeDetectorRef
+	) {
 		this.styles = [];
 		this.scrollTop = 0;
 
@@ -54,6 +62,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.styleIndexSubscription = NotificationService.styles$.subscribe((styles: Style[]) => {
 			this.styles = styles;
 			this.cdRef.detectChanges();
+		});
+		this.aestheticsService.palette$.subscribe(palette => {
+			this.palette = palette;
 		});
 	}
 

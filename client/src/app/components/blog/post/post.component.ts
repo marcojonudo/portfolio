@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, HostBinding, OnDestroy } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { BlogService } from '../../../services/blog.service';
 import { Post } from '../../../objects/blog/post';
@@ -13,7 +13,7 @@ import { AestheticsService } from '../../../services/aesthetics.service';
 	styleUrls: ['./post.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PostComponent implements AfterViewInit, OnDestroy {
+export class PostComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	private readonly FIXED_IMAGE = 'fixed-image';
 
@@ -21,15 +21,23 @@ export class PostComponent implements AfterViewInit, OnDestroy {
 
 	postSubscription: Subscription;
 	post: Post;
+	translucentStyles: any;
+	textBlockStyles: any;
 
-	constructor(private blogService: BlogService, private aestheticsService: AestheticsService) {
+	constructor(private blogService: BlogService, private aestheticsService: AestheticsService, private cdRef: ChangeDetectorRef) {
 		this.postSubscription = this.findContent().subscribe(post => {
 			this.post = post;
 		});
+	}
+
+	ngOnInit(): void {
 		this.aestheticsService.palette$.subscribe(palette => {
-			this.backgroundImage = palette.buildBackgroundImage();
+			this.translucentStyles = palette.buildTranslucentStyles();
+			this.textBlockStyles = palette.buildTextBlockStyles();
+			this.cdRef.detectChanges();
 		});
 	}
+
 
 	ngAfterViewInit(): void {
 		this.setParagraphStyle(Array.from(document.getElementsByTagName('p')));
@@ -60,14 +68,12 @@ export class PostComponent implements AfterViewInit, OnDestroy {
 
 	findContent(): Observable<Post> {
 		return this.blogService.post$.pipe(
-			tap(post => console.log(post))
+			tap(post => console.log('Post', post))
 		);
 	}
 
 	getDay(date: Dayjs = this.post.date): Date {
 		return date.toDate();
 	}
-
-	find
 
 }

@@ -3,7 +3,7 @@
 	<span><span class="bold">M</span>artínez </span>
 	<span><span class="bold">Á</span>vila</span>
 </h2>
-<div id="details" [ngStyle]="translucentStyles">
+<div id="details" [ngStyle]="palette.buildTranslucentStyles()">
 	<div>Self-taught</div>
 	<div>Non-conformist</div>
 	<div>Perfectionist</div>
@@ -33,13 +33,13 @@
 <div id="user-selector" class="link-container">
 	<div
 		[ngClass]="{'selected': checkSelectedUser(normalUser)}"
-		[ngStyle]="translucentStyles"
+		[ngStyle]="palette.buildTranslucentStyles()"
 		(click)="selectUser(normalUser)">
 		Normal user
 	</div>
 	<div
 		[ngClass]="{'selected': checkSelectedUser(devUser)}"
-		[ngStyle]="translucentStyles"
+		[ngStyle]="palette.buildTranslucentStyles()"
 		(click)="selectUser(devUser)">
 		Developer
 	</div>

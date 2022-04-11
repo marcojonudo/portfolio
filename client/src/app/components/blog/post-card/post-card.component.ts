@@ -3,6 +3,7 @@ import { Dayjs } from 'dayjs';
 import { BlogService } from '../../../services/blog.service';
 import { Post } from '../../../objects/blog/post';
 import { Router } from '@angular/router';
+import { Palette } from '../../../objects/palette/palette';
 
 @Component({
 	selector: 'app-post-card',
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 export class PostCardComponent {
 
 	@Input() post: Post;
+	@Input() palette: Palette;
 
 	constructor(private blogService: BlogService, private router: Router) {}
 

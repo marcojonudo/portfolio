@@ -2,7 +2,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { NavService } from '../../../services/nav.service';
 import { Post } from '../../../objects/blog/post';
 import { BlogService } from '../../../services/blog.service';
-import { switchMap } from 'rxjs/operators';
+import { concatMap, switchMap } from 'rxjs/operators';
+import { AestheticsService } from '../../../services/aesthetics.service';
+import { Palette } from '../../../objects/palette/palette';
 
 @Component({
 	selector: 'app-blog',
@@ -14,12 +16,22 @@ export class BlogComponent implements OnInit {
 
 	posts: Post[];
 	filterText: string;
+	palette: Palette;
 
-	constructor(private navService: NavService, private blogService: BlogService, private cdRef: ChangeDetectorRef) {
+	constructor(
+		private navService: NavService,
+		private blogService: BlogService,
+		private aestheticsService: AestheticsService,
+		private cdRef: ChangeDetectorRef
+	) {
 		this.posts = [];
 	}
 
 	ngOnInit(): void {
+		this.aestheticsService.palette$.subscribe(palette => {
+			this.palette = palette;
+			this.cdRef.detectChanges();
+		});
 		this.blogService.posts$.pipe(
 			switchMap(posts => {
 				this.posts = posts;

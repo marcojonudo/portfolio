@@ -10,6 +10,7 @@ import { NavService } from './services/nav.service';
 import { Device } from './objects/device/device';
 import { Constants } from './utils/constants';
 import { AestheticsService } from './services/aesthetics.service';
+import { Palette } from './objects/palette/palette';
 
 @Component({
 	selector: 'app-root',
@@ -26,6 +27,7 @@ export class AppComponent {
 	user: User;
 	section: Section;
 	device: Device;
+	palette: Palette;
 
 	constructor(private navService: NavService, private aestheticsService: AestheticsService) {
 		this.user = new NormalUser();
@@ -37,6 +39,7 @@ export class AppComponent {
 			this.user = user;
 		});
 		this.aestheticsService.palette$.subscribe(palette => {
+			this.palette = palette;
 			this.backgroundImage = palette.buildBackgroundImage();
 			this.color = palette.color;
 		});

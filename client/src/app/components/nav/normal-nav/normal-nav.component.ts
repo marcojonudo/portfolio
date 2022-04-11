@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NavService } from '../../../services/nav.service';
 import { BlogService } from '../../../services/blog.service';
 import { NavigationEnd, Router } from '@angular/router';
@@ -44,6 +44,8 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 
 	private readonly BUTTON_WIDTH_REM: number = 6.5;
 
+	@Input() palette: Palette;
+
 	navWidth: number;
 	translateY: string;
 
@@ -51,7 +53,6 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 	blog: boolean;
 	post: boolean;
 	filterText: string;
-	palette: Palette;
 
 	private translateYSubscription: Subscription;
 
@@ -64,10 +65,6 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 	) {
 		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 		this.navWidth = this.BUTTON_WIDTH_REM * fontSize * Constants.SECTIONS;
-
-		this.aestheticsService.palette$.subscribe(palette => {
-			this.palette = palette;
-		});
 	}
 
 	ngOnInit(): void {

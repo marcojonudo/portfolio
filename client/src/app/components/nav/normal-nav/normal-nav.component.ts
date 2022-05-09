@@ -42,7 +42,8 @@ import { Palette } from '../../../objects/palette/palette';
 })
 export class NormalNavComponent implements OnInit, OnDestroy {
 
-	private readonly BUTTON_WIDTH_REM: number = 6.5;
+	private readonly BUTTON_WIDTH_REM: number = 6;
+	private readonly COLOR_SELECTOR_WIDTH_REM: number = 3.5;
 
 	@Input() palette: Palette;
 
@@ -64,7 +65,7 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 		private cdRef: ChangeDetectorRef
 	) {
 		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-		this.navWidth = this.BUTTON_WIDTH_REM * fontSize * Constants.SECTIONS;
+		this.navWidth = (this.BUTTON_WIDTH_REM * Constants.SECTIONS + this.COLOR_SELECTOR_WIDTH_REM) * fontSize;
 	}
 
 	ngOnInit(): void {
@@ -80,6 +81,7 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 				} else {
 					this.navService.stickNav = false;
 					this.blog = false;
+					this.post = false;
 				}
 			}
 		});
@@ -126,21 +128,30 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 
 	// endregion
 
-	findNavTranslate(blog: boolean = this.blog, translateY: string = this.translateY): string {
+	findNavContainerTranslate(blog: boolean = this.blog, translateY: string = this.translateY): string {
 		return `translateY(${blog ? 0 : translateY})`;
 	}
+
+	// findNavStyles(
+	// 	palette: Palette = this.palette, stick: boolean = this.navService.stickNav, leftPercentage: number = this.leftPercentage
+	// ): any {
+	// 	const styles = palette.buildTranslucentStyles(stick);
+	// 	styles.transform = `translateX(${leftPercentage}%)`;
+	// 	console.log(styles);
+	// 	return styles;
+	// }
 
 	checkSelectedSection(section: Section, url: string = this.url, selectedSection: Section = this.navService.section): boolean {
 		return url === Constants.URL.HOME && section.type === selectedSection.type;
 	}
 
-	selectSection(section: Section): void {
+	selectSection(section: Section = this.welcomeSection): void {
 		this.navigateTo(Constants.URL.HOME);
 		this.navService.section = section;
 		NotificationService.notifySection(this.navService.section);
 	}
 
-	navigateTo(path: string): void {
+	navigateTo(path: string = this.blogUrl): void {
 		this.router.navigate([path]);
 	}
 

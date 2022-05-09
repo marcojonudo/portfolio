@@ -17,37 +17,58 @@
 
 		#nav
 			height: 100%
+			width: 100%
 			@include flex-center
 			position: relative
 			border-radius: $border-radius
-			transition: background-color $medium-transition, width $medium-transition
+			transition: background-color $medium-transition, width $medium-transition, transform 1s
 
-			&.blog
-				justify-content: space-between
+			#navigation
+				height: 100%
+				@include flex-1
+				display: flex
+
+				#main-button
+					@include flex-1
+					position: relative
+					overflow: hidden
+
+					& > div
+						width: 100%
+						height: 100%
+						position: absolute
+						@include flex-center
+						transition: translate $fast-transition
+
+				#main-section-buttons
+					flex: 3 0 0
+					display: flex
+
+					& > div
+						@include flex-1
+
+				#post-navigation
+					display: none
+
+			.hide
+				opacity: 0
+				pointer-events: none
+
+			#filter
+				width: 60%
+				position: absolute
+				left: 50%
+				padding: $smaller-gap
+				border-radius: $bigger-gap
+				background-color: $light-grey
+				text-align: center
+				transform: translateX(-50%)
 
 			&.stick
 				background-color: $dark-primary
 				width: 100% !important
 				border-bottom: 1px solid #38425d
 				border-radius: 0
-
-			.section-wrapper
-				height: 100%
-				@include flex-center
-				justify-content: space-between
-
-				&.flex-3
-					flex: 3 0 0
-
-					.button
-						flex: 1 0 0
-
-				& > div
-					height: 100%
-					@include flex-center
-
-				i
-					display: none
 
 			.button
 				height: 100%
@@ -77,17 +98,11 @@
 			#post-title
 				display: none
 
-			#filter
-				padding: $smaller-gap
-				border-radius: $bigger-gap
-				background-color: $light-grey
-				text-align: center
-
 			#color-selector-wrapper
 				width: $mobile-button-width
 				@include flex-center
 				position: relative
-				margin: 0 $small-gap
+				right: 0
 
 				#color-selector
 					height: 1.5rem
@@ -127,28 +142,37 @@
 		flex: none !important
 		width: $button-width
 
-	.section-wrapper
+	#main-button
+		width: $button-width
 		flex: none !important
 
-		&.flex-1
-			flex: 1 0 0 !important
+	#home-icon
+		opacity: 1 !important
+		pointer-events: auto !important
+
+	#blog-icon
+		opacity: 0 !important
+		pointer-events: none !important
+
+	#post-navigation
+		height: 100%
+		position: absolute
+		left: $button-width
+		display: flex !important
+		align-items: center
+
+	#main-section-buttons
+		flex: none !important
 
 	#filter
-		margin-left: auto
-		margin-right: 3.5rem
-
-	#color-selector-wrapper
-		position: absolute !important
-		right: 0 !important
-		margin: 0 !important
+		width: 20% !important
+		left: auto !important
+		right: $mobile-button-width !important
+		transform: none !important
 
 @media (min-width: 75rem)
 
-	nav
-		.section-wrapper i
-			display: inline-block !important
-
-		#post-title
+	nav #post-title
 			display: block !important
 			padding-left: 2rem
 

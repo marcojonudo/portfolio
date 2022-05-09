@@ -38,7 +38,6 @@ export class PostComponent implements OnInit, AfterViewInit, OnDestroy {
 		});
 	}
 
-
 	ngAfterViewInit(): void {
 		this.setParagraphStyle(Array.from(document.getElementsByTagName('p')));
 		this.setImagesWidth(Array.from(document.images));

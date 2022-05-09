@@ -1,28 +1,30 @@
 <div
 	id="nav-container"
 	[class.pin]="!navService.transition"
-	[style.transform]="findNavTranslate()">
+	[style.transform]="findNavContainerTranslate()">
 	<nav
 		id="nav"
 		[style.width.px]="navWidth"
-		[ngClass]="{'stick': navService.stickNav, 'blog': blog}"
+		[class.stick]="navService.stickNav"
 		[ngStyle]="palette.buildTranslucentStyles(navService.stickNav)">
-		<div
-			class="button"
-			[ngClass]="{'selected': checkSelectedSection(welcomeSection), 'flex-1': !blog}"
-			(click)="selectSection(welcomeSection)">
-			<i class="fas fa-home"></i>
-		</div>
-		<div *ngIf="blog; else sections" class="section-wrapper" [class.flex-1]="post">
-			<div *ngIf="post">
-				<div class="button" (click)="navigateTo(blogUrl)">Blog</div>
-				<i class="fas fa-angle-right"></i>
-				<markdown id="post-title">{{findSelectedPost().title}}</markdown>
+		<div id="navigation">
+			<div id="main-button">
+				<div
+					id="home-icon"
+					class="button"
+					[class.hide]="post"
+					(click)="selectSection(welcomeSection)">
+					<i class="fas fa-home"></i>
+				</div>
+				<div
+					id="blog-icon"
+					class="button"
+					[class.hide]="!post"
+					(click)="navigateTo(blogUrl)">
+					<i class="fas fa-list-ul"></i>
+				</div>
 			</div>
-			<input id="filter" type="text" [(ngModel)]="filterText" placeholder="Search" (keyup)="search()">
-		</div>
-		<ng-template #sections>
-			<div class="section-wrapper" [class.flex-3]="!blog">
+			<div id="main-section-buttons" [class.hide]="blog">
 				<div
 					class="button"
 					[ngClass]="{'selected': checkSelectedSection(aboutSection)}"
@@ -36,8 +38,20 @@
 					[ngClass]="{'selected': blog || checkSelectedSection(blogSection)}"
 					(click)="navigateTo(blogUrl)">Blog</div>
 			</div>
-		</ng-template>
-		<div *ngIf="navService.stickNav" id="color-selector-wrapper" (click)="togglePalette()" [@inOutAnimation]>
+			<div id="post-navigation" [class.hide]="!post">
+				<div class="button" (click)="navigateTo(blogUrl)">Blog</div>
+				<i class="fas fa-angle-right"></i>
+				<markdown id="post-title">{{findSelectedPost().title}}</markdown>
+			</div>
+		</div>
+		<input
+			id="filter"
+			[class.hide]="!blog"
+			type="text"
+			[(ngModel)]="filterText"
+			placeholder="Search"
+			(keyup)="search()">
+		<div id="color-selector-wrapper" (click)="togglePalette()" [@inOutAnimation]>
 			<div id="color-selector">
 				<div
 					*ngFor="let palette of palettes; let i = index"

@@ -12,6 +12,7 @@ export class Post {
 	logo: string;
 	color: string;
 	path: string;
+	comments: Comment[];
 
 	constructor(post: any) {
 		this.title = post.title;

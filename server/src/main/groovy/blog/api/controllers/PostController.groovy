@@ -7,13 +7,13 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import jakarta.inject.Inject
 
-@Controller
+@Controller("/posts")
 @CompileStatic
-class BlogController {
+class PostController {
 
 	@Inject PostRepository postRepository
 
-	@Get("/posts")
+	@Get
 	List<Post> getPosts() {
 		return postRepository.findAll()
     }

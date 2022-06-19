@@ -13,7 +13,7 @@ import { BlogComponent } from './components/blog/blog/blog.component';
 import { HomeComponent } from './components/home/home/home.component';
 import { PostCardComponent } from './components/blog/post-card/post-card.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostComponent } from './components/blog/post/post.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -23,6 +23,15 @@ import { DraggableDirective } from './directives/draggable.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NewCommentComponent } from './components/new-comment/new-comment.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { CommentComponent } from './components/comment/comment.component';
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
 	declarations: [
@@ -39,7 +48,9 @@ import { CommonModule } from '@angular/common';
 		PostComponent,
 		TitlePipe,
 		NormalNavComponent,
-		DraggableDirective
+		DraggableDirective,
+  		NewCommentComponent,
+   		CommentComponent
 	],
 	imports: [
 		BrowserModule,
@@ -50,9 +61,21 @@ import { CommonModule } from '@angular/common';
 		MarkdownModule.forRoot({ loader: HttpClient }),
 		BrowserAnimationsModule,
 		RouterModule,
-		CommonModule
+		CommonModule,
+		ReactiveFormsModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatButtonModule,
+		MatIconModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+
+	constructor() {
+		dayjs.extend(utc);
+		dayjs.extend(timezone);
+	}
+
+}

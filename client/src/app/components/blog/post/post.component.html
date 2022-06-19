@@ -28,4 +28,13 @@
 			<markdown emoji [data]="post.content"></markdown>
 		</div>
 	</div>
+	<app-new-comment [postPath]="post.path" [translucentStyles]="translucentStyles"></app-new-comment>
+	<div>
+		<app-comment
+			*ngFor="let comment of parents"
+			[post]="post"
+			[comment]="comment"
+			[translucentStyles]="translucentStyles">
+		</app-comment>
+	</div>
 </section>

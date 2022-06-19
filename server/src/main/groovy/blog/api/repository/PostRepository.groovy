@@ -16,6 +16,11 @@ class PostRepository {
     List<Post> findAll() {
         return getCollection().find().into([])
     }
+
+//    Comment save() {
+//        getCollection().updateO
+//        return getCollection().find().into([])
+//    }
     
     private MongoCollection<Post> getCollection() {
         return mongoClient.getDatabase(postConfig.name).getCollection(postConfig.collection, Post)

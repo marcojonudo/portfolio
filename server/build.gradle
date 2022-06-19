@@ -30,6 +30,10 @@ dependencies {
     implementation("io.micronaut:micronaut-management")
     implementation("io.micronaut.flyway:micronaut-flyway")
     implementation("io.micronaut.mongodb:micronaut-mongo-sync")
+
+    implementation("commons-logging:commons-logging:1.2")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3")
+    implementation("org.codehaus.janino:janino:3.1.7")
 }
 
 application {

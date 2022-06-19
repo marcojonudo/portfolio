@@ -90,7 +90,7 @@
 		header
 			@include elevation
 
-		#post
+		#post, #new-comment-container, #comments-container
 			margin: $small-gap $bigger-gap
 
 			&-header
@@ -103,7 +103,15 @@
 				border-radius: $border-radius
 				@include elevation
 
+		#new-comment-container, #comments-container
+			margin: $small-gap $bigger-gap
+			border-radius: $border-radius
+
 @media (min-width: 100rem)
 
-	#post
+	#post, #new-comment-container, #comments-container
 		margin: $small-gap $section-horizontal-padding !important
+
+	#new-comment-container, #comments-container
+		margin: $small-gap $section-horizontal-padding !important
+		border-radius: $border-radius

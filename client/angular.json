@@ -28,8 +28,9 @@
                             "src/assets"
                         ],
                         "styles": [
-                            "src/styles/main.sass",
-							"node_modules/prismjs/themes/prism-okaidia.css"
+                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+							"src/styles/main.sass",
+                                                                                    "node_modules/prismjs/themes/prism-okaidia.css"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
@@ -116,7 +117,8 @@
                             "src/assets"
                         ],
                         "styles": [
-                            "src/styles/main.sass"
+                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                                                                                    "src/styles/main.sass"
                         ],
                         "scripts": []
                     }

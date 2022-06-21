@@ -38,7 +38,7 @@ flyway:
 
 db:
     port: ${DB_PORT:27017}
-    url: ${DB_IP:localhost}:${db.port}
+    url: ${DB_IP:217.71.207.101}:${db.port}
     credentials:
         username: root
         password: root
@@ -46,6 +46,9 @@ db:
         post:
             name: blog
             collection: post
+        comment:
+            name: blog
+            collection: comment
 
 mongodb:
     uri: mongodb://${db.credentials.username}:${db.credentials.password}@${db.url}

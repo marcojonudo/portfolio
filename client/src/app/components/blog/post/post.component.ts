@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import { Dayjs } from 'dayjs';
 import { Constants } from '../../../utils/constants';
 import { AestheticsService } from '../../../services/aesthetics.service';
+import { Comment } from '../../../objects/blog/comment';
 
 @Component({
 	selector: 'app-post',
@@ -21,12 +22,21 @@ export class PostComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	postSubscription: Subscription;
 	post: Post;
+	parents: Comment[];
 	translucentStyles: any;
 	textBlockStyles: any;
 
 	constructor(private blogService: BlogService, private aestheticsService: AestheticsService, private cdRef: ChangeDetectorRef) {
 		this.postSubscription = this.findContent().subscribe(post => {
 			this.post = post;
+		});
+		this.blogService.findComments(this.post.path).subscribe(() => {
+			this.parents = this.buildGroupedComments();
+			this.cdRef.detectChanges();
+		});
+		this.blogService.comments$.subscribe(() => {
+			this.parents = this.buildGroupedComments();
+			this.cdRef.detectChanges();
 		});
 	}
 
@@ -45,6 +55,12 @@ export class PostComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.postSubscription.unsubscribe();
+	}
+
+	buildGroupedComments(): Comment[] {
+		const parents = this.blogService.groupComments();
+		console.log('Grouped comments', parents);
+		return parents;
 	}
 
 	setParagraphStyle(paragraphs: any[]): void {

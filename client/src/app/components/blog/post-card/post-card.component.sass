@@ -7,6 +7,10 @@
 	border-radius: $border-radius
 	@include elevation
 
+	a
+		height: 100%
+		@include flex-column
+
 	.image-container
 		width: 100%
 		position: relative
@@ -25,6 +29,7 @@
 				background-color: $white
 
 	.content
+		@include flex-1
 		@include flex-column-center
 		padding: 0 $small-gap $default-gap
 		border-radius: 0 0 $border-radius $border-radius

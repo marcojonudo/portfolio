@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
 import { StyleIndex } from '../../objects/style-index';
 import { NavService } from '../../services/nav.service';
@@ -6,6 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Coordinates } from '../../objects/coordinates';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Constants } from '../../utils/constants';
+import { Palette } from '../../objects/palette/palette';
 
 @Component({
 	selector: 'app-style-editor',
@@ -34,6 +35,8 @@ import { Constants } from '../../utils/constants';
 export class StyleEditorComponent {
 
 	@HostBinding('class.opened') opened: boolean;
+
+	@Input() palette: Palette;
 
 	styles: StyleIndex[];
 	addedStyles: StyleIndex[];

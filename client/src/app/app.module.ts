@@ -32,6 +32,7 @@ import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
 import { MatIconModule } from '@angular/material/icon';
+import { DateSortPipe } from './pipes/date-sort.pipe';
 
 @NgModule({
 	declarations: [
@@ -49,8 +50,9 @@ import { MatIconModule } from '@angular/material/icon';
 		TitlePipe,
 		NormalNavComponent,
 		DraggableDirective,
-  		NewCommentComponent,
-   		CommentComponent
+		NewCommentComponent,
+		CommentComponent,
+		DateSortPipe
 	],
 	imports: [
 		BrowserModule,

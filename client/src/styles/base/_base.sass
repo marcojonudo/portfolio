@@ -12,6 +12,7 @@ body
 	background-size: cover, 600px
 	user-select: none
 	line-height: 1.5
+	font-family: Roboto, Helvetica Neue, sans-serif
 
 ::-webkit-scrollbar
 	height: 9px
@@ -140,11 +141,13 @@ body
 	transform: translateY(-1.1em) scale(.75)
 	width: 133.33333%
 
-.mat-focused .mat-form-field-label, .mat-form-field-label
-	color: $light-grey !important
+#nav-container
 
-.mat-form-field-outline
-	color: $light-grey !important
+	.mat-focused .mat-form-field-label, .mat-form-field-label
+		color: $light-grey !important
+
+	.mat-form-field-outline
+		color: $light-grey !important
 
 .personal-image-container
 
@@ -168,6 +171,10 @@ code
 	font-size: 87.5%
 	color: #e83e8c
 	word-break: break-word
+
+#post ol, ul
+	list-style: disc !important
+	padding-left: 1.5rem !important
 
 @media (max-width: 650px)
 

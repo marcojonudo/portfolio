@@ -41,7 +41,7 @@
 			<div id="post-navigation" [class.hide]="!post">
 				<div class="button" (click)="navigateTo(blogUrl)">Blog</div>
 				<mat-icon>chevron_right</mat-icon>
-				<markdown id="post-title">{{findSelectedPost()?.title}}</markdown>
+				<markdown id="post-title" [data]="findSelectedPost()?.title"></markdown>
 			</div>
 		</div>
 		<mat-form-field

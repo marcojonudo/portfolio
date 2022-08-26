@@ -27,11 +27,11 @@
 			(input)="setValue(style)">
 	</span>
 		<span class="symbol">;</span>
-		<i
-			class="fas fa-trash-alt"
+		<mat-icon
 			[ngClass]="{'disabled': checkDisabledTrash(style)}"
 			(click)="removeStyleFromTrash(style)">
-		</i>
+			delete
+		</mat-icon>
 	</div>
 	<div>{{'}'}}</div>
 </div>

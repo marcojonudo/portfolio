@@ -14,14 +14,14 @@
 					class="button"
 					[class.hide]="post"
 					(click)="selectSection(welcomeSection)">
-					<i class="fas fa-home"></i>
+					<mat-icon>home</mat-icon>
 				</div>
 				<div
 					id="blog-icon"
 					class="button"
 					[class.hide]="!post"
 					(click)="navigateTo(blogUrl)">
-					<i class="fas fa-list-ul"></i>
+					<mat-icon>list</mat-icon>
 				</div>
 			</div>
 			<div id="main-section-buttons" [class.hide]="blog">
@@ -40,17 +40,19 @@
 			</div>
 			<div id="post-navigation" [class.hide]="!post">
 				<div class="button" (click)="navigateTo(blogUrl)">Blog</div>
-				<i class="fas fa-angle-right"></i>
-				<markdown id="post-title">{{findSelectedPost().title}}</markdown>
+				<mat-icon>chevron_right</mat-icon>
+				<markdown id="post-title">{{findSelectedPost()?.title}}</markdown>
 			</div>
 		</div>
-		<input
+		<mat-form-field
 			id="filter"
-			[class.hide]="!blog"
+			[class.hide]="checkHideSearchBar()"
 			type="text"
-			[(ngModel)]="filterText"
-			placeholder="Search"
-			(keyup)="search()">
+			(keyup)="search()"
+			appearance="outline">
+			<mat-label>Search</mat-label>
+			<input matInput [formControl]="filterTextControl">
+		</mat-form-field>
 		<div id="color-selector-wrapper" (click)="togglePalette()" [@inOutAnimation]>
 			<div id="color-selector">
 				<div

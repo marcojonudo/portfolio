@@ -3,6 +3,7 @@
 \:host
 	height: 100%
 	@include flex-column
+	box-sizing: border-box
 	padding-top: $nav-height
 
 	#post-wrapper
@@ -82,6 +83,9 @@
 				&.squared
 					display: none
 
+	#post-content
+		padding: $default-gap $medium-gap !important
+
 @media (min-width: 75rem)
 
 	#post-wrapper
@@ -101,6 +105,7 @@
 				position: relative
 				margin-top: $small-gap
 				border-radius: $border-radius
+				padding: $default-gap $medium-gap !important
 				@include elevation
 
 		#new-comment-container, #comments-container

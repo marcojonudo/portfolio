@@ -30,7 +30,7 @@
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
 							"src/styles/main.sass",
-                                                                                    "node_modules/prismjs/themes/prism-okaidia.css"
+							"node_modules/prismjs/themes/prism-okaidia.css"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
@@ -118,7 +118,7 @@
                         ],
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-                                                                                    "src/styles/main.sass"
+							"src/styles/main.sass"
                         ],
                         "scripts": []
                     }

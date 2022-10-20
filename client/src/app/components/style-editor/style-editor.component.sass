@@ -54,8 +54,7 @@
 				left: 0
 				opacity: 1
 				border-radius: 6px
-				background-color: $white
-				transition: $fast-transition
+				transition: color $fast-transition
 				transform-origin: left center
 
 				&:first-child
@@ -72,7 +71,6 @@
 		padding: 1.5rem
 		overflow-y: auto
 		background-color: $black-dark-alpha
-		border-radius: $border-radius
 
 		#styled-div-select
 			@include dark-background
@@ -119,3 +117,11 @@
 		#style-container
 			min-width: 15rem
 			max-height: 12rem
+			border-radius: $border-radius
+			transition: none !important
+
+			.input
+				cursor: text
+
+			.delete-icon
+				cursor: pointer

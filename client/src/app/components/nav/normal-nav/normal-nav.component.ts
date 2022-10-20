@@ -15,6 +15,7 @@ import { Post } from '../../../objects/blog/post';
 import { AestheticsService } from '../../../services/aesthetics.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Palette } from '../../../objects/palette/palette';
+import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'app-normal-nav',
@@ -53,7 +54,7 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 	url: string;
 	blog: boolean;
 	post: boolean;
-	filterText: string;
+	filterTextControl: FormControl;
 
 	private translateYSubscription: Subscription;
 
@@ -66,6 +67,7 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 	) {
 		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 		this.navWidth = (this.BUTTON_WIDTH_REM * Constants.SECTIONS + this.COLOR_SELECTOR_WIDTH_REM) * fontSize;
+		this.filterTextControl = new FormControl('');
 	}
 
 	ngOnInit(): void {
@@ -155,8 +157,12 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 		this.router.navigate([path]);
 	}
 
-	search(): void {
-		this.blogService.search(this.filterText);
+	checkHideSearchBar(blog: boolean = this.blog, post: boolean = this.post): boolean {
+		return !blog || post;
+	}
+
+	search(text: string = this.filterTextControl.value): void {
+		this.blogService.search(text);
 	}
 
 	findSelectedPost(): Post {

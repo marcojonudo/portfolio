@@ -28,8 +28,10 @@
 			<markdown emoji [data]="post.content"></markdown>
 		</div>
 	</div>
-	<app-new-comment [postPath]="post.path" [translucentStyles]="translucentStyles"></app-new-comment>
-	<div>
+	<div id="new-comment-container" [ngStyle]="textBlockStyles">
+		<app-new-comment [postPath]="post.path" [translucentStyles]="translucentStyles"></app-new-comment>
+	</div>
+	<div id="comments-container" [ngStyle]="textBlockStyles">
 		<app-comment
 			*ngFor="let comment of parents"
 			[post]="post"

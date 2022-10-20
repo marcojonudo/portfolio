@@ -37,34 +37,14 @@ export class SkillsComponent {
 				'angular'
 			),
 			new Skill(
-				'Spock',
-				'Testing in production, or with endless request/debug processes? I\'d rather not',
-				'spock'
-			),
-			new Skill(
 				'Docker',
 				'An excellent project is not the only goal. We need a way to standardise it among the different environments',
 				'docker'
 			),
 			new Skill(
-				'CI/CD',
-				'So many things to automate! What about automatic versioning, test execution or docker image creation?',
-				'ci-cd'
-			),
-			new Skill(
-				'OpenAPI',
-				'Technical documentation may be quite more interesting than a verbose one; however, I also love writing, just in case',
-				'swagger'
-			),
-			new Skill(
-				'Git',
-				'How to improve projects or deploy new versions without knowing what has been going on before?',
-				'git'
-			),
-			new Skill(
-				'Gradle',
-				'Mix front with back technologies, auto-generated documentation and some custom dependencies with style',
-				'gradle'
+				'Kubernetes',
+				'Working hard in local environment, rolling in production',
+				'kubernetes'
 			)
 		];
 	}

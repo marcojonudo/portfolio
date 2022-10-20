@@ -1,11 +1,11 @@
 <div id="menu-button" (click)="toggleOpened()" [@inOutAnimation]>
 	<div id="menu-button-lines-wrapper">
-		<span></span>
-		<span></span>
-		<span></span>
+		<span [style.background-color]="opened ? '#fff' : palette.darkTranslucidBackgroundColor"></span>
+		<span [style.background-color]="opened ? '#fff' : palette.darkTranslucidBackgroundColor"></span>
+		<span [style.background-color]="opened ? '#fff' : palette.darkTranslucidBackgroundColor"></span>
 	</div>
 </div>
-<div id="style-container" [style.transform]="findTransform()">
+<div id="style-container" [style.transform]="findTransform()" [ngStyle]="palette.buildTranslucentStyles()">
 	<div>
 		<select id="styled-div-select" [(ngModel)]="selectedDiv" (change)="updateDiv()">
 			<option *ngFor="let styledDiv of styledDivs" [value]="styledDiv">{{styledDiv}}</option>
@@ -27,11 +27,12 @@
 			(input)="setValue(style)">
 	</span>
 		<span class="symbol">;</span>
-		<i
-			class="fas fa-trash-alt"
+		<mat-icon
+			class="delete-icon"
 			[ngClass]="{'disabled': checkDisabledTrash(style)}"
 			(click)="removeStyleFromTrash(style)">
-		</i>
+			delete
+		</mat-icon>
 	</div>
 	<div>{{'}'}}</div>
 </div>

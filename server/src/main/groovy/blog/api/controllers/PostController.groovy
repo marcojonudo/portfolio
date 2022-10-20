@@ -6,6 +6,7 @@ import groovy.transform.CompileStatic
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import jakarta.inject.Inject
+import reactor.core.publisher.Mono
 
 @Controller("/posts")
 @CompileStatic
@@ -14,7 +15,7 @@ class PostController {
 	@Inject PostRepository postRepository
 
 	@Get
-	List<Post> getPosts() {
+	Mono<List<Post>> getPosts() {
 		return postRepository.findAll()
     }
 

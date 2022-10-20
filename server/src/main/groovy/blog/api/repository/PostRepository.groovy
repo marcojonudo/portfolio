@@ -6,6 +6,7 @@ import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoCollection
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
+import reactor.core.publisher.Mono
 
 @Singleton
 class PostRepository {
@@ -13,8 +14,8 @@ class PostRepository {
     @Inject PostConfiguration postConfig
     @Inject MongoClient mongoClient
 
-    List<Post> findAll() {
-        return getCollection().find().into([])
+    Mono<List<Post>> findAll() {
+        return Mono.just(getCollection().find().into([]))
     }
 
 //    Comment save() {

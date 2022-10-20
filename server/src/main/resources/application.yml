@@ -38,7 +38,7 @@ flyway:
 
 db:
     port: ${DB_PORT:27017}
-    url: ${DB_IP:217.71.207.101}:${db.port}
+    url: ${DB_IP:localhost}:${db.port}
     credentials:
         username: root
         password: root

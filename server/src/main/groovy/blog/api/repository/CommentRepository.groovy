@@ -8,6 +8,7 @@ import com.mongodb.client.model.Updates
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import org.bson.Document
+import reactor.core.publisher.Mono
 
 @Singleton
 class CommentRepository {
@@ -15,9 +16,9 @@ class CommentRepository {
     @Inject CommentConfiguration commentConfig
     @Inject MongoClient mongoClient
 
-    List<Comment> findAll(String postPath) {
+    Mono<List<Comment>> findAll(String postPath) {
         Document query = new Document("postPath", postPath)
-        return getCollection().find(query).into([])
+        return Mono.just(getCollection().find(query).into([]))
     }
 
     void save(Comment comment) {

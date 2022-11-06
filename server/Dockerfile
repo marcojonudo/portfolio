@@ -3,5 +3,5 @@ LABEL maintainer="marco.martinez@feuvert.es"
 EXPOSE 8090
 ENV DB_URL=db
 RUN apk --no-cache add curl
-COPY build/libs/*.jar blog-api.jar
-CMD java -Dcom.sun.management.jmxremote -jar blog-api.jar
+COPY build/libs/*.jar portfolio.jar
+CMD java -Dcom.sun.management.jmxremote -jar portfolio.jar

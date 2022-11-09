@@ -45,12 +45,8 @@ export class BlogService {
 		return this.http.get(Url.posts()).pipe(
 			map((posts: any[]) =>
 				posts.map(post => new Post(post)).sort((a, b) => {
-					if (a.date.isBefore(b.date)) {
-						return 1;
-					}
-					if (a.date.isAfter(b.date)) {
-						return -1;
-					}
+					if (a.date.isBefore(b.date)) { return 1; }
+					if (a.date.isAfter(b.date)) { return -1; }
 					return 0;
 				})
 			),

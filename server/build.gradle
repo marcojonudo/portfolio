@@ -29,7 +29,6 @@ dependencies {
 
     implementation("io.micronaut:micronaut-management")
     implementation("io.micronaut.flyway:micronaut-flyway")
-    implementation("io.micronaut.mongodb:micronaut-mongo-sync")
     implementation("io.micronaut.mongodb:micronaut-mongo-reactive")
 
     implementation("commons-logging:commons-logging:1.2")

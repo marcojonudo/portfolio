@@ -6,6 +6,7 @@ import groovy.transform.CompileStatic
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.*
 import jakarta.inject.Inject
+import org.reactivestreams.Publisher
 import reactor.core.publisher.Mono
 
 @Controller("/comments")
@@ -15,7 +16,7 @@ class CommentController {
 	@Inject CommentRepository commentRepository
 
 	@Get("/{postPath}")
-	Mono<List<Comment>> getComments(@PathVariable String postPath) {
+	Publisher<Comment> getComments(@PathVariable String postPath) {
 		return commentRepository.findAll(postPath)
     }
 

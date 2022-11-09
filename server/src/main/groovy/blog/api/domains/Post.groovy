@@ -20,8 +20,7 @@ class Post {
 	@JsonFormat(pattern = Constants.DateTimeFormat.yyyy_MM_dd_HH_mm_ss, timezone = Constants.SPAIN_TIMEZONE)
 	LocalDateTime date
 
-	String header
-	String headerBackground
+	String headerImage
 	String logo
 	String color
 	String path

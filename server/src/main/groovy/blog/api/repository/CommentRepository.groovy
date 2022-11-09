@@ -2,13 +2,13 @@ package blog.api.repository
 
 import blog.api.config.CommentConfiguration
 import blog.api.domains.Comment
-import com.mongodb.client.MongoClient
-import com.mongodb.client.MongoCollection
 import com.mongodb.client.model.Updates
+import com.mongodb.reactivestreams.client.MongoClient
+import com.mongodb.reactivestreams.client.MongoCollection
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import org.bson.Document
-import reactor.core.publisher.Mono
+import org.reactivestreams.Publisher
 
 @Singleton
 class CommentRepository {
@@ -16,9 +16,9 @@ class CommentRepository {
     @Inject CommentConfiguration commentConfig
     @Inject MongoClient mongoClient
 
-    Mono<List<Comment>> findAll(String postPath) {
+    Publisher<Comment> findAll(String postPath) {
         Document query = new Document("postPath", postPath)
-        return Mono.just(getCollection().find(query).into([]))
+        return getCollection().find(query)
     }
 
     void save(Comment comment) {

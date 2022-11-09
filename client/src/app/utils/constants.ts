@@ -5,6 +5,7 @@ export class Constants {
 	static readonly NAV_HEIGHT_REM: number = 3.5;
 	static readonly MOBILE_STICK_NAV_THRESHOLD: number = 200;
 	static readonly SCREEN_WIDTH_THRESHOLD: number = 600;
+	static readonly SPLASH_DURATION: number = 1.5;
 
 	static readonly USER: any = {
 		NORMAL: 'NORMAL',

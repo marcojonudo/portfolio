@@ -3,3 +3,4 @@
 <ng-template #devUserTemplate>
 	<app-style-editor appDraggable [palette]="palette"></app-style-editor>
 </ng-template>
+<app-splash-screen [@leaveAnimation] *ngIf="showSplash"></app-splash-screen>

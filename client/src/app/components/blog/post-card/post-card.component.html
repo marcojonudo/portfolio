@@ -1,7 +1,11 @@
 <a (click)="selectPost()">
 	<div class="image-container">
 		<div>
-			<img [src]="post.logo" class="image">
+			<img
+				[src]="post.logo"
+				class="image"
+				title="Post thumbnail image"
+				[alt]="'\'' + post.title + '\' thumbnail image'">
 		</div>
 	</div>
 	<div class="content" [ngStyle]="palette.buildTextBlockStyles()">

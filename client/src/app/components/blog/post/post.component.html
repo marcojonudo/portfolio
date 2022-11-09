@@ -1,9 +1,22 @@
 <section id="post-wrapper">
 	<header>
 		<div>
-			<img [src]="post.headerBackground" class="header-image fixed-image landscape">
-			<img [src]="post.header" id="header-image" class="header-image fixed-image landscape">
-			<img [src]="post.logo" class="header-image fixed-image squared">
+			<img
+				[src]="post.headerBackground"
+				class="header-image fixed-image landscape"
+				title="Header background image"
+				[alt]="'\'' + post.title + '\' header background image'">
+			<img
+				[src]="post.header"
+				id="header-image"
+				class="header-image fixed-image landscape"
+				title="Header foreground image"
+				[alt]="'\'' + post.title + '\' header foreground image'">
+			<img
+				[src]="post.logo"
+				class="header-image fixed-image squared"
+				title="Header image for mobile"
+				[alt]="'\'' + post.title + '\' header image for mobile'">
 		</div>
 	</header>
 	<div id="post">
@@ -12,9 +25,11 @@
 				<div class="personal-image-container">
 					<div>
 						<img
-							src="../../../../assets/img/me-portrait.jpg"
+							src="../../../../assets/img/me-portrait.webp"
 							class="personal-image fixed-image"
-							[style.border-color]="post.color">
+							[style.border-color]="post.color"
+							title="Me portrait picture"
+							alt="Me portrait picture for post header">
 					</div>
 				</div>
 				<span>{{post.author}}</span>

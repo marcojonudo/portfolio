@@ -134,15 +134,6 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 		return `translateY(${blog ? 0 : translateY})`;
 	}
 
-	// findNavStyles(
-	// 	palette: Palette = this.palette, stick: boolean = this.navService.stickNav, leftPercentage: number = this.leftPercentage
-	// ): any {
-	// 	const styles = palette.buildTranslucentStyles(stick);
-	// 	styles.transform = `translateX(${leftPercentage}%)`;
-	// 	console.log(styles);
-	// 	return styles;
-	// }
-
 	checkSelectedSection(section: Section, url: string = this.url, selectedSection: Section = this.navService.section): boolean {
 		return url === Constants.URL.HOME && section.type === selectedSection.type;
 	}

@@ -33,6 +33,7 @@ import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
 import { MatIconModule } from '@angular/material/icon';
 import { DateSortPipe } from './pipes/date-sort.pipe';
+import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 
 @NgModule({
 	declarations: [
@@ -52,7 +53,8 @@ import { DateSortPipe } from './pipes/date-sort.pipe';
 		DraggableDirective,
 		NewCommentComponent,
 		CommentComponent,
-		DateSortPipe
+		DateSortPipe,
+		SplashScreenComponent
 	],
 	imports: [
 		BrowserModule,

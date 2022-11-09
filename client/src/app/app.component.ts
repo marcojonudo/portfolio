@@ -1,5 +1,5 @@
 import {
-	ChangeDetectionStrategy, Component, HostBinding
+	ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding
 } from '@angular/core';
 import { NotificationService } from './services/notification.service';
 import { Section } from './objects/sections/section';
@@ -11,12 +11,22 @@ import { Device } from './objects/device/device';
 import { Constants } from './utils/constants';
 import { AestheticsService } from './services/aesthetics.service';
 import { Palette } from './objects/palette/palette';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.sass'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	animations: [trigger('leaveAnimation', [
+		transition(
+			':leave',
+			[
+				style({ opacity: 1 }),
+				animate('.3s', style({ opacity: 0 }))
+			]
+		)
+	])]
 })
 export class AppComponent {
 	title = 'portfolio';
@@ -28,11 +38,13 @@ export class AppComponent {
 	section: Section;
 	device: Device;
 	palette: Palette;
+	showSplash: boolean;
 
-	constructor(private navService: NavService, private aestheticsService: AestheticsService) {
+	constructor(private navService: NavService, private aestheticsService: AestheticsService, private cdRef: ChangeDetectorRef) {
 		this.user = new NormalUser();
 		this.section = new WelcomeSection();
 		this.device = this.navService.device;
+		this.showSplash = true;
 		NotificationService.init();
 
 		this.navService.user$.subscribe(user => {
@@ -43,6 +55,13 @@ export class AppComponent {
 			this.backgroundImage = palette.buildBackgroundImage();
 			this.color = palette.color;
 		});
+		setTimeout(
+			() => {
+				this.showSplash = false;
+				this.cdRef.detectChanges();
+			},
+			Constants.SPLASH_DURATION * 1000
+		);
 	}
 
 	get normalUser(): string {

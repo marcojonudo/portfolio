@@ -17,27 +17,20 @@ task copyClientResources() {
     }
 }
 
-task buildAndCopyClientResources() {
-    group = 'build'
-    description = 'Build and copy client resources into server'
-    dependsOn(getTask(client, 'build'))
-    dependsOn(copyClientResources)
-    copyClientResources.mustRunAfter(getTask(client, 'build'))
-}
-
-task assembleServerAndClient() {
+task buildBack() {
     group = 'build'
     description = 'Build server and client and generate executable JAR'
-    dependsOn(buildAndCopyClientResources)
+    dependsOn(copyClientResources)
     dependsOn(getTask(server, 'shadowJar'))
-    getTask(server, 'shadowJar').mustRunAfter(buildAndCopyClientResources)
+    getTask(server, 'shadowJar').mustRunAfter(copyClientResources)
 }
 
-task runAll() {
-    group = 'application'
-    description = 'Run server and client'
-    dependsOn(getTask(client, 'buildDev'))
+task generateCompleteJar() {
+    group = 'build'
+    description = 'Build server and client and generate executable JAR'
+    dependsOn(getTask(client, 'build'))
     dependsOn(copyClientResources)
-    dependsOn(getTask(server, 'run'))
-    getTask(server, 'run').mustRunAfter(copyClientResources.mustRunAfter(getTask(client, 'buildDev')))
+    dependsOn(getTask(server, 'shadowJar'))
+    copyClientResources.mustRunAfter(getTask(client, 'build'))
+    getTask(server, 'shadowJar').mustRunAfter(copyClientResources)
 }

@@ -1,44 +1,15 @@
 plugins {
-    id "com.github.node-gradle.node" version "2.2.4"
+    id "com.github.node-gradle.node" version "3.5.0"
 }
 
 node {
-    version = "12.18.3"
-    download = true
-}
-
-task start(type: NpmTask, dependsOn: 'npmInstall') {
-	group = 'application'
-	description = 'Run the client app'
-	args = ['run', 'start']
-}
-
-task buildDev(type: NpmTask, dependsOn: 'npmInstall') {
-	group = 'build'
-	description = 'Compile client direction assets for development'
-	args = ['run', 'buildDev']
+	download = true
+	workDir = file("${project.buildDir}/node")
+	nodeModulesDir = file("${project.projectDir}")
 }
 
 task build(type: NpmTask, dependsOn: 'npmInstall') {
 	group = 'build'
-	description = 'Compile client direction assets for production'
-	args = ['run', 'build']
-}
-
-task buildWatch(type: NpmTask, dependsOn: 'npmInstall') {
-	group = 'application'
-	description = 'Builds and watches the client direction assets for rebuilding'
-	args = ['run', 'buildWatch']
-}
-
-task test(type: NpmTask, dependsOn: 'npmInstall') {
-	group = 'verification'
-	description = 'Executes client direction unit tests'
-	args = ['run', 'test']
-}
-
-task integrationTest(type: NpmTask, dependsOn: 'npmInstall') {
-	group = 'verification'
-	description = 'Executes client direction integration tests'
-	args = ['run', 'e2e']
+	description = 'Compile client assets for production'
+	args = ['run', 'build:prod']
 }

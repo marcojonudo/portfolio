@@ -1,23 +1,7 @@
 <section id="post-wrapper">
 	<header>
-		<div>
-			<img
-				[src]="post.headerBackground"
-				class="header-image fixed-image landscape"
-				title="Header background image"
-				[alt]="'\'' + post.title + '\' header background image'">
-			<img
-				[src]="post.header"
-				id="header-image"
-				class="header-image fixed-image landscape"
-				title="Header foreground image"
-				[alt]="'\'' + post.title + '\' header foreground image'">
-			<img
-				[src]="post.logo"
-				class="header-image fixed-image squared"
-				title="Header image for mobile"
-				[alt]="'\'' + post.title + '\' header image for mobile'">
-		</div>
+		<div class="header-image landscape" [style.background-image]="findBackgroundImage(post.headerImage)"></div>
+		<div class="header-image squared" [style.background-image]="findBackgroundImage(post.logo)"></div>
 	</header>
 	<div id="post">
 		<div id="post-header" [ngStyle]="textBlockStyles">

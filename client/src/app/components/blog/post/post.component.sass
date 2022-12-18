@@ -10,30 +10,18 @@
 		height: 100%
 
 		header
-			width: 100%
 			position: relative
 			background-color: $white
 
-			& > div
+			.header-image
 				width: 100%
+				background-repeat: no-repeat
+				background-size: cover
+				background-position: center
 				padding-top: 100%
 
-				.header-image
-					height: 100%
-					position: absolute
-					top: 0
-
-					&.landscape
-						display: none
-
-				& > img
-
-					&:first-child
-						width: 100%
-
-					&:last-child
-						position: absolute
-						bottom: 0
+				&.landscape
+					display: none
 
 		#post
 
@@ -65,23 +53,14 @@
 
 @media (min-width: 40rem)
 
-	header
-		height: $header-height
+	.header-image
+		padding-top: 52% !important
 
-		& > div
-			@include flex-center
-			padding: 0 !important
+		&.landscape
+			display: block !important
 
-			#header-image
-				width: 90%
-
-			.header-image
-
-				&.landscape
-					display: block !important
-
-				&.squared
-					display: none
+		&.squared
+			display: none
 
 	#post-content
 		padding: $default-gap $medium-gap !important
@@ -91,8 +70,8 @@
 	#post-wrapper
 		overflow-y: auto
 
-		header
-			@include elevation
+		.header-image
+			padding-top: 30% !important
 
 		#post, #new-comment-container, #comments-container
 			margin: $small-gap $bigger-gap

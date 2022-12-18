@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NavService } from '../../../services/nav.service';
 import { BlogService } from '../../../services/blog.service';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { User } from '../../../objects/users/user';
 import { Section } from '../../../objects/sections/section';
 import { WelcomeSection } from '../../../objects/sections/welcome-section';
@@ -15,7 +15,11 @@ import { Post } from '../../../objects/blog/post';
 import { AestheticsService } from '../../../services/aesthetics.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Palette } from '../../../objects/palette/palette';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { filter } from 'rxjs/operators';
+import { SectionType } from '../../../objects/section-type';
+import { MetaService } from '../../../services/meta.service';
 
 @Component({
 	selector: 'app-normal-nav',
@@ -54,7 +58,7 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 	url: string;
 	blog: boolean;
 	post: boolean;
-	filterTextControl: FormControl;
+	filterTextControl: UntypedFormControl;
 
 	private translateYSubscription: Subscription;
 
@@ -63,35 +67,51 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 		private blogService: BlogService,
 		private aestheticsService: AestheticsService,
 		private router: Router,
+		private titleService: Title,
+		private metaService: MetaService,
 		private cdRef: ChangeDetectorRef
 	) {
 		const fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 		this.navWidth = (this.BUTTON_WIDTH_REM * Constants.SECTIONS + this.COLOR_SELECTOR_WIDTH_REM) * fontSize;
-		this.filterTextControl = new FormControl('');
+		this.filterTextControl = new UntypedFormControl('');
 	}
 
 	ngOnInit(): void {
-		this.router.events.subscribe(event => {
-			if (event instanceof NavigationEnd) {
-				this.url = event.urlAfterRedirects;
-				this.navService.transition = true;
-				if (this.url.includes(Constants.URL.BLOG)) {
-					this.navService.stickNav = true;
-					this.blog = true;
-					this.post = this.url !== Constants.URL.BLOG;
-					this.cdRef.detectChanges();
-				} else {
-					this.navService.stickNav = false;
-					this.blog = false;
-					this.post = false;
-				}
-			}
+		this.router.events.pipe(
+			filter(e => e instanceof NavigationEnd)
+		).subscribe((event: NavigationEnd) => {
+			this.url = event.urlAfterRedirects;
+			this.navService.transition = true;
+
+			const route = this.findChild(this.router.routerState.root);
+
+			const sectionType = SectionType.find(this.url);
+			this.setVariables(sectionType.blog, sectionType.post);
+			const routeTitle = sectionType.findTitle(route.snapshot.data.title, this.blogService.post?.title);
+			sectionType.detectChanges(this.cdRef);
+
+			this.titleService.setTitle(routeTitle);
+			this.metaService.addTags(this.metaService.findProperties(this.findPost(), route.snapshot.data));
 		});
 
 		this.translateYSubscription = this.navService.translateY.asObservable().subscribe(translateY => {
 			this.translateY = translateY;
 			this.cdRef.detectChanges();
 		});
+	}
+
+	findChild(activatedRoute: ActivatedRoute) {
+		return activatedRoute.firstChild ? this.findChild(activatedRoute.firstChild) : activatedRoute;
+	}
+
+	setVariables(blog: boolean, post: boolean): void {
+		this.navService.stickNav = blog;
+		this.blog = blog;
+		this.post = post;
+	}
+
+	findPost(post: Post = this.blogService.post, isPost: boolean = this.post): Post {
+		return isPost ? post : undefined;
 	}
 
 	ngOnDestroy(): void {

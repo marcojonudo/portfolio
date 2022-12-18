@@ -6,6 +6,8 @@ export class Constants {
 	static readonly MOBILE_STICK_NAV_THRESHOLD: number = 200;
 	static readonly SCREEN_WIDTH_THRESHOLD: number = 600;
 	static readonly SPLASH_DURATION: number = 1.5;
+	static readonly DOMAIN = 'https://marcomartinezavila.com';
+	static readonly ME_PICTURE_URL = 'https://marcomartinezavila.s3.eu-west-1.amazonaws.com/me.jpg';
 
 	static readonly USER: any = {
 		NORMAL: 'NORMAL',

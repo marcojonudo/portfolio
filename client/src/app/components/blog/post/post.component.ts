@@ -7,6 +7,7 @@ import { Dayjs } from 'dayjs';
 import { Constants } from '../../../utils/constants';
 import { AestheticsService } from '../../../services/aesthetics.service';
 import { Comment } from '../../../objects/blog/comment';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
 	selector: 'app-post',
@@ -26,7 +27,12 @@ export class PostComponent implements OnInit, AfterViewInit, OnDestroy {
 	translucentStyles: any;
 	textBlockStyles: any;
 
-	constructor(private blogService: BlogService, private aestheticsService: AestheticsService, private cdRef: ChangeDetectorRef) {
+	constructor(
+		private blogService: BlogService,
+		private aestheticsService: AestheticsService,
+		private meta: Meta,
+		private cdRef: ChangeDetectorRef
+	) {
 		this.postSubscription = this.findContent().subscribe(post => {
 			this.post = post;
 		});
@@ -55,6 +61,10 @@ export class PostComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.postSubscription.unsubscribe();
+	}
+
+	findBackgroundImage(url: string): string {
+		return `url('${url}')`;
 	}
 
 	buildGroupedComments(): Comment[] {

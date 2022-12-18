@@ -7,23 +7,24 @@ export class Post {
 	author: string;
 	content: string;
 	date: Dayjs;
-	header: string;
-	headerBackground: string;
+	headerImage: string;
 	logo: string;
 	color: string;
 	path: string;
-	comments: Comment[];
 
 	constructor(post: any) {
 		this.title = post.title;
 		this.author = post.author;
 		this.content = post.content;
 		this.date = dayjs(post.date);
-		this.header = post.header;
-		this.headerBackground = post.headerBackground;
+		this.headerImage = post.header;
 		this.logo = post.logo;
 		this.color = post.color;
 		this.path = post.path;
+	}
+
+	findDescription(content: string = this.content) {
+		return content.split('\n')[0];
 	}
 
 }

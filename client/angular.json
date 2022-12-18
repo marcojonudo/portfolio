@@ -40,7 +40,7 @@
                             ]
                         },
                         "scripts": [
-							"node_modules/marked/lib/marked.js",
+							"node_modules/marked/marked.min.js",
 							"node_modules/prismjs/prism.js",
 							"node_modules/prismjs/components/prism-git.min.js",
 							"node_modules/emoji-toolkit/lib/js/joypixels.min.js"
@@ -54,23 +54,18 @@
                                     "with": "src/environments/environment.prod.ts"
                                 }
                             ],
-                            "optimization": true,
+                            "optimization": false,
                             "outputHashing": "all",
                             "sourceMap": false,
                             "namedChunks": false,
                             "extractLicenses": true,
                             "vendorChunk": false,
-                            "buildOptimizer": true,
+                            "buildOptimizer": false,
                             "budgets": [
                                 {
                                     "type": "initial",
                                     "maximumWarning": "2mb",
                                     "maximumError": "5mb"
-                                },
-                                {
-                                    "type": "anyComponentStyle",
-                                    "maximumWarning": "6kb",
-                                    "maximumError": "10kb"
                                 }
                             ]
                         },
@@ -123,19 +118,6 @@
                         "scripts": []
                     }
                 },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "tsconfig.app.json",
-                            "tsconfig.spec.json",
-                            "e2e/tsconfig.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
-                    }
-                },
                 "e2e": {
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
@@ -150,8 +132,7 @@
                 }
             }
 		}
-	},
-	"defaultProject": "portfolio",
+  },
 	"cli": {
 	"analytics": "a8b4a1c6-ab9c-4c34-bea2-ba70c29b910f"
 	}

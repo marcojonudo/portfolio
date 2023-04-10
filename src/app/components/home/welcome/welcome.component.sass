@@ -9,7 +9,7 @@
 	#name
 		@include flex-column-center
 		font-weight: 200
-		letter-spacing: 0.1rem
+		//letter-spacing: 0.1rem
 		font-size: 4rem !important
 		line-height: normal !important
 
@@ -21,23 +21,25 @@
 
 	#details
 		@include flex-column
-		padding: 1.5rem
+		padding: 0 $default-gap
+		margin: 0 $default-gap
 		border-radius: .2rem
 		font-weight: 200
 
-		> div
+		> span
 			position: relative
-			@include flex-center
-			padding: $small-gap 0
+			//@include flex-center
+			padding: $default-gap 0
+			//text-align: left
 
-			&::after
+			//&::after
 				content: '·'
 				height: 1px
 				position: absolute
 				bottom: 0
 				@include flex-center
 
-			&:last-child::after
+			//&:last-child::after
 				content: ''
 				margin: 0
 
@@ -61,7 +63,7 @@
 		display: block !important
 
 	#details
-		flex-direction: row !important
+		//flex-direction: row !important
 		justify-content: space-around !important
 
 		> div

@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	HostBinding,
+	Input,
+	OnDestroy,
+	OnInit
+} from '@angular/core';
 import { NavService } from '../../../services/nav.service';
 import { BlogService } from '../../../services/blog.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -51,6 +59,8 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 	private readonly COLOR_SELECTOR_WIDTH_REM: number = 3.5;
 
 	@Input() palette: Palette;
+
+	@HostBinding('class.opened') opened: boolean;
 
 	navWidth: number;
 	translateY: string;
@@ -187,6 +197,10 @@ export class NormalNavComponent implements OnInit, OnDestroy {
 
 	togglePalette(): void {
 		this.aestheticsService.togglePalette();
+	}
+
+	toggleOpened(): void {
+		this.opened = !this.opened;
 	}
 
 }

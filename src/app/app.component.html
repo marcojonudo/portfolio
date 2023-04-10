@@ -1,5 +1,9 @@
 <router-outlet></router-outlet>
-<app-normal-nav *ngIf="checkUser(normalUser); else devUserTemplate" [palette]="palette"></app-normal-nav>
+<app-normal-nav
+	*ngIf="checkUser(normalUser); else devUserTemplate"
+	[palette]="palette"
+	[class.show-nav]="checkShowNav()">
+</app-normal-nav>
 <ng-template #devUserTemplate>
 	<app-style-editor appDraggable [palette]="palette"></app-style-editor>
 </ng-template>

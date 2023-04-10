@@ -1,4 +1,5 @@
 import {
+	AfterViewInit,
 	ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, HostListener
 } from '@angular/core';
 import { NotificationService } from './services/notification.service';
@@ -12,6 +13,10 @@ import { Constants } from './utils/constants';
 import { AestheticsService } from './services/aesthetics.service';
 import { Palette } from './objects/palette/palette';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { ScrollService } from './services/scroll.service';
+import { filter, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { ScrollData } from './objects/scroll-data';
 
 @Component({
 	selector: 'app-root',
@@ -39,10 +44,13 @@ export class AppComponent {
 	device: Device;
 	palette: Palette;
 	showSplash: boolean;
+	showNav: boolean;
+	top: boolean;
 
 	constructor(
 		private navService: NavService,
 		private aestheticsService: AestheticsService,
+		private scrollService: ScrollService,
 		private cdRef: ChangeDetectorRef
 	) {
 		// AOS.init();
@@ -50,6 +58,7 @@ export class AppComponent {
 		this.section = new WelcomeSection();
 		this.device = this.navService.device;
 		this.showSplash = true;
+		this.showNav = false;
 		NotificationService.init();
 
 		this.navService.user$.subscribe(user => {
@@ -67,6 +76,21 @@ export class AppComponent {
 			},
 			Constants.SPLASH_DURATION * 1000
 		);
+		setTimeout(
+			() => {
+				this.scrollService.scrollTop$.pipe(
+					filter(scrollData => scrollData.scrollingDown === this.showNav || scrollData.scrollTop === 0),
+					tap(scrollData => this.top = scrollData.scrollTop === 0),
+					map(() => this.showNav = !this.showNav),
+					tap(() => this.cdRef.detectChanges())
+				).subscribe();
+			},
+			0
+		);
+	}
+
+	checkShowNav(showNav: boolean = this.showNav, top: boolean = this.top): boolean {
+		return showNav && !top;
 	}
 
 	get normalUser(): string {

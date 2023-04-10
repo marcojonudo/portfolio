@@ -19,6 +19,7 @@ import { Constants } from '../../../utils/constants';
 import { Utils } from '../../../utils/utils';
 import { AestheticsService } from '../../../services/aesthetics.service';
 import { Palette } from '../../../objects/palette/palette';
+import { ScrollService } from '../../../services/scroll.service';
 
 @Component({
 	selector: 'app-home',
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	constructor(
 		private navService: NavService,
 		private aestheticsService: AestheticsService,
+		private scrollService: ScrollService,
 		private cdRef: ChangeDetectorRef
 	) {
 		this.styles = [];
@@ -61,6 +63,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 			this.styles = styles;
 			this.cdRef.detectChanges();
 		});
+		// TODO unsubscibe
 		this.aestheticsService.palette$.subscribe(palette => {
 			this.palette = palette;
 		});
@@ -68,25 +71,35 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	ngAfterViewInit(): void {
 		const margin = Constants.WELCOME_ITEM_MARGIN * this.navService.fontSize;
-		setTimeout(
-			() => {
-				const welcomeBottom = this.welcome.nativeElement.getBoundingClientRect().bottom;
-				this.sectionSelectorOffset = welcomeBottom + margin;
+		// setTimeout(
+		// 	() => {
+		// 		const welcomeBottom = this.welcome.nativeElement.getBoundingClientRect().bottom;
+		// 		this.sectionSelectorOffset = welcomeBottom + margin;
+		//
+		// 		this.navService.setDevice(this.sectionSelectorOffset);
+		// 		this.navService.sectionTops = this.sectionElements.toArray().map(elem => elem.nativeElement.getBoundingClientRect().top);
+		//
+		// 		this.sectionSubscription = NotificationService.section$.subscribe((section: Section) => {
+		// 			this.scrollToSection(section);
+		// 		});
+		// 	},
+		// 	0
+		// );
+		//
+		// fromEvent(this.scrollableContainerElem.nativeElement, Constants.EVENT.SCROLL).pipe(
+		// 	tap(event => this.handleScroll(event))
+		// ).subscribe();
+			// .subscribe((event: any) => {
+			// this.handleScroll(event);
+		// });
 
-				this.navService.setDevice(this.sectionSelectorOffset);
-				this.navService.sectionTops = this.sectionElements.toArray().map(elem => elem.nativeElement.getBoundingClientRect().top);
-
-				this.sectionSubscription = NotificationService.section$.subscribe((section: Section) => {
-					this.scrollToSection(section);
-				});
-			},
-			0
-		);
-
-		fromEvent(this.scrollableContainerElem.nativeElement, Constants.EVENT.SCROLL).subscribe((event: any) => {
-			this.handleScroll(event);
-		});
-		this.cdRef.detectChanges();
+		this.scrollService.setScroll$(this.scrollableContainerElem);
+		// // TODO Unsubscribe
+		// fromEvent(this.scrollableContainerElem.nativeElement, Constants.EVENT.SCROLL).pipe(
+		// 	tap(event => console.log(1))
+		// 	// tap(event => this.handleScroll(event))
+		// );
+		// this.cdRef.detectChanges();
 	}
 
 	ngOnDestroy(): void {

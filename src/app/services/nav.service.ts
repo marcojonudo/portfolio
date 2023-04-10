@@ -14,7 +14,7 @@ import { DevUser } from '../objects/users/dev-user';
 import { Coordinates } from '../objects/coordinates';
 import { Constants } from '../utils/constants';
 import { Utils } from '../utils/utils';
-import { DimensionsService } from './dimensions.service';
+import { ScrollService } from './scroll.service';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
@@ -46,7 +46,7 @@ export class NavService {
 
 	constructor(
 		@Inject(PLATFORM_ID) private platformId: any,
-		private dimensionsService: DimensionsService
+		private dimensionsService: ScrollService
 	) {
 		// setTimeout(
 		// 	() => {

@@ -25,20 +25,20 @@ export class BlogService {
 	comments$: Observable<Comment>;
 
 	constructor(private http: HttpClient) {
-		const post = LocalStorageService.getItem('post');
-		this.post = post ? new Post(post) : undefined;
-		this.findPosts().subscribe((data: any[]) => {
-			this.posts = data.map(p => new Post(p));
-			this.postsSubject.next(this.posts);
-		});
-		this.postsSubject = new BehaviorSubject<Post[]>([]);
-		this.posts$ = this.postsSubject.asObservable();
-		this.postSubject = new BehaviorSubject<Post>(this.post);
-		this.post$ = this.postSubject.asObservable();
-		this.filterTextSubject = new BehaviorSubject<string>(undefined);
-		this.filterText$ = this.filterTextSubject.asObservable();
-		this.commentsSubject = new Subject<Comment>();
-		this.comments$ = this.commentsSubject.asObservable();
+		// const post = LocalStorageService.getItem('post');
+		// this.post = post ? new Post(post) : undefined;
+		// this.findPosts().subscribe((data: any[]) => {
+		// 	this.posts = data.map(p => new Post(p));
+		// 	this.postsSubject.next(this.posts);
+		// });
+		// this.postsSubject = new BehaviorSubject<Post[]>([]);
+		// this.posts$ = this.postsSubject.asObservable();
+		// this.postSubject = new BehaviorSubject<Post>(this.post);
+		// this.post$ = this.postSubject.asObservable();
+		// this.filterTextSubject = new BehaviorSubject<string>(undefined);
+		// this.filterText$ = this.filterTextSubject.asObservable();
+		// this.commentsSubject = new Subject<Comment>();
+		// this.comments$ = this.commentsSubject.asObservable();
 	}
 
 	findPosts(): Observable<Post[]> {

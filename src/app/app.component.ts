@@ -1,6 +1,11 @@
 import {
-	AfterViewInit,
-	ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, HostListener
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	HostBinding,
+	Inject,
+	OnDestroy,
+	PLATFORM_ID
 } from '@angular/core';
 import { NotificationService } from './services/notification.service';
 import { Section } from './objects/sections/section';
@@ -14,9 +19,8 @@ import { AestheticsService } from './services/aesthetics.service';
 import { Palette } from './objects/palette/palette';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ScrollService } from './services/scroll.service';
+import { Subscription } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { ScrollData } from './objects/scroll-data';
 
 @Component({
 	selector: 'app-root',
@@ -33,7 +37,7 @@ import { ScrollData } from './objects/scroll-data';
 		)
 	])]
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
 	title = 'portfolio';
 
 	@HostBinding(`style.${Constants.PROPERTY.BACKGROUND_IMAGE}`) backgroundImage: string;
@@ -46,14 +50,20 @@ export class AppComponent {
 	showSplash: boolean;
 	showNav: boolean;
 	top: boolean;
+	loaded: boolean;
+
+	userSubscription: Subscription;
+	paletteSubscription: Subscription;
+	scrollSubscription: Subscription;
 
 	constructor(
 		private navService: NavService,
 		private aestheticsService: AestheticsService,
 		private scrollService: ScrollService,
-		private cdRef: ChangeDetectorRef
+		private cdRef: ChangeDetectorRef,
+		@Inject(PLATFORM_ID) private platformId
 	) {
-		// AOS.init();
+		this.loaded = true;
 		this.user = new NormalUser();
 		this.section = new WelcomeSection();
 		this.device = this.navService.device;
@@ -61,24 +71,17 @@ export class AppComponent {
 		this.showNav = false;
 		NotificationService.init();
 
-		this.navService.user$.subscribe(user => {
+		this.userSubscription = this.navService.user$.subscribe(user => {
 			this.user = user;
 		});
-		this.aestheticsService.palette$.subscribe(palette => {
+		this.paletteSubscription = this.aestheticsService.palette$.subscribe(palette => {
 			this.palette = palette;
 			this.backgroundImage = palette.buildBackgroundImage();
 			this.color = palette.color;
 		});
 		setTimeout(
 			() => {
-				this.showSplash = false;
-				this.cdRef.detectChanges();
-			},
-			Constants.SPLASH_DURATION * 1000
-		);
-		setTimeout(
-			() => {
-				this.scrollService.scrollTop$.pipe(
+				this.scrollSubscription = this.scrollService.scrollTop$.pipe(
 					filter(scrollData => scrollData.scrollingDown === this.showNav || scrollData.scrollTop === 0),
 					tap(scrollData => this.top = scrollData.scrollTop === 0),
 					map(() => this.showNav = !this.showNav),
@@ -87,6 +90,14 @@ export class AppComponent {
 			},
 			0
 		);
+	}
+
+	ngOnDestroy(): void {
+		if (this.scrollSubscription) {
+			this.userSubscription.unsubscribe();
+			this.paletteSubscription.unsubscribe();
+			this.scrollSubscription.unsubscribe();
+		}
 	}
 
 	checkShowNav(showNav: boolean = this.showNav, top: boolean = this.top): boolean {

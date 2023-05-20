@@ -19,10 +19,10 @@ export class BlogPreviewComponent implements OnInit {
 	constructor(private blogService: BlogService, public aestheticsService: AestheticsService, private cdRef: ChangeDetectorRef) {}
 
 	ngOnInit(): void {
-		this.blogService.posts$.subscribe(posts => {
-			this.posts = posts.slice(0, 4);
-			this.cdRef.detectChanges();
-		});
+		// this.blogService.posts$.subscribe(posts => {
+		// 	this.posts = posts.slice(0, 4);
+		// 	this.cdRef.detectChanges();
+		// });
 	}
 
 }

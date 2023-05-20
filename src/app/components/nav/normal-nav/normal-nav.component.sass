@@ -57,6 +57,7 @@
 
 		#main-section-buttons
 			display: none
+			height: 100%
 
 			& > div
 				@include flex-1
@@ -140,11 +141,6 @@
 			font-size: 2em
 			padding: $small-gap $medium-gap
 
-@media (max-width: 40rem)
-
-	#nav-container
-		transition: transform $medium-transition !important
-
 @media (min-width: 40rem)
 
 	.button
@@ -171,13 +167,11 @@
 		align-items: center
 
 	#main-section-buttons
+		display: flex !important
 		flex: none !important
 
-	#filter
-		width: 25% !important
-		left: auto !important
-		right: $mobile-button-width !important
-		transform: none !important
+	.menu-button
+		display: none
 
 @media (min-width: 75rem)
 

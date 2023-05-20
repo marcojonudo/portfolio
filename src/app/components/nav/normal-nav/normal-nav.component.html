@@ -24,7 +24,7 @@
 			(click)="selectSection(skillsSection)">Skills</div>
 		<div
 			class="button"
-			[ngClass]="{'selected': blog || checkSelectedSection(blogSection)}"
+			[ngClass]="{'selected': checkSelectedSection(blogSection)}"
 			(click)="navigateTo(blogUrl)">Blog</div>
 	</div>
 	<div class="menu-button" (click)="toggleOpened()" [class.opened]="opened">

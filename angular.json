@@ -32,8 +32,7 @@
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
 							"src/styles/main.sass",
-							"node_modules/prismjs/themes/prism-okaidia.css",
-							"node_modules/aos/dist/aos.css"
+							"node_modules/prismjs/themes/prism-okaidia.css"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
@@ -160,14 +159,16 @@
                       "optimization": true,
                       "sourceMap": false,
                       "extractLicenses": true,
-                      "vendorChunk": false
+                      "vendorChunk": false,
+                      "buildOptimizer": true
                     },
                     "development": {
                       "outputHashing": "media",
                       "optimization": false,
                       "sourceMap": true,
                       "extractLicenses": true,
-                      "vendorChunk": true
+                      "vendorChunk": true,
+                      "buildOptimizer": false
                     }
                   },
                   "defaultConfiguration": "production"

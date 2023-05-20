@@ -5,66 +5,87 @@
 	@include flex-column
 
 	#about-container-wrapper
-		@include flex-column
+		@include flex-column-center
 
-		#picture-wrapper
+		#portrait-image
+			width: 75%
 			@include flex-center
 
-			.personal-image-container
-				width: 75%
+			.personal-image
+				width: 100%
+				border-radius: 50%
+				border-width: 5px
+				border-style: solid
 				margin-bottom: $small-gap
 
-		#text-wrapper
+		& > div
+			height: 100%
+
+		#background
+			display: none
+			width: 100%
+
+		#mobile-text-wrapper, #text-wrapper
 			@include flex-column
 			text-align: center
-			background-color: $white
 			@include elevation
 			border-radius: $border-radius
+			opacity: 1 !important
+			font-size: .9em
 
-			#text
+		#text-wrapper
+			display: none
 
-				& > *
-					padding: $smaller-gap
+		.text
 
-					&:not(:last-child)
-						margin-bottom: $smaller-gap
+			& > *
+				padding: $smaller-gap
 
-				.bold
-					font-weight: 600
+				&:not(:last-child)
+					margin-bottom: $smaller-gap
 
-				.quote
-					position: relative
-					border-width: 1px 0
-					border-style: solid
-					border-color: $grey
-					font-weight: 200
-					padding: 1.5rem .5rem 3.8em
-					margin: 1.5rem auto
+			.bold
+				font-weight: 600
 
-					&::before
-						content: '\201C'
-						position: absolute
-						top: 0
-						left: 50%
-						transform: translate3d(-50%, -50%, 0)
-						background-color: $grey
-						width: 2rem
-						height: 2rem
-						font: 5em/.98em 'PT Sans', sans-serif
-						color: #0f172b
-						text-align: center
-						border-radius: .1rem
+			.quote
+				position: relative
+				border-width: 1px 0
+				border-style: solid
+				border-color: $grey
+				font-weight: 200
+				padding: 1.5rem .5rem 3.8em
+				margin: 1.5rem auto
 
-					&::after
-						content: "\2013 \2003" attr(cite)
-						position: absolute
-						bottom: .5rem
-						right: .5rem
-						text-align: right
-						font-size: 0.875em
-						color: $quote
+				&::before
+					content: '\201C'
+					position: absolute
+					top: 0
+					left: 50%
+					transform: translate3d(-50%, -50%, 0)
+					background-color: $grey
+					width: 2rem
+					height: 2rem
+					font: 5em/.98em 'PT Sans', sans-serif
+					color: #0f172b
+					text-align: center
+					border-radius: .1rem
+
+				&::after
+					content: "\2013 \2003" attr(cite)
+					position: absolute
+					bottom: .5rem
+					right: .5rem
+					text-align: right
+					font-size: 0.875em
+					color: $quote
 
 @media (min-width: 40rem)
+
+	#mobile-text-wrapper
+		display: none !important
+
+	#text-wrapper
+		display: flex !important
 
 	.quote
 		padding-bottom: 1.8rem !important
@@ -77,95 +98,25 @@
 		#about-container-wrapper
 			height: $about-height
 			position: relative
-			@include flex-center
-			flex-direction: row
-			justify-content: space-between
 
-			#picture-wrapper
-				width: 52%
-				height: 100%
-				position: absolute
-				background-image: url('/assets/img/me-background.webp')
-				background-size: cover
+			#background
+				display: block !important
+				background-image: url('/portfolio/assets/img/me-background.webp')
+				background-attachment: fixed
+				background-position: center
 				background-repeat: no-repeat
-				@include elevation
-				border-radius: 0 $border-radius $border-radius 0
-				z-index: 1
-				transform: scale(1.02)
-				transform-origin: left
+				background-size: cover
 
-				.personal-image-container
-					display: none
+			#portrait-image
+				display: none
 
 			#text-wrapper
 				width: 50%
 				height: 100%
 				position: absolute
-				right: 0
+				top: 0
+				left: -50%
 				@include flex-center
 				padding: $default-gap
-				border-radius: $border-radius 0 0 $border-radius
-				z-index: 0
-				transform: scale(.98)
-				transform-origin: right
+				border-radius: 0 $border-radius $border-radius 0
 
-			.left-card-up
-				animation: left-card-up $fast-transition forwards
-
-			.left-card-down
-				animation: left-card-down $fast-transition forwards
-
-			.right-card-up
-				animation: right-card-up $fast-transition forwards
-
-			.right-card-down
-				animation: right-card-down $fast-transition forwards
-
-@keyframes left-card-up
-	0%
-		z-index: 0
-		transform: translateX(0) scale(.98)
-
-	50%
-		transform: translateX(-30px)
-
-	100%
-		z-index: 1
-		transform: translateX(0) scale(1.02)
-
-@keyframes left-card-down
-	0%
-		z-index: 1
-		transform: translateX(0) scale(1.02)
-
-	50%
-		transform: translateX(-30px)
-
-	100%
-		z-index: 0
-		transform: translateX(0) scale(.98)
-
-
-@keyframes right-card-up
-	0%
-		z-index: 0
-		transform: translateX(0) scale(.98)
-
-	50%
-		transform: translateX(30px)
-
-	100%
-		z-index: 1
-		transform: translateX(0) scale(1.02)
-
-@keyframes right-card-down
-	0%
-		z-index: 1
-		transform: translateX(0) scale(1.02)
-
-	50%
-		transform: translateX(30px)
-
-	100%
-		z-index: 0
-		transform: translateX(0) scale(.98)

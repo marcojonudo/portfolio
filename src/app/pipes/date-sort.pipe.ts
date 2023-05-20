@@ -7,7 +7,7 @@ import { Post } from '../objects/blog/post';
 export class DateSortPipe implements PipeTransform {
 
 	transform(posts: Post[]): Post[] {
-		return posts.sort((a, b) => a.date.valueOf() - b.date.valueOf());
+		return posts; // posts.sort((a, b) => a.date.valueOf() - b.date.valueOf());
 	}
 
 }

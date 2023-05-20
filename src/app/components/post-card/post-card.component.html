@@ -9,7 +9,8 @@
 		</div>
 	</div>
 	<div class="content" [ngStyle]="palette.buildTextBlockStyles()">
-		<markdown class="title">{{post.title}}</markdown>
+<!--		<markdown class="title">{{post.title}}</markdown>-->
+		<div class="title">{{post.title}}</div>
 		<div class="metadata">{{getDay() | date: 'dd/MM/yyyy'}}</div>
 	</div>
 </a>

@@ -24,7 +24,8 @@ export class Palette {
 	}
 
 	buildBackgroundImage(): string {
-		return ''; // `linear-gradient(${this.backgroundColor} 0%, rgba(0, 13, 125, 0.97) 100%), url('/assets/img/tiles-background.gif')`;
+		// return `linear-gradient(rgba(217, 217, 217, 0.97) 0%, rgba(217, 217, 217, 0.97) 100%))`;
+		return `linear-gradient(rgba(217, 217, 217, 0.97) 0%, rgba(217, 217, 217, 0.97) 100%), url('/assets/img/tiles-background.gif')`;
 	}
 
 	buildTranslucentStyles(dark: boolean = false): any {

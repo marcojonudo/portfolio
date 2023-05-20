@@ -20,7 +20,7 @@ export class ScrollService {
 				const scrollingDown = scrollTop >= this.lastScrollTop;
 				this.lastScrollTop = scrollTop;
 				return new ScrollData(scrollTop, scrollingDown);
-			}),
+			})
 		);
 	}
 

@@ -1,16 +1,14 @@
 import {
-	AfterViewInit,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	ElementRef,
-	Input,
-	ViewChild
+	Input, OnDestroy
 } from '@angular/core';
 import { User } from '../../../objects/users/user';
-import { fromEvent } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Palette } from '../../../objects/palette/palette';
+import { ScrollService } from '../../../services/scroll.service';
 
 @Component({
 	selector: 'app-about',
@@ -18,49 +16,55 @@ import { Palette } from '../../../objects/palette/palette';
 	styleUrls: ['./about.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AboutComponent implements AfterViewInit {
+export class AboutComponent implements OnDestroy {
 
 	@Input() user: User;
 	@Input() palette: Palette;
 
-	private readonly LEFT_CARD_UP = 'left-card-up';
-	private readonly LEFT_CARD_DOWN = 'left-card-down';
-	private readonly RIGHT_CARD_UP = 'right-card-up';
-	private readonly RIGHT_CARD_DOWN = 'right-card-down';
+	translateX: number;
+	opacity: number;
+	blur: number;
 
-	@ViewChild('pictureWrapper') pictureWrapper: ElementRef;
-	@ViewChild('textWrapper') textWrapper: ElementRef;
+	scrollSubscription: Subscription;
 
-	pictureWrapperUp: boolean;
-	pictureWrapperClass: string;
-	textWrapperClass: string;
-
-	constructor(private cdRef: ChangeDetectorRef) {
-		this.pictureWrapperUp = true;
+	constructor(
+		private scrollService: ScrollService,
+		private cdRef: ChangeDetectorRef
+	) {
+		this.translateX = 0;
+		setTimeout(
+			() => {
+				this.scrollSubscription = this.scrollService.scrollTop$.pipe(
+					tap(scrollData => {
+						this.translateX = this.findScrollAnimationValue(scrollData.scrollTop);
+						this.opacity = this.findScrollAnimationValue(scrollData.scrollTop, 1, this.opacity);
+						this.blur = 20 - this.findScrollAnimationValue(scrollData.scrollTop, 20, this.blur);
+					}),
+					tap(() => this.cdRef.detectChanges())
+				).subscribe();
+			},
+			0
+		);
 	}
 
-	ngAfterViewInit(): void {
-		fromEvent(this.pictureWrapper.nativeElement, 'mouseover').pipe(
-			tap(() => {
-				if (!this.pictureWrapperUp) {
-					this.toggleCardAnimations(this.LEFT_CARD_UP, this.RIGHT_CARD_DOWN);
-				}
-			})
-		).subscribe();
-		fromEvent(this.textWrapper.nativeElement, 'mouseover').pipe(
-			tap(() => {
-				if (this.pictureWrapperUp) {
-					this.toggleCardAnimations(this.LEFT_CARD_DOWN, this.RIGHT_CARD_UP);
-				}
-			})
-		).subscribe();
+	ngOnDestroy(): void {
+		if (this.scrollSubscription) {
+			this.scrollSubscription.unsubscribe();
+		}
 	}
 
-	toggleCardAnimations(leftCardClass: string, rightCardClass: string): void {
-		this.pictureWrapperClass = leftCardClass;
-		this.textWrapperClass = rightCardClass;
-		this.pictureWrapperUp = !this.pictureWrapperUp;
-		this.cdRef.detectChanges();
+	findScrollAnimationValue(
+		scrollTop: number, threshold: number = 100, previousTranslateX: number = this.translateX
+	): number {
+		const translateX = this.calcTranslateX(scrollTop, threshold);
+		if (translateX > previousTranslateX) {
+			return translateX > threshold ? threshold : translateX;
+		}
+		return translateX;
+	}
+
+	calcTranslateX(scrollTop: number, threshold: number): number {
+		return scrollTop * threshold / 600;
 	}
 
 }

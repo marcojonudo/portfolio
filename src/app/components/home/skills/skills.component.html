@@ -1,6 +1,6 @@
 <h3 class="section-title">#skills</h3>
 <div id="skills-container">
-	<div *ngFor="let skill of skills" class="skill-cell">
+	<div *ngFor="let skill of skillService.skills" class="skill-cell">
 		<div class="skill" [ngStyle]="palette.buildTranslucentStyles()">
 			<img
 				src="assets/img/logos/{{skill.icon}}"

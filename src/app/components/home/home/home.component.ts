@@ -3,8 +3,8 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
-	ElementRef, HostListener, OnDestroy,
-	OnInit,
+	ElementRef, Inject, OnDestroy,
+	OnInit, PLATFORM_ID,
 	QueryList,
 	ViewChild,
 	ViewChildren
@@ -20,6 +20,10 @@ import { Utils } from '../../../utils/utils';
 import { AestheticsService } from '../../../services/aesthetics.service';
 import { Palette } from '../../../objects/palette/palette';
 import { ScrollService } from '../../../services/scroll.service';
+import { isPlatformBrowser } from '@angular/common';
+import { PlatformService } from '../../../services/platform.service';
+import { BrowserPlatform } from '../../../objects/platform/browser-platform';
+import { ServerPlatform } from '../../../objects/platform/server-platform';
 
 @Component({
 	selector: 'app-home',
@@ -41,17 +45,23 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	sectionSelectorOffset: number;
 	scrollTop: number;
 
+	screenHeight: number;
+
 	palette: Palette;
 	styles: Style[];
 
 	constructor(
 		private navService: NavService,
+		private platformService: PlatformService,
 		private aestheticsService: AestheticsService,
 		private scrollService: ScrollService,
-		private cdRef: ChangeDetectorRef
+		private cdRef: ChangeDetectorRef,
+		@Inject(PLATFORM_ID) private platformId
 	) {
 		this.styles = [];
 		this.scrollTop = 0;
+
+		this.screenHeight = 1080; // TODO
 
 		this.USER_STYLE_BUILDER = {};
 		this.USER_STYLE_BUILDER[Constants.USER.NORMAL] = (section: Section) => section.buildTranslateProperty();
@@ -63,58 +73,28 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 			this.styles = styles;
 			this.cdRef.detectChanges();
 		});
-		// TODO unsubscibe
 		this.aestheticsService.palette$.subscribe(palette => {
 			this.palette = palette;
 		});
 	}
 
 	ngAfterViewInit(): void {
-		const margin = Constants.WELCOME_ITEM_MARGIN * this.navService.fontSize;
-		// setTimeout(
-		// 	() => {
-		// 		const welcomeBottom = this.welcome.nativeElement.getBoundingClientRect().bottom;
-		// 		this.sectionSelectorOffset = welcomeBottom + margin;
-		//
-		// 		this.navService.setDevice(this.sectionSelectorOffset);
-		// 		this.navService.sectionTops = this.sectionElements.toArray().map(elem => elem.nativeElement.getBoundingClientRect().top);
-		//
-		// 		this.sectionSubscription = NotificationService.section$.subscribe((section: Section) => {
-		// 			this.scrollToSection(section);
-		// 		});
-		// 	},
-		// 	0
-		// );
-		//
-		// fromEvent(this.scrollableContainerElem.nativeElement, Constants.EVENT.SCROLL).pipe(
-		// 	tap(event => this.handleScroll(event))
-		// ).subscribe();
-			// .subscribe((event: any) => {
-			// this.handleScroll(event);
-		// });
-
 		this.scrollService.setScroll$(this.scrollableContainerElem);
-		// // TODO Unsubscribe
-		// fromEvent(this.scrollableContainerElem.nativeElement, Constants.EVENT.SCROLL).pipe(
-		// 	tap(event => console.log(1))
-		// 	// tap(event => this.handleScroll(event))
-		// );
-		// this.cdRef.detectChanges();
 	}
 
 	ngOnDestroy(): void {
-		this.styleIndexSubscription.unsubscribe();
-		this.sectionSubscription.unsubscribe();
+		if (this.styleIndexSubscription) {
+			this.styleIndexSubscription.unsubscribe();
+		}
+		if (this.sectionSubscription) {
+			this.sectionSubscription.unsubscribe();
+		}
 	}
 
 	// region Getters / setters
 
 	get user(): User {
 		return this.navService.user;
-	}
-
-	get screenHeight(): number {
-		return this.navService.screenHeight;
 	}
 
 	get scrollableContainer(): string {
@@ -138,14 +118,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	buildStyleObject(
-		div: string, user: User = this.navService.user, section: Section = this.navService.section, styles: Style[] = this.styles
+		div: string, user: User = this.navService.user, styles: Style[] = this.styles
 	): { [key: string]: string } {
 		return user.buildStyleObject(styles, div);
-	}
-
-	handleScroll(event: any): void {
-		this.scrollTop = event.target.scrollTop;
-		this.navService.scroll(this.scrollTop);
 	}
 
 }

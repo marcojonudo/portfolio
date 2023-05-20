@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -10,15 +10,12 @@ import { SkillsComponent } from './components/home/skills/skills.component';
 import { BlogPreviewComponent } from './components/home/blog-preview/blog-preview.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home/home.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MarkdownModule } from 'ngx-markdown';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { TitlePipe } from './pipes/title.pipe';
 import { NormalNavComponent } from './components/nav/normal-nav/normal-nav.component';
 import { DraggableDirective } from './directives/draggable.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -30,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DateSortPipe } from './pipes/date-sort.pipe';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { PostCardComponent } from './components/post-card/post-card.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
 	declarations: [
@@ -49,12 +47,10 @@ import { PostCardComponent } from './components/post-card/post-card.component';
 		PostCardComponent
 	],
 	imports: [
-		BrowserModule.withServerTransition({ appId: 'serverApp' }),
+		BrowserModule,
 		AppRoutingModule,
-		InfiniteScrollModule,
 		FormsModule,
 		HttpClientModule,
-		MarkdownModule.forRoot({ loader: HttpClient }),
 		BrowserAnimationsModule,
 		RouterModule,
 		CommonModule,
@@ -64,7 +60,9 @@ import { PostCardComponent } from './components/post-card/post-card.component';
 		MatButtonModule,
 		MatIconModule
 	],
-	providers: [],
+	providers: [
+		provideClientHydration()
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {

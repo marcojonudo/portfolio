@@ -9,7 +9,7 @@ import {
 	ViewChild,
 	ViewChildren
 } from '@angular/core';
-import { fromEvent, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { User } from '../../../objects/users/user';
 import { Section } from '../../../objects/sections/section';
 import { Style } from '../../../objects/style';
@@ -20,10 +20,8 @@ import { Utils } from '../../../utils/utils';
 import { AestheticsService } from '../../../services/aesthetics.service';
 import { Palette } from '../../../objects/palette/palette';
 import { ScrollService } from '../../../services/scroll.service';
-import { isPlatformBrowser } from '@angular/common';
-import { PlatformService } from '../../../services/platform.service';
-import { BrowserPlatform } from '../../../objects/platform/browser-platform';
-import { ServerPlatform } from '../../../objects/platform/server-platform';
+import { WindowService } from '../../../services/window/window.service';
+import { ElementService } from '../../../services/element/element.service';
 
 @Component({
 	selector: 'app-home',
@@ -39,6 +37,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	private styleIndexSubscription: Subscription;
 	private sectionSubscription: Subscription;
+	private aestheticsSubscription: Subscription;
 
 	private readonly USER_STYLE_BUILDER: any;
 
@@ -52,16 +51,17 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	constructor(
 		private navService: NavService,
-		private platformService: PlatformService,
 		private aestheticsService: AestheticsService,
 		private scrollService: ScrollService,
+		private windowService: WindowService,
+		private elementService: ElementService,
 		private cdRef: ChangeDetectorRef,
 		@Inject(PLATFORM_ID) private platformId
 	) {
 		this.styles = [];
 		this.scrollTop = 0;
 
-		this.screenHeight = 1080; // TODO
+		this.screenHeight = this.windowService.getHeight();
 
 		this.USER_STYLE_BUILDER = {};
 		this.USER_STYLE_BUILDER[Constants.USER.NORMAL] = (section: Section) => section.buildTranslateProperty();
@@ -73,22 +73,23 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 			this.styles = styles;
 			this.cdRef.detectChanges();
 		});
-		this.aestheticsService.palette$.subscribe(palette => {
+		this.aestheticsSubscription = this.aestheticsService.palette$.subscribe(palette => {
 			this.palette = palette;
+		});
+		this.sectionSubscription = this.navService.section$.subscribe((section: Section) => {
+			this.scrollToSection(section);
 		});
 	}
 
 	ngAfterViewInit(): void {
 		this.scrollService.setScroll$(this.scrollableContainerElem);
+		this.setSectionTops();
 	}
 
 	ngOnDestroy(): void {
-		if (this.styleIndexSubscription) {
-			this.styleIndexSubscription.unsubscribe();
-		}
-		if (this.sectionSubscription) {
-			this.sectionSubscription.unsubscribe();
-		}
+		this.styleIndexSubscription.unsubscribe();
+		this.sectionSubscription.unsubscribe();
+		this.aestheticsSubscription.unsubscribe();
 	}
 
 	// region Getters / setters
@@ -113,14 +114,19 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 		sectionTops: number[] = this.navService.sectionTops
 	): void {
 		const sectionIndex = sections.findIndex(s => s.type === section.type);
-		this.scrollableContainerElem.nativeElement.scrollTop =
-			sectionTops[sectionIndex] - Utils.remToPx(Constants.NAV_HEIGHT_REM, this.navService.fontSize);
+		this.elementService.getNativeElement(this.scrollableContainerElem).scrollTop = sectionTops[sectionIndex];
 	}
 
 	buildStyleObject(
 		div: string, user: User = this.navService.user, styles: Style[] = this.styles
 	): { [key: string]: string } {
 		return user.buildStyleObject(styles, div);
+	}
+
+	setSectionTops(): void {
+		this.navService.sectionTops = this.sectionElements.toArray().map(elem =>
+			this.elementService.getBoundingClientRect(elem).top
+		);
 	}
 
 }

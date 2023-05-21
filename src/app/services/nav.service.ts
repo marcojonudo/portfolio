@@ -37,6 +37,9 @@ export class NavService {
 	coordinatesSubject: Subject<Coordinates>;
 	coordinates$: Observable<Coordinates>;
 
+	sectionSubject: Subject<Section>;
+	section$: Observable<Section>;
+
 	constructor() {
 		this.USER_BUILDER[Constants.USER.NORMAL] = new NormalUser();
 		this.USER_BUILDER[Constants.USER.DEV] = new DevUser();
@@ -53,15 +56,18 @@ export class NavService {
 
 		this.coordinatesSubject = new Subject<Coordinates>();
 		this.coordinates$ = this.coordinatesSubject.asObservable();
+
+		this.sectionSubject = new Subject<Section>();
+		this.section$ = this.sectionSubject.asObservable();
 	}
 
 	buildUser(type: string, userBuilder: { [key: string]: User } = this.USER_BUILDER): User {
 		return userBuilder[type];
 	}
 
-	setSection(index: number): Section {
-		this.section = this.sections[index];
-		return this.section;
+	setSection(section: Section): void {
+		this.section = section;
+		this.sectionSubject.next(section);
 	}
 
 	setUser(user: User): void {

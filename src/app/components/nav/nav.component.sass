@@ -8,30 +8,11 @@
 	transition: $fast-transition transform
 	transform: translateY(-100%)
 
-	//#nav-container
-		width: 100%
-		height: $nav-height
-		@include flex-center
-		position: fixed
-		top: 0
-		//border-radius: $border-radius $border-radius 0 0
-		color: $white
-		transition: transform $medium-transition
-
-		//&.pin
-		//	transition: none
-
 	#nav
-		//height: $nav-height
-		//height: 100%
 		height: $nav-height
 		@include flex-1
 		display: flex
 		align-items: center
-		//width: 100%
-		//@include flex-center
-		//position: relative
-		//border-radius: $border-radius
 		transition: background-color $medium-transition, width $medium-transition, transform 1s
 
 		#marco-icon

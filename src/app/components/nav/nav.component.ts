@@ -2,27 +2,25 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	HostBinding,
-	Input,
-	OnInit
+	Input
 } from '@angular/core';
-import { NavService } from '../../../services/nav.service';
+import { NavService } from '../../services/nav.service';
 import { Router } from '@angular/router';
-import { User } from '../../../objects/users/user';
-import { Section } from '../../../objects/sections/section';
-import { WelcomeSection } from '../../../objects/sections/welcome-section';
-import { AboutSection } from '../../../objects/sections/about-section';
-import { SkillsSection } from '../../../objects/sections/skills-section';
-import { BlogSection } from '../../../objects/sections/blog-section';
-import { NotificationService } from '../../../services/notification.service';
-import { Constants } from '../../../utils/constants';
-import { AestheticsService } from '../../../services/aesthetics.service';
+import { User } from '../../objects/users/user';
+import { Section } from '../../objects/sections/section';
+import { WelcomeSection } from '../../objects/sections/welcome-section';
+import { AboutSection } from '../../objects/sections/about-section';
+import { SkillsSection } from '../../objects/sections/skills-section';
+import { BlogSection } from '../../objects/sections/blog-section';
+import { Constants } from '../../utils/constants';
+import { AestheticsService } from '../../services/aesthetics.service';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Palette } from '../../../objects/palette/palette';
+import { Palette } from '../../objects/palette/palette';
 
 @Component({
-	selector: 'app-normal-nav',
-	templateUrl: './normal-nav.component.html',
-	styleUrls: ['./normal-nav.component.sass'],
+	selector: 'app-nav',
+	templateUrl: './nav.component.html',
+	styleUrls: ['./nav.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	animations: [
 		trigger('inOutAnimation', [
@@ -43,7 +41,7 @@ import { Palette } from '../../../objects/palette/palette';
 		])
 	]
 })
-export class NormalNavComponent {
+export class NavComponent {
 
 	@Input() palette: Palette;
 
@@ -94,9 +92,8 @@ export class NormalNavComponent {
 	}
 
 	selectSection(section: Section = this.welcomeSection): void {
-		this.navigateTo(Constants.URL.HOME);
-		this.navService.section = section;
-		NotificationService.notifySection(this.navService.section);
+		// this.navigateTo(Constants.URL.HOME);
+		this.navService.setSection(section);
 	}
 
 	navigateTo(path: string = this.blogUrl): void {

@@ -13,7 +13,7 @@ import { HomeComponent } from './components/home/home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TitlePipe } from './pipes/title.pipe';
-import { NormalNavComponent } from './components/nav/normal-nav/normal-nav.component';
+import { NavComponent } from './components/nav/nav.component';
 import { DraggableDirective } from './directives/draggable.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
@@ -40,7 +40,7 @@ import { RouterModule } from '@angular/router';
 		BlogPreviewComponent,
 		HomeComponent,
 		TitlePipe,
-		NormalNavComponent,
+		NavComponent,
 		DraggableDirective,
 		DateSortPipe,
 		SplashScreenComponent,

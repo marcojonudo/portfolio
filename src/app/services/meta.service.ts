@@ -22,7 +22,6 @@ export class MetaService {
 	constructor(private meta: Meta) {}
 
 	findProperties(post: Post, data: any, mePictureUrl: string = Constants.ME_PICTURE_URL): MetaProperties {
-		console.log(post, data, mePictureUrl);
 		return {
 			type: post ? 'article' : 'website',
 			title: post ? Utils.buildPostTitle(post.title) : data.title,

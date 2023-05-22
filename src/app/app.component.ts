@@ -77,7 +77,7 @@ export class AppComponent implements OnDestroy {
 		this.paletteSubscription = this.aestheticsService.palette$.subscribe(palette => {
 			this.palette = palette;
 			this.backgroundImage = palette.buildBackgroundImage();
-			this.color = palette.color;
+			this.color = palette.primaryColor;
 		});
 		setTimeout(
 			() => {

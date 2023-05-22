@@ -1,6 +1,6 @@
 <nav
 	id="nav"
-	[ngStyle]="palette.buildTranslucentStyles(navService.stickNav)">
+	[ngStyle]="palette.buildTranslucentStyles()">
 	<div id="main-button">
 		<div
 			id="home-icon"
@@ -40,7 +40,7 @@
 				*ngFor="let palette of palettes; let i = index"
 				[style.transform]="'translateX(' + findTranslatePaletteValue(i) + '%)'">
 				<div [style.background-color]="palette.backgroundColor"></div>
-				<div [style.background-color]="palette.color"></div>
+				<div [style.background-color]="palette.primaryColor"></div>
 			</div>
 		</div>
 	</div>
@@ -48,7 +48,7 @@
 <section
 	id="mobile-menu-buttons"
 	[class.show]="opened"
-	[ngStyle]="palette.buildTranslucentStyles(navService.stickNav)">
+	[ngStyle]="palette.buildTranslucentStyles()">
 	<div (click)="selectSection(aboutSection)">About</div>
 	<div (click)="selectSection(skillsSection)">Skills</div>
 	<div (click)="navigateTo(blogUrl)">Blog</div>

@@ -16,7 +16,6 @@ import { Style } from '../../../objects/style';
 import { NotificationService } from '../../../services/notification.service';
 import { NavService } from '../../../services/nav.service';
 import { Constants } from '../../../utils/constants';
-import { Utils } from '../../../utils/utils';
 import { AestheticsService } from '../../../services/aesthetics.service';
 import { Palette } from '../../../objects/palette/palette';
 import { ScrollService } from '../../../services/scroll.service';
@@ -37,7 +36,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	private styleIndexSubscription: Subscription;
 	private sectionSubscription: Subscription;
-	private aestheticsSubscription: Subscription;
+	private paletteSubscription: Subscription;
 
 	private readonly USER_STYLE_BUILDER: any;
 
@@ -73,8 +72,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 			this.styles = styles;
 			this.cdRef.detectChanges();
 		});
-		this.aestheticsSubscription = this.aestheticsService.palette$.subscribe(palette => {
+		this.paletteSubscription = this.aestheticsService.palette$.subscribe(palette => {
 			this.palette = palette;
+			this.cdRef.detectChanges();
 		});
 		this.sectionSubscription = this.navService.section$.subscribe((section: Section) => {
 			this.scrollToSection(section);
@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	ngOnDestroy(): void {
 		this.styleIndexSubscription.unsubscribe();
 		this.sectionSubscription.unsubscribe();
-		this.aestheticsSubscription.unsubscribe();
+		this.paletteSubscription.unsubscribe();
 	}
 
 	// region Getters / setters

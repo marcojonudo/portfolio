@@ -77,12 +77,12 @@ export class StyleEditorComponent {
 	}
 
 	setProperty(s: StyleIndex): void {
-		s.style.property = document.getElementById(`property-elem-${s.index}`).innerHTML;
+		// s.style.property = document.getElementById(`property-elem-${s.index}`).innerHTML;
 		this.handleStyle(s);
 	}
 
 	setValue(s: StyleIndex): void {
-		s.style.value = document.getElementById(`value-elem-${s.index}`).innerHTML;
+		// s.style.value = document.getElementById(`value-elem-${s.index}`).innerHTML;
 		this.handleStyle(s);
 	}
 

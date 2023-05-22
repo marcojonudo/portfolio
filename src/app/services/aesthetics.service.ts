@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Palette } from '../objects/palette/palette';
 import { LightBluePalette } from '../objects/palette/light-blue-palette';
-import { DarkPalette } from '../objects/palette/dark-palette';
+import { DarkBluePalette } from '../objects/palette/dark-blue-palette';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LightGreenPalette } from '../objects/palette/light-green-palette';
 
@@ -16,7 +16,7 @@ export class AestheticsService {
 	palette$: Observable<Palette>;
 
 	constructor() {
-		this.palettes = [new LightBluePalette(), new LightGreenPalette(), new DarkPalette()];
+		this.palettes = [new LightBluePalette(), new LightGreenPalette(), new DarkBluePalette()];
 		this.palette = this.palettes[0];
 		this.paletteSubject = new BehaviorSubject<Palette>(this.palette);
 		this.palette$ = this.paletteSubject.asObservable();

@@ -1,13 +1,15 @@
+import { SkillSvg } from './skill-svg';
+
 export class Skill {
 
 	title: string;
 	description: string;
-	icon: string;
+	svg: SkillSvg;
 
-	constructor(title: string, description: string, icon: string) {
+	constructor(title: string, description: string, svg: SkillSvg) {
 		this.title = title;
 		this.description = description;
-		this.icon = `${icon}.svg`;
+		this.svg = svg;
 	}
 
 }

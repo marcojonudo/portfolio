@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { Post } from '../../../objects/blog/post';
+// import { Post } from '../../../objects/blog/post';
 import { BlogService } from '../../../services/blog.service';
 import { AestheticsService } from '../../../services/aesthetics.service';
 import { Palette } from '../../../objects/palette/palette';
@@ -14,7 +14,7 @@ export class BlogPreviewComponent implements OnInit {
 
 	@Input() palette: Palette;
 
-	posts: Post[];
+	// posts: Post[];
 
 	constructor(private blogService: BlogService, public aestheticsService: AestheticsService, private cdRef: ChangeDetectorRef) {}
 

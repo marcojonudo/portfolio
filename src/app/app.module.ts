@@ -26,7 +26,6 @@ import * as timezone from 'dayjs/plugin/timezone';
 import { MatIconModule } from '@angular/material/icon';
 import { DateSortPipe } from './pipes/date-sort.pipe';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
-import { PostCardComponent } from './components/post-card/post-card.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -43,8 +42,7 @@ import { RouterModule } from '@angular/router';
 		NavComponent,
 		DraggableDirective,
 		DateSortPipe,
-		SplashScreenComponent,
-		PostCardComponent
+		SplashScreenComponent
 	],
 	imports: [
 		BrowserModule,

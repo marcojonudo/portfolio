@@ -92,7 +92,7 @@ export class NavComponent {
 	}
 
 	selectSection(section: Section = this.welcomeSection): void {
-		// this.navigateTo(Constants.URL.HOME);
+		this.toggleOpened();
 		this.navService.setSection(section);
 	}
 

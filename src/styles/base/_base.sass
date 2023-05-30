@@ -1,4 +1,4 @@
-@import "abstracts/variables"
+@import "abstracts/mixins"
 
 @font-face
 	font-family: JetBrainsFamily
@@ -182,61 +182,58 @@ code
 	padding-left: 1.5rem !important
 
 
-
-//.opened
-	transform: translateX(0)
-
 .menu-button
-	@include mobile-button-dimensions
-	padding: 0 10px
-	//position: absolute
-	//top: $small-gap
-	//left: calc(100% + .5rem)
-	z-index: 2
-	transition: left $fast-transition
+	@include btn(0px, 100px)
 
-	&-lines-wrapper
-		height: 100%
-		position: relative
+	.icon-left
+		@include icon(3px, 15px)
+		left: 0
+		border-radius: .15rem 0 0 .15rem
 
-		& > span
-			height: 4px
-			width: 100%
-			position: absolute
-			left: 0
-			opacity: 1
-			background-color: $white
-			border-radius: 6px
-			transition: color $fast-transition, transform $fast-transition
-			transform-origin: left center
+		&:before
+			@include icon-before(3px, 15px, -10px)
+			border-radius: .15rem 0 0 .15rem
 
-			&:first-child
-				top: 0
+		&:after
+			@include icon-after(3px, 15px, 10px)
+			border-radius: .15rem 0 0 .15rem
 
-			&:nth-child(2)
-				top: 12px
+		&:hover
+			cursor: pointer
 
-			&:last-child
-				top: 24px
+	.icon-right
+		@include icon(3px, 15px)
+		border-radius: 0 .15rem 0.15rem 0
 
-.menu-button.opened
-	left: calc(100% - 42px - .5rem)
+		&:before
+			@include icon-before(3px, 15px, -10px)
+			border-radius: 0 .15rem 0.15rem 0
 
-	span
+		&:after
+			@include icon-after(3px, 15px, 10px)
+			border-radius: 0 .15rem 0.15rem 0
 
-		&:first-child
-			top: -2px
-			left: 6px
-			transform: rotate(45deg)
+	&.opened
+		.icon-left
+			background: transparent
 
-		&:nth-child(2)
-			width: 0
-			opacity: 0
+			&:before
+				transform: rotateZ(45deg) scaleX(1.4) translate(2px, 2px)
 
-		&:last-child
-			top: 27px
-			left: 6px
-			transform: rotate(-45deg)
+			&:after
+				transform: rotateZ(-45deg) scaleX(1.4) translate(2px, -2px)
+
+		.icon-right
+			background: transparent
+
+			&:before
+				transform: rotateZ(-45deg) scaleX(1.4) translate(-2px, 2px)
+
+			&:after
+				transform: rotateZ(45deg) scaleX(1.4) translate(-2px, -2px)
+
+	&:hover
+		cursor: pointer
 
 @media (max-width: 650px)
 

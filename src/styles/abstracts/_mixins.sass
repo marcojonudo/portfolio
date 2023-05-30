@@ -84,8 +84,33 @@
 @mixin elevation
 	box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12)
 
-//@mixin media($size)
-//	@if $size == tablet
-//		@media (min-width: 40rem) @content
-//	@else if $size == desktop
-//		@media (min-width: 75rem) @content
+@mixin btn($left, $top)
+	@include flex-center
+	position: relative
+	width: 30px
+	height: 45px
+
+@mixin icon($height, $width)
+	transition-duration: $fast-transition
+	position: relative
+	height: $height
+	width: $width
+	background-color: $white
+
+@mixin icon-before($height, $width, $top)
+	transition-duration: $fast-transition
+	position: absolute
+	width: $width
+	height: $height
+	background-color: $white
+	content: ""
+	top: $top
+
+@mixin icon-after($height, $width, $top)
+	transition-duration: $fast-transition
+	position: absolute
+	width: $width
+	height: $height
+	background-color: $white
+	content: ""
+	top: $top

@@ -2,17 +2,17 @@
 
 \:host
 	width: 100%
-	//@include flex-center
 	position: fixed
-	top: 0
+	bottom: 0
 	transition: $fast-transition transform
-	transform: translateY(-100%)
+	transform: translateY(100%)
 
 	#nav
 		height: $nav-height
 		@include flex-1
 		display: flex
 		align-items: center
+		justify-content: space-between
 		transition: background-color $medium-transition, width $medium-transition, transform 1s
 
 		#marco-icon
@@ -25,7 +25,6 @@
 		#main-button
 			width: $mobile-button-width
 			height: 100%
-			//@include flex-1
 			position: relative
 			overflow: hidden
 
@@ -43,9 +42,10 @@
 			& > div
 				@include flex-1
 
-		.menu-button
-			width: $mobile-button-width
-			margin-left: auto
+		.menu-button-container
+			@include flex-1
+			@include flex-center
+			z-index: 2
 
 		.button
 			height: 100%
@@ -76,7 +76,6 @@
 			width: $mobile-button-width
 			@include flex-center
 			position: relative
-			margin-left: auto
 
 			#color-selector
 				height: 1.5rem
@@ -106,23 +105,29 @@
 							background-color: $black
 
 	#mobile-menu-buttons
-		height: calc(100vh - 50px)
-		//height: calc(100vh - 50px)
+		height: 100vh
 		width: 100%
 		position: fixed
 		top: $nav-height
 		@include flex-column
-		transition: transform $fast-transition
-		transform: translateX(100%)
+		transform: translate3d(100%, -100vh, 0)
 
 		&.show
-			transform: translateX(0)
+			transform: translate3d(0, -100vh, 0)
 
 		& > div
 			font-size: 2em
 			padding: $small-gap $medium-gap
 
+			&:first-child
+				padding-top: $medium-gap !important
+
 @media (min-width: 40rem)
+
+	\:host
+		top: 0
+		bottom: unset !important
+		transform: translateY(-100%)
 
 	.button
 		flex: none !important

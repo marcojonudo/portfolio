@@ -27,11 +27,10 @@
 			[ngClass]="{'selected': checkSelectedSection(blogSection)}"
 			(click)="navigateTo(blogUrl)">Blog</div>
 	</div>
-	<div class="menu-button" (click)="toggleOpened()" [class.opened]="opened">
-		<div class="menu-button-lines-wrapper">
-			<span></span>
-			<span></span>
-			<span></span>
+	<div class="menu-button-container">
+		<div class="menu-button" (click)="toggleOpened()" [class.opened]="opened">
+			<div class="icon-left"></div>
+			<div class="icon-right"></div>
 		</div>
 	</div>
 	<div id="color-selector-wrapper" (click)="togglePalette()" [@inOutAnimation]>

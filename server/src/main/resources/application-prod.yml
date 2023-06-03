@@ -1,5 +1,0 @@
-db:
-    url: ${DB_IP}
-    credentials:
-        username: ${DB_USER}
-        password: ${DB_PASS}

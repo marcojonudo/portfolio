@@ -91,26 +91,24 @@
 	height: 45px
 
 @mixin icon($height, $width)
-	transition-duration: $fast-transition
 	position: relative
 	height: $height
 	width: $width
 	background-color: $white
+	transition-duration: $fast-transition
 
 @mixin icon-before($height, $width, $top)
-	transition-duration: $fast-transition
 	position: absolute
+	top: $top
 	width: $width
 	height: $height
 	background-color: $white
-	content: ""
-	top: $top
+	transition-duration: $fast-transition
 
 @mixin icon-after($height, $width, $top)
-	transition-duration: $fast-transition
 	position: absolute
+	top: $top
 	width: $width
 	height: $height
 	background-color: $white
-	content: ""
-	top: $top
+	transition-duration: $fast-transition

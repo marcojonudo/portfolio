@@ -21,6 +21,7 @@ import { Palette } from '../../../objects/palette/palette';
 import { ScrollService } from '../../../services/scroll.service';
 import { WindowService } from '../../../services/window/window.service';
 import { ElementService } from '../../../services/element/element.service';
+import { BlogService } from '../../../services/blog.service';
 
 @Component({
 	selector: 'app-home',
@@ -54,6 +55,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 		private scrollService: ScrollService,
 		private windowService: WindowService,
 		private elementService: ElementService,
+		private blogService: BlogService,
 		private cdRef: ChangeDetectorRef,
 		@Inject(PLATFORM_ID) private platformId
 	) {

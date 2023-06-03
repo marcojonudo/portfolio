@@ -29,8 +29,14 @@
 	</div>
 	<div class="menu-button-container">
 		<div class="menu-button" (click)="toggleOpened()" [class.opened]="opened">
-			<div class="icon-left"></div>
-			<div class="icon-right"></div>
+			<div class="icon-left" [style.background-color]="palette.textColor">
+				<div class="icon-left-upper" [style.background-color]="palette.textColor"></div>
+				<div class="icon-left-lower" [style.background-color]="palette.textColor"></div>
+			</div>
+			<div class="icon-right" [style.background-color]="palette.textColor">
+				<div class="icon-right-upper" [style.background-color]="palette.textColor"></div>
+				<div class="icon-right-lower" [style.background-color]="palette.textColor"></div>
+			</div>
 		</div>
 	</div>
 	<div id="color-selector-wrapper" (click)="togglePalette()" [@inOutAnimation]>

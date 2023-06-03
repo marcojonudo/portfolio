@@ -27,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DateSortPipe } from './pipes/date-sort.pipe';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { RouterModule } from '@angular/router';
+import { PostCardComponent } from './components/post-card/post-card.component';
 
 @NgModule({
 	declarations: [
@@ -42,7 +43,8 @@ import { RouterModule } from '@angular/router';
 		NavComponent,
 		DraggableDirective,
 		DateSortPipe,
-		SplashScreenComponent
+		SplashScreenComponent,
+		PostCardComponent
 	],
 	imports: [
 		BrowserModule,

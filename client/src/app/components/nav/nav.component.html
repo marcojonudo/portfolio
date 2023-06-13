@@ -25,7 +25,7 @@
 		<div
 			class="button"
 			[ngClass]="{'selected': checkSelectedSection(blogSection)}"
-			(click)="navigateTo(blogUrl)">Blog</div>
+			(click)="selectSection(blogSection)">Blog</div>
 	</div>
 	<div class="menu-button-container">
 		<div class="menu-button" (click)="toggleOpened()" [class.opened]="opened">
@@ -56,5 +56,5 @@
 	[ngStyle]="palette.buildTranslucentStyles()">
 	<div (click)="selectSection(aboutSection)">About</div>
 	<div (click)="selectSection(skillsSection)">Skills</div>
-	<div (click)="navigateTo(blogUrl)">Blog</div>
+	<div (click)="selectSection(blogSection)">Blog</div>
 </section>

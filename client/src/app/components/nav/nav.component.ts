@@ -16,6 +16,8 @@ import { Constants } from '../../utils/constants';
 import { AestheticsService } from '../../services/aesthetics.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Palette } from '../../objects/palette/palette';
+import { UntypedFormControl } from '@angular/forms';
+import { startWith } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-nav',
@@ -48,22 +50,16 @@ export class NavComponent {
 	@HostBinding('class.opened') opened: boolean;
 
 	url: string;
+	filterTextControl: UntypedFormControl;
 
-	constructor(
-		public navService: NavService,
-		private aestheticsService: AestheticsService,
-		private router: Router
-	) {}
+	constructor(public navService: NavService, private aestheticsService: AestheticsService) {
+		this.filterTextControl = new UntypedFormControl('');
+		this.navService.searchInput$ = this.filterTextControl.valueChanges.pipe(
+			startWith('') // TODO
+		);
+	}
 
 	// region Getters / setters
-
-	get blogUrl(): string {
-		return Constants.URL.BLOG;
-	}
-
-	get user(): User {
-		return this.navService.user;
-	}
 
 	get welcomeSection(): Section {
 		return new WelcomeSection();
@@ -87,7 +83,7 @@ export class NavComponent {
 
 	// endregion
 
-	checkSelectedSection(section: Section, url: string = this.url, selectedSection: Section = this.navService.section): boolean {
+	checkSelectedSection(section: Section, url: string = this.url, selectedSection: Section = this.navService.section()): boolean {
 		return url === Constants.URL.HOME && section.type === selectedSection.type;
 	}
 
@@ -96,12 +92,8 @@ export class NavComponent {
 		this.navService.setSection(section);
 	}
 
-	navigateTo(path: string = this.blogUrl): void {
-		this.router.navigate([path]);
-	}
-
 	findTranslatePaletteValue(i: number): number {
-		const findSelectedIndex = this.palettes.indexOf(this.aestheticsService.palette);
+		const findSelectedIndex = this.palettes.indexOf(this.aestheticsService.palette());
 		return (i - findSelectedIndex) * 100;
 	}
 

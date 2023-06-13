@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { Section } from '../objects/sections/section';
 import { User } from '../objects/users/user';
 import { NormalUser } from '../objects/users/normal-user';
@@ -19,16 +19,11 @@ export class NavService {
 
 	private readonly USER_BUILDER: { [key: string]: User } = {};
 
-	user: User;
-	userSubject: Subject<User>;
-	user$: Observable<User>;
+	user: WritableSignal<User>;
 
 	sections: Section[];
-	section: Section;
 
-	screenHeight: number;
 	device: Device;
-	stickNav: boolean;
 	transition: boolean;
 	sectionTops: number[];
 
@@ -37,19 +32,21 @@ export class NavService {
 	coordinatesSubject: Subject<Coordinates>;
 	coordinates$: Observable<Coordinates>;
 
-	sectionSubject: Subject<Section>;
-	section$: Observable<Section>;
+	section: WritableSignal<Section>;
+
+	searchInput$: Observable<string>;
+
+	top: WritableSignal<boolean>;
+	showNav: WritableSignal<boolean>;
 
 	constructor() {
 		this.USER_BUILDER[Constants.USER.NORMAL] = new NormalUser();
 		this.USER_BUILDER[Constants.USER.DEV] = new DevUser();
 
-		this.user = this.USER_BUILDER[Constants.USER.NORMAL];
-		this.userSubject = new Subject<User>();
-		this.user$ = this.userSubject.asObservable();
+		this.user = signal(this.USER_BUILDER[Constants.USER.NORMAL]);
 
 		this.sections = [new WelcomeSection(), new AboutSection(), new SkillsSection(), new BlogSection()];
-		this.section = this.sections[0];
+		this.section = signal(this.sections[0]);
 		this.sectionTops = [];
 
 		this.fontSize = Constants.DEFAULT_FONT_SIZE;
@@ -57,8 +54,8 @@ export class NavService {
 		this.coordinatesSubject = new Subject<Coordinates>();
 		this.coordinates$ = this.coordinatesSubject.asObservable();
 
-		this.sectionSubject = new Subject<Section>();
-		this.section$ = this.sectionSubject.asObservable();
+		this.top = signal(false);
+		this.showNav = signal(false);
 	}
 
 	buildUser(type: string, userBuilder: { [key: string]: User } = this.USER_BUILDER): User {
@@ -66,14 +63,15 @@ export class NavService {
 	}
 
 	setSection(section: Section): void {
-		this.section = section;
-		this.sectionSubject.next(section);
+		this.section.set(section);
+		// this.section = section;
+		// this.sectionSubject.next(section);
 	}
 
 	setUser(user: User): void {
-		this.user = user;
-		this.user.init();
-		this.userSubject.next(user);
+		this.user.set(user);
+		// this.user.init(); // TODO
+		// this.userSubject.next(user);
 	}
 
 	move(coordinates: Coordinates): void {

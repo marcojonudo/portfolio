@@ -1,7 +1,7 @@
 import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
-	Component,
+	Component, computed, effect,
 	Input, OnDestroy
 } from '@angular/core';
 import { User } from '../../../objects/users/user';
@@ -16,7 +16,7 @@ import { ScrollService } from '../../../services/scroll.service';
 	styleUrls: ['./about.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AboutComponent implements OnDestroy {
+export class AboutComponent {
 
 	@Input() user: User;
 	@Input() palette: Palette;
@@ -25,32 +25,17 @@ export class AboutComponent implements OnDestroy {
 	opacity: number;
 	blur: number;
 
-	scrollSubscription: Subscription;
-
-	constructor(
-		private scrollService: ScrollService,
-		private cdRef: ChangeDetectorRef
-	) {
+	constructor(private scrollService: ScrollService, private cdRef: ChangeDetectorRef) {
 		this.translateX = 0;
-		setTimeout(
-			() => {
-				this.scrollSubscription = this.scrollService.scrollTop$.pipe(
-					tap(scrollData => {
-						this.translateX = this.findScrollAnimationValue(scrollData.scrollTop);
-						this.opacity = this.findScrollAnimationValue(scrollData.scrollTop, 1, this.opacity);
-						this.blur = 20 - this.findScrollAnimationValue(scrollData.scrollTop, 20, this.blur);
-					}),
-					tap(() => this.cdRef.detectChanges())
-				).subscribe();
-			},
-			0
-		);
-	}
-
-	ngOnDestroy(): void {
-		if (this.scrollSubscription) {
-			this.scrollSubscription.unsubscribe();
-		}
+		effect(() => {
+			const scrollTop = this.scrollService.scrollTop();
+			if (scrollTop !== undefined) {
+				this.translateX = this.findScrollAnimationValue(scrollTop);
+				this.opacity = this.findScrollAnimationValue(scrollTop, 1, this.opacity);
+				this.blur = 20 - this.findScrollAnimationValue(scrollTop, 20, this.blur);
+				this.cdRef.detectChanges();
+			}
+		});
 	}
 
 	findScrollAnimationValue(

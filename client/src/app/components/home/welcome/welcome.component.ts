@@ -32,7 +32,7 @@ export class WelcomeComponent {
 		this.navService.setUser(user);
 	}
 
-	checkSelectedUser(user: string, selectedUser: string = this.navService.user.type): boolean {
+	checkSelectedUser(user: string, selectedUser: string = this.navService.user().type): boolean {
 		return user === selectedUser;
 	}
 

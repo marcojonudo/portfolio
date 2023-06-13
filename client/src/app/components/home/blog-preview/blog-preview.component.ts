@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, signal, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { BlogService } from '../../../services/blog.service';
 import { AestheticsService } from '../../../services/aesthetics.service';
 import { Palette } from '../../../objects/palette/palette';
+import { Post } from '../../../objects/blog/post';
 
 @Component({
 	selector: 'app-blog-preview',
@@ -13,8 +14,7 @@ export class BlogPreviewComponent implements OnInit {
 
 	@Input() palette: Palette;
 
-	// posts: signals;
-	posts: Signal<number[]> = signal([1, 2]);
+	posts: Post[];
 
 	constructor(
 		public blogService: BlogService,
@@ -23,10 +23,10 @@ export class BlogPreviewComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		// this.blogService.posts$.subscribe(posts => {
-		// 	this.posts = posts.slice(0, 4);
-		// 	this.cdRef.detectChanges();
-		// });
+		this.blogService.findPostsObservable().subscribe(posts => {
+			this.posts = posts.slice(0, 4);
+			this.cdRef.detectChanges();
+		});
 	}
 
 }

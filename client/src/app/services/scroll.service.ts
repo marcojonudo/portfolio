@@ -1,7 +1,6 @@
-import { ElementRef, Injectable } from '@angular/core';
-import { Constants } from '../utils/constants';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { debounce, map } from 'rxjs/operators';
-import { fromEvent, Observable, timer } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 import { ScrollData } from '../objects/scroll-data';
 
 @Injectable({
@@ -9,18 +8,17 @@ import { ScrollData } from '../objects/scroll-data';
 })
 export class ScrollService {
 
-	scrollTop$: Observable<ScrollData>;
-	lastScrollTop = 0;
+	scrollTop: WritableSignal<number>;
 
-	setScroll$(scrollableContainerElem: ElementRef): void {
-		this.scrollTop$ = fromEvent(scrollableContainerElem.nativeElement, Constants.EVENT.SCROLL).pipe(
+	constructor() {
+		this.scrollTop = signal(undefined);
+	}
+
+	buildScrollData$(scrollEvent: Observable<any>): Observable<ScrollData> {
+		return scrollEvent.pipe(
 			debounce(() => timer(5)),
 			map((event: any) => event.target.scrollTop),
-			map(scrollTop => {
-				const scrollingDown = scrollTop >= this.lastScrollTop;
-				this.lastScrollTop = scrollTop;
-				return new ScrollData(scrollTop, scrollingDown);
-			})
+			map((scrollTop: number) => new ScrollData(scrollTop))
 		);
 	}
 

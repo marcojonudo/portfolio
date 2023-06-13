@@ -2,14 +2,14 @@ import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
-	Component,
-	ElementRef, Inject, OnDestroy,
-	OnInit, PLATFORM_ID,
-	QueryList,
+	Component, effect,
+	ElementRef, Injector, OnDestroy,
+	OnInit,
+	QueryList, Signal,
 	ViewChild,
 	ViewChildren
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEvent, timer, Observable } from 'rxjs';
 import { User } from '../../../objects/users/user';
 import { Section } from '../../../objects/sections/section';
 import { Style } from '../../../objects/style';
@@ -22,6 +22,9 @@ import { ScrollService } from '../../../services/scroll.service';
 import { WindowService } from '../../../services/window/window.service';
 import { ElementService } from '../../../services/element/element.service';
 import { BlogService } from '../../../services/blog.service';
+import { filter, map, tap } from 'rxjs/operators';
+import { ScrollData } from '../../../objects/scroll-data';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
 	selector: 'app-home',
@@ -36,12 +39,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	@ViewChildren('sectionElem', { read: ElementRef }) sectionElements: QueryList<ElementRef>;
 
 	private styleIndexSubscription: Subscription;
-	private sectionSubscription: Subscription;
-	private paletteSubscription: Subscription;
 
 	private readonly USER_STYLE_BUILDER: any;
 
-	sectionSelectorOffset: number;
 	scrollTop: number;
 
 	screenHeight: number;
@@ -49,20 +49,30 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	palette: Palette;
 	styles: Style[];
 
+	scrollSubscription: Subscription;
+	lastScrollTop = 0;
+	top: boolean;
+	showNav: boolean;
+
+	scrollData$: Observable<ScrollData>;
+	scrollData: Signal<ScrollData>;
+
 	constructor(
-		private navService: NavService,
-		private aestheticsService: AestheticsService,
+		public navService: NavService,
+		public aestheticsService: AestheticsService,
 		private scrollService: ScrollService,
 		private windowService: WindowService,
 		private elementService: ElementService,
 		private blogService: BlogService,
 		private cdRef: ChangeDetectorRef,
-		@Inject(PLATFORM_ID) private platformId
+		private injector: Injector
 	) {
 		this.styles = [];
 		this.scrollTop = 0;
 
 		this.screenHeight = this.windowService.getHeight();
+
+		this.showNav = false;
 
 		this.USER_STYLE_BUILDER = {};
 		this.USER_STYLE_BUILDER[Constants.USER.NORMAL] = (section: Section) => section.buildTranslateProperty();
@@ -74,31 +84,29 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 			this.styles = styles;
 			this.cdRef.detectChanges();
 		});
-		this.paletteSubscription = this.aestheticsService.palette$.subscribe(palette => {
-			this.palette = palette;
-			this.cdRef.detectChanges();
-		});
-		this.sectionSubscription = this.navService.section$.subscribe((section: Section) => {
-			this.scrollToSection(section);
-		});
 	}
 
 	ngAfterViewInit(): void {
-		this.scrollService.setScroll$(this.scrollableContainerElem);
+		const scrollObservable = this.scrollService.buildScrollData$(
+			fromEvent(this.scrollableContainerElem.nativeElement, Constants.EVENT.SCROLL)
+		).pipe(
+			map((scrollData: ScrollData) => this.buildScrollData(scrollData)),
+			tap(scrollData => this.scrollService.scrollTop.set(scrollData.scrollTop)),
+			filter((scrollData: ScrollData) => scrollData.scrollingDown === this.showNav || scrollData.scrollTop === 0),
+			tap((scrollData: ScrollData) => this.notifyNavVariables(scrollData))
+		);
+		toSignal(scrollObservable, { injector: this.injector });
+
 		this.setSectionTops();
+
+		effect(() => this.scrollToSection(this.navService.section()), { injector: this.injector });
 	}
 
 	ngOnDestroy(): void {
 		this.styleIndexSubscription.unsubscribe();
-		this.sectionSubscription.unsubscribe();
-		this.paletteSubscription.unsubscribe();
 	}
 
 	// region Getters / setters
-
-	get user(): User {
-		return this.navService.user;
-	}
 
 	get scrollableContainer(): string {
 		return Constants.STYLED_DIV.SCROLLABLE_CONTAINER;
@@ -110,6 +118,18 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	// endregion
 
+	buildScrollData(scrollData: ScrollData): ScrollData {
+		const scrollingDown = scrollData.scrollTop >= this.lastScrollTop;
+		this.lastScrollTop = scrollData.scrollTop;
+		return new ScrollData(scrollData.scrollTop, scrollingDown);
+	}
+
+	notifyNavVariables(scrollData: ScrollData): void {
+		this.showNav = !this.showNav;
+		this.navService.top.set(scrollData.scrollTop === 0);
+		this.navService.showNav.set(this.showNav);
+	}
+
 	scrollToSection(
 		section: Section,
 		sections: Section[] = this.navService.sections,
@@ -120,7 +140,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	buildStyleObject(
-		div: string, user: User = this.navService.user, styles: Style[] = this.styles
+		div: string, user: User = this.navService.user(), styles: Style[] = this.styles
 	): { [key: string]: string } {
 		return user.buildStyleObject(styles, div);
 	}

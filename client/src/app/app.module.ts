@@ -27,7 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DateSortPipe } from './pipes/date-sort.pipe';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { RouterModule } from '@angular/router';
-import { PostCardComponent } from './components/post-card/post-card.component';
+import { BlogModule } from './components/blog/blog.module';
 
 @NgModule({
 	declarations: [
@@ -43,8 +43,7 @@ import { PostCardComponent } from './components/post-card/post-card.component';
 		NavComponent,
 		DraggableDirective,
 		DateSortPipe,
-		SplashScreenComponent,
-		PostCardComponent
+		SplashScreenComponent
 	],
 	imports: [
 		BrowserModule,
@@ -54,11 +53,7 @@ import { PostCardComponent } from './components/post-card/post-card.component';
 		BrowserAnimationsModule,
 		RouterModule,
 		CommonModule,
-		ReactiveFormsModule,
-		MatFormFieldModule,
-		MatInputModule,
-		MatButtonModule,
-		MatIconModule
+		BlogModule
 	],
 	providers: [
 		provideClientHydration()

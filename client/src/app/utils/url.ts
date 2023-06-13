@@ -1,4 +1,3 @@
-import { environment } from '../../environments/environment';
 import { Constants } from './constants';
 
 export class Url {
@@ -7,12 +6,16 @@ export class Url {
 		return `${serverUrl}/posts`;
 	}
 
-	static comments(): string {
-		return `${environment.serverUrl}/comments`;
+	static post(path: string, serverUrl = Constants.DOMAIN): string {
+		return `${serverUrl}/posts/${path}`;
 	}
 
-	static getComments(postPath: string): string {
-		return `${environment.serverUrl}/comments/${postPath}`;
+	static comments(serverUrl = Constants.DOMAIN): string {
+		return `${serverUrl}/comments`;
+	}
+
+	static getComments(postPath: string, serverUrl = Constants.DOMAIN): string {
+		return `${serverUrl}/comments/${postPath}`;
 	}
 
 }

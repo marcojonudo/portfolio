@@ -1,7 +1,7 @@
 <h3 class="section-title">
 	#blog
-	<a [href]="blogService.buildBlogUrl()" class="section-title-link">See all</a>
+	<a routerLink="/blog" class="section-title-link" [style.color]="palette.primaryColor">See all</a>
 </h3>
 <div id="posts-container">
-	<app-post-card *ngFor="let post of blogService.posts()" [post]="post" [palette]="palette"></app-post-card>
+	<app-post-card *ngFor="let post of posts" [post]="post" [palette]="palette"></app-post-card>
 </div>

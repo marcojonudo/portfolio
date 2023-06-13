@@ -10,8 +10,6 @@ export class NotificationService {
 	private static stylesSubject: Subject<Style[]>;
 	static styles$: Observable<Style[]>;
 
-	// endregion
-
 	static init() {
 		this.stylesSubject = new Subject<Style[]>();
 		this.styles$ = this.stylesSubject.asObservable();

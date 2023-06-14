@@ -1,7 +1,7 @@
-import { AfterViewInit, Directive, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { Coordinates } from '../objects/coordinates';
-import { NavService } from '../services/nav.service';
 import { Constants } from '../utils/constants';
+import { WindowService } from '../services/window/window.service';
 
 @Directive({
 	selector: '[appDraggable]'
@@ -9,6 +9,8 @@ import { Constants } from '../utils/constants';
 export class DraggableDirective implements OnInit, AfterViewInit, OnDestroy {
 
 	public readonly LEFT_CLICK_BUTTON_ID: number = 0;
+
+	@Output() coordinatesEmitter: EventEmitter<Coordinates>;
 
 	private rect: any;
 
@@ -26,18 +28,19 @@ export class DraggableDirective implements OnInit, AfterViewInit, OnDestroy {
 	constructor(
 		private element: ElementRef,
 		private renderer: Renderer2,
-		private navService: NavService
+		private windowService: WindowService
 	) {
-		[this.windowWidth, this.windowHeight] = [100, 100]; // window.innerWidth, window.innerHeight];
+		[this.windowWidth, this.windowHeight] = [windowService.getWidth(), windowService.getHeight()];
+		this.coordinatesEmitter = new EventEmitter<Coordinates>();
 	}
 
 	ngOnInit() {
 		// if (!this.navService.checkSmallDevice()) {
-		// 	this.pointerDownListener = this.renderer.listen(
-		// 		this.element.nativeElement,
-		// 		Constants.EVENT.POINTER_DOWN,
-		// 		this.handleClick.bind(this)
-		// 	);
+		this.pointerDownListener = this.renderer.listen(
+			this.element.nativeElement,
+			Constants.EVENT.POINTER_DOWN,
+			this.handleClick.bind(this)
+		);
 		// }
 	}
 
@@ -78,7 +81,7 @@ export class DraggableDirective implements OnInit, AfterViewInit, OnDestroy {
 
 	onPointerMove(event: PointerEvent): void {
 		this.coordinates = this.calcCoordinates(event);
-		this.navService.move(this.coordinates);
+		this.coordinatesEmitter.emit(this.coordinates);
 	}
 
 	calcCoordinates(event: PointerEvent): Coordinates {

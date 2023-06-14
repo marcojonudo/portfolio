@@ -6,6 +6,10 @@ import { WindowService } from './window.service';
 })
 export class ServerWindowService extends WindowService {
 
+	getWidth(): number {
+		return 0;
+	}
+
 	getHeight(): number {
 		return 0;
 	}

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -7,7 +7,6 @@ import { Palette } from '../../../objects/palette/palette';
 import { BlogService } from '../../../services/blog.service';
 import { AestheticsService } from '../../../services/aesthetics.service';
 import { NavService } from '../../../services/nav.service';
-import { ScrollService } from '../../../services/scroll.service';
 
 @Component({
 	selector: 'app-blog',
@@ -33,7 +32,7 @@ import { ScrollService } from '../../../services/scroll.service';
 		])
 	]
 })
-export class BlogComponent implements AfterViewInit {
+export class BlogComponent {
 
 	posts$: Observable<Post[]>;
 	palette: Palette;
@@ -47,11 +46,6 @@ export class BlogComponent implements AfterViewInit {
 		this.posts$ = this.navService.searchInput$.pipe(
 			switchMap(text => this.findPostsObservable(text))
 		);
-	}
-
-	ngAfterViewInit(): void {
-		// this.scrollService.setScroll$(this.scrollableContainerElem);
-		// this.setSectionTops();
 	}
 
 	findPostsObservable(filterText: string): Observable<Post[]> {

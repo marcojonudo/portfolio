@@ -4,25 +4,20 @@ import {
 	Component, effect,
 	HostBinding,
 	Inject,
-	OnDestroy,
 	PLATFORM_ID
 } from '@angular/core';
 import { NotificationService } from './services/notification.service';
 import { Section } from './objects/sections/section';
 import { User } from './objects/users/user';
-import { NormalUser } from './objects/users/normal-user';
 import { WelcomeSection } from './objects/sections/welcome-section';
 import { NavService } from './services/nav.service';
 import { Device } from './objects/device/device';
 import { Constants } from './utils/constants';
 import { AestheticsService } from './services/aesthetics.service';
-import { Palette } from './objects/palette/palette';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ScrollService } from './services/scroll.service';
-import { Subscription } from 'rxjs';
-import { concatMap, filter, map, tap } from 'rxjs/operators';
-import { NavigationEnd, Router } from '@angular/router';
-import { ScrollData } from './objects/scroll-data';
+import { Router } from '@angular/router';
+import { Coordinates } from './objects/coordinates';
 
 @Component({
 	selector: 'app-root',
@@ -51,10 +46,7 @@ export class AppComponent {
 	top: boolean;
 	loaded: boolean;
 
-	userSubscription: Subscription;
-	paletteSubscription: Subscription;
-
-	lastScrollTop = 0;
+	coordinates: Coordinates;
 
 	constructor(
 		public navService: NavService,
@@ -83,6 +75,10 @@ export class AppComponent {
 
 	checkUser(type: string, user: User = this.navService.user()): boolean {
 		return type === user.type;
+	}
+
+	setCoordinates(coordinates: Coordinates): void {
+		this.coordinates = coordinates;
 	}
 
 }

@@ -1,4 +1,4 @@
-import { Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { Section } from '../objects/sections/section';
 import { User } from '../objects/users/user';
 import { NormalUser } from '../objects/users/normal-user';
@@ -6,10 +6,9 @@ import { WelcomeSection } from '../objects/sections/welcome-section';
 import { AboutSection } from '../objects/sections/about-section';
 import { SkillsSection } from '../objects/sections/skills-section';
 import { BlogSection } from '../objects/sections/blog-section';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Device } from '../objects/device/device';
 import { DevUser } from '../objects/users/dev-user';
-import { Coordinates } from '../objects/coordinates';
 import { Constants } from '../utils/constants';
 
 @Injectable({
@@ -28,9 +27,6 @@ export class NavService {
 	sectionTops: number[];
 
 	fontSize: number;
-
-	coordinatesSubject: Subject<Coordinates>;
-	coordinates$: Observable<Coordinates>;
 
 	section: WritableSignal<Section>;
 
@@ -51,9 +47,6 @@ export class NavService {
 
 		this.fontSize = Constants.DEFAULT_FONT_SIZE;
 
-		this.coordinatesSubject = new Subject<Coordinates>();
-		this.coordinates$ = this.coordinatesSubject.asObservable();
-
 		this.top = signal(false);
 		this.showNav = signal(false);
 	}
@@ -64,18 +57,10 @@ export class NavService {
 
 	setSection(section: Section): void {
 		this.section.set(section);
-		// this.section = section;
-		// this.sectionSubject.next(section);
 	}
 
 	setUser(user: User): void {
 		this.user.set(user);
-		// this.user.init(); // TODO
-		// this.userSubject.next(user);
-	}
-
-	move(coordinates: Coordinates): void {
-		this.coordinatesSubject.next(coordinates);
 	}
 
 }

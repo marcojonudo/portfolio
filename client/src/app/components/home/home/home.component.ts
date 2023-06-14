@@ -5,11 +5,11 @@ import {
 	Component, effect,
 	ElementRef, Injector, OnDestroy,
 	OnInit,
-	QueryList, Signal,
+	QueryList,
 	ViewChild,
 	ViewChildren
 } from '@angular/core';
-import { Subscription, fromEvent, timer, Observable } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 import { User } from '../../../objects/users/user';
 import { Section } from '../../../objects/sections/section';
 import { Style } from '../../../objects/style';
@@ -49,13 +49,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	palette: Palette;
 	styles: Style[];
 
-	scrollSubscription: Subscription;
 	lastScrollTop = 0;
 	top: boolean;
 	showNav: boolean;
-
-	scrollData$: Observable<ScrollData>;
-	scrollData: Signal<ScrollData>;
 
 	constructor(
 		public navService: NavService,

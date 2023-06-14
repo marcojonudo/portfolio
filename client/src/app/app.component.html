@@ -5,5 +5,10 @@
 	[class.show-nav]="this.navService.showNav() && !this.navService.top()">
 </app-nav>
 <ng-template #devUserTemplate>
-	<app-style-editor appDraggable [palette]="aestheticsService.palette()"></app-style-editor>
+	<app-style-editor
+		appDraggable
+		(coordinatesEmitter)="setCoordinates($event)"
+		[coordinates]="coordinates"
+		[palette]="aestheticsService.palette()">
+	</app-style-editor>
 </ng-template>

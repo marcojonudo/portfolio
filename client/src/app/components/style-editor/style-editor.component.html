@@ -1,10 +1,10 @@
-<div class="menu-button" (click)="toggleOpened()" [@inOutAnimation]>
-	<div class="menu-button-lines-wrapper">
-		<span [style.background-color]="opened ? '#fff' : palette.darkTranslucidBackgroundColor"></span>
-		<span [style.background-color]="opened ? '#fff' : palette.darkTranslucidBackgroundColor"></span>
-		<span [style.background-color]="opened ? '#fff' : palette.darkTranslucidBackgroundColor"></span>
-	</div>
-</div>
+<!--<div class="menu-button" (click)="toggleOpened()" [@inOutAnimation]>-->
+<!--	<div class="menu-button-lines-wrapper">-->
+<!--		<span [style.background-color]="opened ? '#fff' : palette.darkTranslucidBackgroundColor"></span>-->
+<!--		<span [style.background-color]="opened ? '#fff' : palette.darkTranslucidBackgroundColor"></span>-->
+<!--		<span [style.background-color]="opened ? '#fff' : palette.darkTranslucidBackgroundColor"></span>-->
+<!--	</div>-->
+<!--</div>-->
 <div id="style-container" [style.transform]="findTransform()" [ngStyle]="palette.buildTranslucentStyles()">
 	<div>
 		<select id="styled-div-select" [(ngModel)]="selectedDiv" (change)="updateDiv()">

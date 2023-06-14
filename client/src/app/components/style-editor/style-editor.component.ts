@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
 import { StyleIndex } from '../../objects/style-index';
-import { NavService } from '../../services/nav.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Coordinates } from '../../objects/coordinates';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Constants } from '../../utils/constants';
@@ -36,29 +34,25 @@ export class StyleEditorComponent {
 
 	@HostBinding('class.opened') opened: boolean;
 
+	@Input() coordinates: Coordinates;
 	@Input() palette: Palette;
 
 	styles: StyleIndex[];
 	addedStyles: StyleIndex[];
 	styledDivs: string[];
 	selectedDiv: string;
-	coordinates: Coordinates;
 
-	constructor(private navService: NavService, private sanitizer: DomSanitizer, private cdRef: ChangeDetectorRef) {
+	constructor() {
 		this.addedStyles = [];
 		this.styledDivs = Object.values(Constants.STYLED_DIV);
 		this.selectedDiv = this.styledDivs[0];
 		this.styles = [new StyleIndex(this.selectedDiv)];
 
 		this.coordinates = new Coordinates();
-		this.navService.coordinates$.subscribe(coordinates => {
-			this.coordinates = coordinates;
-			this.cdRef.detectChanges();
-		});
 	}
 
 	findTransform(): string {
-		return `translate3d(${this.coordinates.x}px, ${this.coordinates.y}px, 0)`;
+		return `translate3d(${this.coordinates?.x}px, ${this.coordinates?.y}px, 0)`;
 	}
 
 	toggleOpened(): void {

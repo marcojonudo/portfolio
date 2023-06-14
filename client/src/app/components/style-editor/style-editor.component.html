@@ -13,19 +13,21 @@
 		<span>.style {{'{'}}</span>
 	</div>
 	<div *ngFor="let style of styles" class="property-container">
-	<span
-		id="property-elem-{{style.index}}"
-		class="input"
-		contenteditable
-		(input)="setProperty(style)">
-	</span>
+		<span
+			#styleProperty
+			id="property-elem-{{style.index}}"
+			class="input"
+			contenteditable
+			(input)="setProperty(style)">
+		</span>
 		<span class="symbol">:</span>
 		<span
+			#styleValue
 			id="value-elem-{{style.index}}"
 			class="input"
 			contenteditable
 			(input)="setValue(style)">
-	</span>
+		</span>
 		<span class="symbol">;</span>
 		<mat-icon
 			class="delete-icon"

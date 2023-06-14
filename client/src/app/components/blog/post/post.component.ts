@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, HostBinding, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
 import { Dayjs } from 'dayjs';
 import { ActivatedRoute } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';

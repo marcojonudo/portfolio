@@ -3,17 +3,14 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component, effect,
-	ElementRef, Injector, OnDestroy,
-	OnInit,
+	ElementRef, Injector,
 	QueryList,
 	ViewChild,
 	ViewChildren
 } from '@angular/core';
-import { Subscription, fromEvent } from 'rxjs';
-import { User } from '../../../objects/users/user';
+import { fromEvent } from 'rxjs';
 import { Section } from '../../../objects/sections/section';
 import { Style } from '../../../objects/style';
-import { NotificationService } from '../../../services/notification.service';
 import { NavService } from '../../../services/nav.service';
 import { Constants } from '../../../utils/constants';
 import { AestheticsService } from '../../../services/aesthetics.service';
@@ -32,13 +29,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 	styleUrls: ['./home.component.sass'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HomeComponent implements AfterViewInit {
 
 	@ViewChild('welcome', { read: ElementRef }) welcome: ElementRef;
 	@ViewChild('scrollableContainerElem') scrollableContainerElem: ElementRef;
 	@ViewChildren('sectionElem', { read: ElementRef }) sectionElements: QueryList<ElementRef>;
-
-	private styleIndexSubscription: Subscription;
 
 	private readonly USER_STYLE_BUILDER: any;
 
@@ -75,13 +70,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.USER_STYLE_BUILDER[Constants.USER.DEV] = (section: Section) => section.buildTranslateProperty();
 	}
 
-	ngOnInit(): void {
-		this.styleIndexSubscription = NotificationService.styles$.subscribe((styles: Style[]) => {
-			this.styles = styles;
-			this.cdRef.detectChanges();
-		});
-	}
-
 	ngAfterViewInit(): void {
 		const scrollObservable = this.scrollService.buildScrollData$(
 			fromEvent(this.scrollableContainerElem.nativeElement, Constants.EVENT.SCROLL)
@@ -96,10 +84,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.setSectionTops();
 
 		effect(() => this.scrollToSection(this.navService.section()), { injector: this.injector });
-	}
-
-	ngOnDestroy(): void {
-		this.styleIndexSubscription.unsubscribe();
 	}
 
 	// region Getters / setters
@@ -133,12 +117,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 	): void {
 		const sectionIndex = sections.findIndex(s => s.type === section.type);
 		this.elementService.getNativeElement(this.scrollableContainerElem).scrollTop = sectionTops[sectionIndex];
-	}
-
-	buildStyleObject(
-		div: string, user: User = this.navService.user(), styles: Style[] = this.styles
-	): { [key: string]: string } {
-		return user.buildStyleObject(styles, div);
 	}
 
 	setSectionTops(): void {

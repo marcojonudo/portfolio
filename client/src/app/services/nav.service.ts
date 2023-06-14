@@ -7,7 +7,6 @@ import { AboutSection } from '../objects/sections/about-section';
 import { SkillsSection } from '../objects/sections/skills-section';
 import { BlogSection } from '../objects/sections/blog-section';
 import { Observable } from 'rxjs';
-import { Device } from '../objects/device/device';
 import { DevUser } from '../objects/users/dev-user';
 import { Constants } from '../utils/constants';
 
@@ -22,7 +21,6 @@ export class NavService {
 
 	sections: Section[];
 
-	device: Device;
 	transition: boolean;
 	sectionTops: number[];
 

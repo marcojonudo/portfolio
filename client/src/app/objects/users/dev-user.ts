@@ -22,6 +22,4 @@ export class DevUser implements User {
 		return styleObject;
 	}
 
-	init(): void {}
-
 }

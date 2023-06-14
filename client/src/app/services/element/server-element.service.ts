@@ -6,11 +6,11 @@ import { ElementService } from './element.service';
 })
 export class ServerElementService extends ElementService {
 
-	getNativeElement(element: any): any {
+	getNativeElement(_element: any): any {
 		return {};
 	}
 
-	getBoundingClientRect(element: any): any {
+	getBoundingClientRect(_element: any): any {
 		return {};
 	}
 

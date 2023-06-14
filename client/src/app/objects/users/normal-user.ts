@@ -13,7 +13,7 @@ export class NormalUser implements User {
 		this.backgroundAttachment = Constants.BACKGROUND_ATTACHMENT.FIXED;
 	}
 
-	buildStyleObject(styles: Style[], div: string): { [key: string]: string } {
+	buildStyleObject(_styles: Style[], div: string): { [key: string]: string } {
 		return div === Constants.STYLED_DIV.SCROLLABLE_CONTAINER ? { 'overflow-y': 'auto' } : {};
 	}
 

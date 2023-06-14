@@ -1,17 +1,8 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component, effect,
-	HostBinding,
-	Inject,
-	PLATFORM_ID
-} from '@angular/core';
-import { NotificationService } from './services/notification.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, HostBinding, Inject, PLATFORM_ID } from '@angular/core';
 import { Section } from './objects/sections/section';
 import { User } from './objects/users/user';
 import { WelcomeSection } from './objects/sections/welcome-section';
 import { NavService } from './services/nav.service';
-import { Device } from './objects/device/device';
 import { Constants } from './utils/constants';
 import { AestheticsService } from './services/aesthetics.service';
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -41,7 +32,6 @@ export class AppComponent {
 	@HostBinding(`style.${Constants.PROPERTY.COLOR}`) color: string;
 
 	section: Section;
-	device: Device;
 	showSplash: boolean;
 	top: boolean;
 	loaded: boolean;
@@ -58,9 +48,7 @@ export class AppComponent {
 	) {
 		this.loaded = true;
 		this.section = new WelcomeSection();
-		this.device = this.navService.device;
 		this.showSplash = true;
-		NotificationService.init();
 
 		effect(() => {
 			const palette = this.aestheticsService.palette();

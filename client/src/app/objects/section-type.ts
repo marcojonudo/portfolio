@@ -11,7 +11,7 @@ export class SectionType {
 		false,
 		false,
 		(routeTitle: string) => routeTitle,
-		(cdRef: ChangeDetectorRef) => undefined
+		() => undefined
 	);
 	static readonly BLOG = new SectionType(
 		'BLOG',
@@ -26,7 +26,7 @@ export class SectionType {
 		(url: string) => url !== Constants.URL.BLOG,
 		true,
 		true,
-		(routeTitle: string, postTitle: string) => postTitle,
+		(_routeTitle: string, postTitle: string) => postTitle,
 		(cdRef: ChangeDetectorRef) => cdRef.detectChanges()
 	);
 

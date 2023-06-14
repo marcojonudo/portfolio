@@ -1,12 +1,5 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component, computed, effect,
-	Input, OnDestroy
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, Input } from '@angular/core';
 import { User } from '../../../objects/users/user';
-import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { Palette } from '../../../objects/palette/palette';
 import { ScrollService } from '../../../services/scroll.service';
 

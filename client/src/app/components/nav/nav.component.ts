@@ -1,12 +1,5 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	HostBinding,
-	Input
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
 import { NavService } from '../../services/nav.service';
-import { Router } from '@angular/router';
-import { User } from '../../objects/users/user';
 import { Section } from '../../objects/sections/section';
 import { WelcomeSection } from '../../objects/sections/welcome-section';
 import { AboutSection } from '../../objects/sections/about-section';

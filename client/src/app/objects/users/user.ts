@@ -7,6 +7,4 @@ export interface User {
 
 	buildStyleObject(styles: Style[], div: string): { [key: string]: string };
 
-	init(): void;
-
 }

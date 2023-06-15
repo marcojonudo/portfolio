@@ -43,6 +43,8 @@ export class BlogComponent {
 		private navService: NavService
 	) {
 		this.navService.showNav.set(true);
+		this.blogService.post.set(undefined);
+
 		this.posts$ = this.navService.searchInput$.pipe(
 			switchMap(text => this.findPostsObservable(text))
 		);

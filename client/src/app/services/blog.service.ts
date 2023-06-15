@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, of } from 'rxjs';
 import { concatMap, map, tap } from 'rxjs/operators';
@@ -17,10 +17,9 @@ export class BlogService {
 
 	comments: Comment[];
 	posts: Post[];
-	postSubject: Subject<Post>;
+	post: WritableSignal<Post>;
 	post$: Observable<Post>;
-	isPostSubject: Subject<boolean>;
-	isPost$: Observable<boolean>;
+	isPost: WritableSignal<boolean>;
 	commentsSubject: Subject<Comment>;
 	comments$: Observable<Comment>;
 
@@ -32,17 +31,14 @@ export class BlogService {
 	) {
 		this.commentsSubject = new Subject<Comment>();
 		this.comments$ = this.commentsSubject.asObservable();
-		this.postSubject = new Subject<Post>();
-		this.post$ = this.postSubject.asObservable();
-		this.isPostSubject = new Subject<boolean>();
-		this.isPost$ = this.isPostSubject.asObservable();
+		this.post = signal(undefined);
+		this.isPost = signal(false);
 	}
 
 	notifyPost(activatedRoute: ActivatedRoute): void {
 		activatedRoute.paramMap.pipe(
 			concatMap(params => this.findPostObservable(params.get('id'))),
-			tap(post => this.postSubject.next(post)),
-			tap(() => this.isPostSubject.next(true))
+			tap((post: Post) => this.post.set(post))
 		).subscribe();
 	}
 
@@ -57,8 +53,7 @@ export class BlogService {
 			map((posts: any[]) => posts.map(post => new Post(post))),
 			map((posts: Post[]) => Utils.sortPosts(posts)),
 			tap((posts: Post[]) => this.posts = posts),
-			tap(() => this.findUpdateBlogMetaObservable(this.router)),
-			tap(() => this.isPostSubject.next(false))
+			tap(() => this.findUpdateBlogMetaObservable(this.router))
 		);
 	}
 

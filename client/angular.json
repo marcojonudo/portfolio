@@ -32,7 +32,8 @@
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
 							"src/styles/main.sass",
-							"node_modules/prismjs/themes/prism-okaidia.css"
+							"node_modules/prismjs/themes/prism-okaidia.css",
+							"node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
@@ -43,7 +44,8 @@
 							"node_modules/marked/marked.min.js",
 							"node_modules/prismjs/prism.js",
 							"node_modules/prismjs/components/prism-git.min.js",
-							"node_modules/emoji-toolkit/lib/js/joypixels.min.js"
+							"node_modules/emoji-toolkit/lib/js/joypixels.min.js",
+							"node_modules/prismjs/plugins/line-numbers/prism-line-numbers.js"
 						]
                     },
                     "configurations": {
@@ -118,7 +120,8 @@
                         ],
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-							"src/styles/main.sass"
+							"src/styles/main.sass",
+							"node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css"
                         ],
                         "scripts": []
                     }

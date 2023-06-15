@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, HostBinding, Input } from '@angular/core';
 import { NavService } from '../../services/nav.service';
 import { Section } from '../../objects/sections/section';
 import { WelcomeSection } from '../../objects/sections/welcome-section';
@@ -11,6 +11,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Palette } from '../../objects/palette/palette';
 import { UntypedFormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { BlogService } from '../../services/blog.service';
 
 @Component({
 	selector: 'app-nav',
@@ -44,12 +46,27 @@ export class NavComponent {
 
 	url: string;
 	filterTextControl: UntypedFormControl;
+	title: string;
 
-	constructor(public navService: NavService, private aestheticsService: AestheticsService) {
+	constructor(
+		public navService: NavService,
+		public blogService: BlogService,
+		private aestheticsService: AestheticsService,
+		private cdRef: ChangeDetectorRef,
+		private router: Router
+	) {
 		this.filterTextControl = new UntypedFormControl('');
 		this.navService.searchInput$ = this.filterTextControl.valueChanges.pipe(
 			startWith('') // TODO
 		);
+		// effect(() => {
+		// 	this.title = this.blogService.post()?.title;
+		// 	console.log('asdfas', this.title);
+		// 	if (this.title) {
+		// 		// console.log('asdfas', this.title);
+		// 		this.cdRef.detectChanges();
+		// 	}
+		// });
 	}
 
 	// region Getters / setters
@@ -74,13 +91,24 @@ export class NavComponent {
 		return this.aestheticsService.palettes;
 	}
 
+	get homeUrl(): string {
+		return Constants.URL.HOME;
+	}
+
+	get blogUrl(): string {
+		return Constants.URL.BLOG;
+	}
+
 	// endregion
 
 	checkSelectedSection(section: Section, url: string = this.url, selectedSection: Section = this.navService.section()): boolean {
 		return url === Constants.URL.HOME && section.type === selectedSection.type;
 	}
 
-	selectSection(section: Section = this.welcomeSection): void {
+	selectSection(section: Section, url: string): void {
+		if (this.navService.path() !== Constants.URL.HOME) {
+			this.router.navigate([url]);
+		}
 		this.toggleOpened();
 		this.navService.setSection(section);
 	}

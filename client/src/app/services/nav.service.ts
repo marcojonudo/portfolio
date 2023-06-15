@@ -9,6 +9,8 @@ import { BlogSection } from '../objects/sections/blog-section';
 import { Observable } from 'rxjs';
 import { DevUser } from '../objects/users/dev-user';
 import { Constants } from '../utils/constants';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
@@ -33,7 +35,9 @@ export class NavService {
 	top: WritableSignal<boolean>;
 	showNav: WritableSignal<boolean>;
 
-	constructor() {
+	path: WritableSignal<string>;
+
+	constructor(private router: Router) {
 		this.USER_BUILDER[Constants.USER.NORMAL] = new NormalUser();
 		this.USER_BUILDER[Constants.USER.DEV] = new DevUser();
 
@@ -47,6 +51,14 @@ export class NavService {
 
 		this.top = signal(false);
 		this.showNav = signal(false);
+
+		this.path = signal('');
+
+		this.router.events.pipe(
+			filter(e => e instanceof NavigationEnd)
+		).subscribe((e: NavigationEnd) =>
+			this.path.set(e.url)
+		);
 	}
 
 	buildUser(type: string, userBuilder: { [key: string]: User } = this.USER_BUILDER): User {

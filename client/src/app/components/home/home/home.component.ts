@@ -65,6 +65,8 @@ export class HomeComponent implements AfterViewInit {
 
 		this.showNav = false;
 
+		this.blogService.post.set(undefined);
+
 		this.USER_STYLE_BUILDER = {};
 		this.USER_STYLE_BUILDER[Constants.USER.NORMAL] = (section: Section) => section.buildTranslateProperty();
 		this.USER_STYLE_BUILDER[Constants.USER.DEV] = (section: Section) => section.buildTranslateProperty();

@@ -7,6 +7,7 @@ import { Post } from '../../../objects/blog/post';
 import { BlogService } from '../../../services/blog.service';
 import { AestheticsService } from '../../../services/aesthetics.service';
 import { Comment } from '../../../objects/blog/comment';
+import { NavService } from '../../../services/nav.service';
 
 @Component({
 	selector: 'app-post',
@@ -45,8 +46,10 @@ export class PostComponent {
 	constructor(
 		public blogService: BlogService,
 		public aestheticsService: AestheticsService,
+		private navService: NavService,
 		private activatedRoute: ActivatedRoute
 	) {
+		this.navService.showNav.set(true);
 		this.blogService.notifyPost(this.activatedRoute);
 	}
 

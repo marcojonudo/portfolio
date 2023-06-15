@@ -40,7 +40,7 @@ export class Constants {
 	};
 
 	static readonly URL: any = {
-		HOME: '/home',
+		HOME: '/',
 		BLOG: '/blog'
 	};
 

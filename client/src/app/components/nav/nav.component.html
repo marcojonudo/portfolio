@@ -5,7 +5,7 @@
 		<div
 			id="home-icon"
 			class="button"
-			(click)="selectSection(welcomeSection)">
+			(click)="selectSection(welcomeSection, homeUrl)">
 			<img
 				id="marco-icon"
 				title="Marco icon"
@@ -17,15 +17,19 @@
 		<div
 			class="button"
 			[ngClass]="{'selected': checkSelectedSection(aboutSection)}"
-			(click)="selectSection(aboutSection)">About</div>
+			(click)="selectSection(aboutSection, homeUrl)">About</div>
 		<div
 			class="button"
 			[ngClass]="{'selected': checkSelectedSection(skillsSection)}"
-			(click)="selectSection(skillsSection)">Skills</div>
+			(click)="selectSection(skillsSection, homeUrl)">Skills</div>
 		<div
 			class="button"
 			[ngClass]="{'selected': checkSelectedSection(blogSection)}"
-			(click)="selectSection(blogSection)">Blog</div>
+			(click)="selectSection(blogSection, blogUrl)">Blog</div>
+	</div>
+	<div id="post-navigation" *ngIf="blogService.post(); let post">
+		<span>&#62;</span>
+		<markdown id="post-title">{{post.title}}</markdown>
 	</div>
 	<div class="menu-button-container">
 		<div class="menu-button" (click)="toggleOpened()" [class.opened]="opened">
@@ -54,7 +58,7 @@
 	id="mobile-menu-buttons"
 	[class.show]="opened"
 	[ngStyle]="palette.buildTranslucentStyles()">
-	<div (click)="selectSection(aboutSection)">About</div>
-	<div (click)="selectSection(skillsSection)">Skills</div>
-	<div (click)="selectSection(blogSection)">Blog</div>
+	<div (click)="selectSection(aboutSection, homeUrl)">About</div>
+	<div (click)="selectSection(skillsSection, homeUrl)">Skills</div>
+	<div (click)="selectSection(blogSection, blogUrl)">Blog</div>
 </section>

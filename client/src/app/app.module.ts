@@ -24,6 +24,7 @@ import { DateSortPipe } from './pipes/date-sort.pipe';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { RouterModule } from '@angular/router';
 import { BlogModule } from './components/blog/blog.module';
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
 	declarations: [
@@ -49,7 +50,8 @@ import { BlogModule } from './components/blog/blog.module';
 		BrowserAnimationsModule,
 		RouterModule,
 		CommonModule,
-		BlogModule
+		BlogModule,
+		MarkdownModule.forRoot()
 	],
 	providers: [
 		provideClientHydration()

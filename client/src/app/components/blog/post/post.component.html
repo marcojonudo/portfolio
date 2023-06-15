@@ -1,4 +1,4 @@
-<section id="post-wrapper" *ngIf="blogService.post$ | async as post">
+<section id="post-wrapper" *ngIf="blogService.post() as post">
 	<header>
 		<div class="header-image landscape" [style.background-image]="findBackgroundImage(post.headerImage)"></div>
 		<div class="header-image squared" [style.background-image]="findBackgroundImage(post.logo)"></div>
@@ -19,13 +19,12 @@
 				<span>{{post.author}}</span>
 			</div>
 			<h1>
-				<div>{{post.title}}</div>
-<!--				<markdown>{{post.title}}</markdown>-->
+				<markdown>{{post.title}}</markdown>
 			</h1>
 			<div class="date" [style.color]="post.color">{{getDay(post.date) | date: 'dd/MM/yyyy'}}</div>
 		</div>
 		<div id="post-content" [ngStyle]="textBlockStyles">
-<!--			<markdown emoji [data]="post.content"></markdown>-->
+			<markdown emoji [data]="post.content"></markdown>
 		</div>
 	</div>
 	<div id="new-comment-container" [ngStyle]="textBlockStyles">

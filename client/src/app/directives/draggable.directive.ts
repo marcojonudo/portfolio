@@ -35,13 +35,11 @@ export class DraggableDirective implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		// if (!this.navService.checkSmallDevice()) {
 		this.pointerDownListener = this.renderer.listen(
 			this.element.nativeElement,
 			Constants.EVENT.POINTER_DOWN,
 			this.handleClick.bind(this)
 		);
-		// }
 	}
 
 	ngAfterViewInit(): void {

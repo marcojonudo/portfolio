@@ -1,7 +1,6 @@
 import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
-	ChangeDetectorRef,
 	Component, effect,
 	ElementRef, Injector,
 	QueryList,
@@ -55,7 +54,6 @@ export class HomeComponent implements AfterViewInit {
 		private windowService: WindowService,
 		private elementService: ElementService,
 		private blogService: BlogService,
-		private cdRef: ChangeDetectorRef,
 		private injector: Injector
 	) {
 		this.styles = [];

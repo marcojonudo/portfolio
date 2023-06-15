@@ -12,7 +12,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { TitlePipe } from './pipes/title.pipe';
 import { NavComponent } from './components/nav/nav.component';
 import { DraggableDirective } from './directives/draggable.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,7 +19,6 @@ import { CommonModule } from '@angular/common';
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
-import { DateSortPipe } from './pipes/date-sort.pipe';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { RouterModule } from '@angular/router';
 import { BlogModule } from './components/blog/blog.module';
@@ -36,10 +34,8 @@ import { MarkdownModule } from 'ngx-markdown';
 		SkillsComponent,
 		BlogPreviewComponent,
 		HomeComponent,
-		TitlePipe,
 		NavComponent,
 		DraggableDirective,
-		DateSortPipe,
 		SplashScreenComponent
 	],
 	imports: [

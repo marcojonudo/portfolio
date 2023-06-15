@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input } from '@angular/core';
 import { NavService } from '../../services/nav.service';
 import { Section } from '../../objects/sections/section';
 import { WelcomeSection } from '../../objects/sections/welcome-section';
@@ -59,14 +59,6 @@ export class NavComponent {
 		this.navService.searchInput$ = this.filterTextControl.valueChanges.pipe(
 			startWith('') // TODO
 		);
-		// effect(() => {
-		// 	this.title = this.blogService.post()?.title;
-		// 	console.log('asdfas', this.title);
-		// 	if (this.title) {
-		// 		// console.log('asdfas', this.title);
-		// 		this.cdRef.detectChanges();
-		// 	}
-		// });
 	}
 
 	// region Getters / setters

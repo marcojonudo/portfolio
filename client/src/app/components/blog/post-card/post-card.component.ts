@@ -23,18 +23,8 @@ export class PostCardComponent {
 		return date.toDate();
 	}
 
-	// buildPostUrl(post: Post = this.post): string {
-	// 	console.log(`${Constants.DOMAIN}/blog/${post.path}`);
-	// 	return `${Constants.DOMAIN}/blog/${post.path}`;
-	// }
-
 	selectPost(): void {
-		// this.blogService.selectPost(this.post);
 		this.router.navigate([Constants.URL.BLOG, this.post.path]);
 	}
-
-	// selectPost(): void {
-	// 	this.router.navigate([Constants.URL.ROOT, this.post.path]);
-	// }
 
 }

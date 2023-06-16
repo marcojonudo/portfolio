@@ -27,6 +27,9 @@
 			position: relative
 			padding: 1rem
 
+			& > *
+				z-index: 1
+
 			.author
 				@include flex-column-center
 				font-weight: bold
@@ -48,7 +51,10 @@
 				position: absolute
 				height: 100%
 				opacity: .3
-				z-index: 0
+				z-index: 0 !important
+
+			.social-icons
+				margin: $small-gap 0
 
 		&-content
 			padding: 1rem

@@ -9,7 +9,6 @@
 	#name
 		@include flex-column-center
 		font-weight: 200
-		//letter-spacing: 0.1rem
 		font-size: 4rem !important
 		line-height: normal !important
 
@@ -28,34 +27,7 @@
 
 		> span
 			position: relative
-			//@include flex-center
 			padding: $default-gap 0
-			//text-align: left
-
-			//&::after
-				content: '·'
-				height: 1px
-				position: absolute
-				bottom: 0
-				@include flex-center
-
-			//&:last-child::after
-				content: ''
-				margin: 0
-
-	#icons
-		height: 2rem
-		width: 15rem
-		display: flex
-
-		a
-			flex-grow: 1
-			flex-basis: 0
-			display: flex
-			justify-content: center
-
-			> svg
-				height: 100%
 
 @media (min-width: 40.5rem)
 
@@ -63,7 +35,6 @@
 		display: block !important
 
 	#details
-		//flex-direction: row !important
 		justify-content: space-around !important
 
 		> div

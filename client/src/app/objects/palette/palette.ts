@@ -4,7 +4,6 @@ export class Palette {
 	textColor: string;
 	backgroundColor: string;
 	light: boolean;
-	darkTranslucidBackgroundColor: string; // TODO
 
 	constructor(primaryColor: string, textColor: string, backgroundColor: string, light: boolean) {
 		this.primaryColor = primaryColor;
@@ -26,7 +25,7 @@ export class Palette {
 		};
 	}
 
-	buildBlogPreviewStyles(): any {
+	buildTextStyles(): any {
 		return {
 			'background-color': this.textColor,
 			color: this.primaryColor

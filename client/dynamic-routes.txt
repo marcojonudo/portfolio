@@ -1,2 +1,4 @@
-/git-bisect
-/jwt
+/
+/blog
+/blog/git-bisect
+/blog/jwt

@@ -6,7 +6,7 @@ export class DarkBluePalette extends Palette {
 		super('rgb(217, 217, 217)', '#001753', 'rgba(9, 32, 63, 0.97)', false);
 	}
 
-	buildBlogPreviewStyles(): any {
+	buildTextStyles(): any {
 		return {
 			'background-color': this.primaryColor,
 			color: this.textColor

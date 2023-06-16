@@ -8,7 +8,7 @@
 				[alt]="'\'' + post.title + '\' thumbnail image'">
 		</div>
 	</div>
-	<div class="content" [ngStyle]="palette.buildBlogPreviewStyles()">
+	<div class="content" [ngStyle]="palette.buildTextStyles()">
 		<markdown class="title">{{post.title}}</markdown>
 		<div class="metadata">{{getDay() | date: 'dd/MM/yyyy'}}</div>
 	</div>

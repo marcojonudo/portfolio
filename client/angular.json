@@ -192,11 +192,10 @@
                 },
                 "prerender": {
                   "builder": "@nguniversal/builders:prerender",
-                  "options": {
-                    "routes": [
-                      "/"
-                    ]
-                  },
+				  "options": {
+				    "guessRoutes": false,
+				  	"routesFile": "./dynamic-routes.txt"
+				  },
                   "configurations": {
                     "production": {
                       "browserTarget": "portfolio:build:production",

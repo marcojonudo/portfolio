@@ -6,6 +6,7 @@
 	bottom: 0
 	transition: $fast-transition transform
 	transform: translateY(100%)
+	z-index: 2
 
 	#nav
 		height: $nav-height
@@ -42,6 +43,9 @@
 
 			& > div
 				@include flex-1
+
+		#post-navigation
+			display: none
 
 		.menu-button-container
 			@include flex-1
@@ -113,6 +117,7 @@
 		top: $nav-height
 		@include flex-column
 		transform: translate3d(100%, -100vh, 0)
+		z-index: 1
 
 		&.show
 			transform: translate3d(0, -100vh, 0)

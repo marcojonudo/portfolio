@@ -3,7 +3,6 @@ import { Dayjs } from 'dayjs';
 import { ActivatedRoute } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Constants } from '../../../utils/constants';
-import { Post } from '../../../objects/blog/post';
 import { BlogService } from '../../../services/blog.service';
 import { AestheticsService } from '../../../services/aesthetics.service';
 import { Comment } from '../../../objects/blog/comment';
@@ -39,9 +38,7 @@ export class PostComponent {
 
 	@HostBinding(`style.${Constants.PROPERTY.BACKGROUND_IMAGE}`) backgroundImage: string;
 
-	post: Post;
 	parents: Comment[];
-	textBlockStyles: any;
 
 	constructor(
 		public blogService: BlogService,

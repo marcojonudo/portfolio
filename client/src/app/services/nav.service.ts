@@ -32,6 +32,7 @@ export class NavService {
 
 	searchInput$: Observable<string>;
 
+	showNavToggle: boolean;
 	top: WritableSignal<boolean>;
 	showNav: WritableSignal<boolean>;
 
@@ -49,8 +50,9 @@ export class NavService {
 
 		this.fontSize = Constants.DEFAULT_FONT_SIZE;
 
+		this.showNavToggle = false;
 		this.top = signal(false);
-		this.showNav = signal(false);
+		this.showNav = signal(this.showNavToggle);
 
 		this.path = signal('');
 
@@ -71,6 +73,12 @@ export class NavService {
 
 	setUser(user: User): void {
 		this.user.set(user);
+	}
+
+	setNavVariables(showNav: boolean, scrollTop: boolean): void {
+		this.showNavToggle = showNav;
+		this.showNav.set(showNav);
+		this.top.set(scrollTop);
 	}
 
 }

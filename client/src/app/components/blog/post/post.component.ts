@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Injector, ViewChild } from '@angular/core';
 import { Dayjs } from 'dayjs';
 import { ActivatedRoute } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -7,6 +7,10 @@ import { BlogService } from '../../../services/blog.service';
 import { AestheticsService } from '../../../services/aesthetics.service';
 import { Comment } from '../../../objects/blog/comment';
 import { NavService } from '../../../services/nav.service';
+import { tap } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
+import { ScrollService } from '../../../services/scroll.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
 	selector: 'app-post',
@@ -38,16 +42,33 @@ export class PostComponent {
 
 	@HostBinding(`style.${Constants.PROPERTY.BACKGROUND_IMAGE}`) backgroundImage: string;
 
+	@ViewChild('scrollableContainerElem') scrollableContainerElem: ElementRef;
+
 	parents: Comment[];
 
 	constructor(
 		public blogService: BlogService,
 		public aestheticsService: AestheticsService,
 		private navService: NavService,
-		private activatedRoute: ActivatedRoute
+		private scrollService: ScrollService,
+		private activatedRoute: ActivatedRoute,
+		private injector: Injector
 	) {
-		this.navService.showNav.set(true);
-		this.blogService.notifyPost(this.activatedRoute);
+		this.blogService.notifyPost(this.activatedRoute).pipe(
+			tap(() => this.setScrollSignal())
+		).subscribe();
+	}
+
+	setScrollSignal(): void {
+		setTimeout(
+			() => {
+				const scrollObservable = this.scrollService.buildScrollData$(
+					fromEvent(this.scrollableContainerElem.nativeElement, Constants.EVENT.SCROLL)
+				);
+				toSignal(scrollObservable, { injector: this.injector });
+			},
+			0
+		);
 	}
 
 	findBackgroundImage(url: string): string {

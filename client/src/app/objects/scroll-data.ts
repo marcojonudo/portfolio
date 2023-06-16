@@ -1,5 +1,9 @@
 export class ScrollData {
 
-	constructor(public scrollTop: number, public scrollingDown: boolean = false) {}
+	top: boolean;
+
+	constructor(public scrollTop: number, public scrollingDown: boolean = false) {
+		this.top = scrollTop === 0;
+	}
 
 }

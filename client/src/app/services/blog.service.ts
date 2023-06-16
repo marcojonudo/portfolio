@@ -18,7 +18,6 @@ export class BlogService {
 	comments: Comment[];
 	posts: Post[];
 	post: WritableSignal<Post>;
-	post$: Observable<Post>;
 	isPost: WritableSignal<boolean>;
 	commentsSubject: Subject<Comment>;
 	comments$: Observable<Comment>;
@@ -35,11 +34,11 @@ export class BlogService {
 		this.isPost = signal(false);
 	}
 
-	notifyPost(activatedRoute: ActivatedRoute): void {
-		activatedRoute.paramMap.pipe(
+	notifyPost(activatedRoute: ActivatedRoute): Observable<Post> {
+		return activatedRoute.paramMap.pipe(
 			concatMap(params => this.findPostObservable(params.get('id'))),
 			tap((post: Post) => this.post.set(post))
-		).subscribe();
+		);
 	}
 
 	findPostObservable(path: string): Observable<Post> {

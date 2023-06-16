@@ -43,10 +43,6 @@ export class HomeComponent implements AfterViewInit {
 	palette: Palette;
 	styles: Style[];
 
-	lastScrollTop = 0;
-	top: boolean;
-	showNav: boolean;
-
 	constructor(
 		public navService: NavService,
 		public aestheticsService: AestheticsService,
@@ -61,8 +57,6 @@ export class HomeComponent implements AfterViewInit {
 
 		this.screenHeight = this.windowService.getHeight();
 
-		this.showNav = false;
-
 		this.blogService.post.set(undefined);
 
 		this.USER_STYLE_BUILDER = {};
@@ -73,11 +67,6 @@ export class HomeComponent implements AfterViewInit {
 	ngAfterViewInit(): void {
 		const scrollObservable = this.scrollService.buildScrollData$(
 			fromEvent(this.scrollableContainerElem.nativeElement, Constants.EVENT.SCROLL)
-		).pipe(
-			map((scrollData: ScrollData) => this.buildScrollData(scrollData)),
-			tap(scrollData => this.scrollService.scrollTop.set(scrollData.scrollTop)),
-			filter((scrollData: ScrollData) => scrollData.scrollingDown === this.showNav || scrollData.scrollTop === 0),
-			tap((scrollData: ScrollData) => this.notifyNavVariables(scrollData))
 		);
 		toSignal(scrollObservable, { injector: this.injector });
 
@@ -97,18 +86,6 @@ export class HomeComponent implements AfterViewInit {
 	}
 
 	// endregion
-
-	buildScrollData(scrollData: ScrollData): ScrollData {
-		const scrollingDown = scrollData.scrollTop >= this.lastScrollTop;
-		this.lastScrollTop = scrollData.scrollTop;
-		return new ScrollData(scrollData.scrollTop, scrollingDown);
-	}
-
-	notifyNavVariables(scrollData: ScrollData): void {
-		this.showNav = !this.showNav;
-		this.navService.top.set(scrollData.scrollTop === 0);
-		this.navService.showNav.set(this.showNav);
-	}
 
 	scrollToSection(
 		section: Section,

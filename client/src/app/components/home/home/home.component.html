@@ -1,0 +1,15 @@
+<div
+	#scrollableContainerElem
+	[id]="scrollableContainer"
+	[ngStyle]="navService.user().buildStyleObject(aestheticsService.styles(), scrollableContainer)">
+	<div
+		[id]="sectionsContainer"
+		[ngStyle]="navService.user().buildStyleObject(aestheticsService.styles(), sectionsContainer)">
+		<div #sectionElem id="welcome-container" [style.height.px]="screenHeight">
+			<app-welcome #welcome [palette]="aestheticsService.palette()"></app-welcome>
+		</div>
+		<app-about #sectionElem class="section" [user]="navService.user()" [palette]="aestheticsService.palette()"></app-about>
+		<app-skills #sectionElem class="section" [palette]="aestheticsService.palette()"></app-skills>
+		<app-blog-preview #sectionElem class="section" [palette]="aestheticsService.palette()"></app-blog-preview>
+	</div>
+</div>

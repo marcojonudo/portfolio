@@ -1,0 +1,115 @@
+@import "src/styles/abstracts/mixins"
+
+\:host
+	@include flex-1
+	@include flex-column
+	box-sizing: border-box
+	height: 100%
+
+	#post-wrapper
+		overflow-y: auto
+		overflow-wrap: break-word
+
+	header
+		position: relative
+		background-color: $white
+
+		.header-image
+			width: 100%
+			background-repeat: no-repeat
+			background-size: cover
+			background-position: center
+			padding-top: 100%
+
+			&.landscape
+				display: none
+
+	#post
+
+		&-header
+			@include flex-column-center
+			position: relative
+			padding: 1rem
+			z-index: 1
+
+			& > *
+				z-index: 1
+
+			.author
+				@include flex-column-center
+				font-weight: bold
+
+				.personal-image-container
+					width: 125px
+
+					.personal-image
+						border: 5px solid $black-alpha
+
+			h1
+				text-align: center
+
+			.date
+				font-size: .8em
+				color: $dark-grey
+
+			&-background
+				position: absolute
+				height: 100%
+				opacity: .3
+				z-index: 0 !important
+
+			.social-icons
+				margin: $small-gap 0
+
+		&-content
+			padding: 1rem
+			background-color: $white
+
+@media (min-width: 40rem)
+
+	.header-image
+		padding-top: 52% !important
+
+		&.landscape
+			display: block !important
+
+		&.squared
+			display: none
+
+	#post-wrapper
+		overflow-y: auto
+
+	#post-content
+		padding: $default-gap $medium-gap !important
+
+@media (min-width: 75rem)
+
+	.header-image
+		padding-top: 30% !important
+
+	#post, #new-comment-container, #comments-container
+		margin: $small-gap $bigger-gap
+
+		&-header
+			@include elevation
+			border-radius: $border-radius
+
+		&-content
+			position: relative
+			margin-top: $small-gap
+			border-radius: $border-radius
+			padding: $default-gap $medium-gap !important
+			@include elevation
+
+	#new-comment-container, #comments-container
+		margin: $small-gap $bigger-gap
+		border-radius: $border-radius
+
+@media (min-width: 100rem)
+
+	#post, #new-comment-container, #comments-container
+		margin: $small-gap $section-horizontal-padding !important
+
+	#new-comment-container, #comments-container
+		margin: $small-gap $section-horizontal-padding !important
+		border-radius: $border-radius

@@ -1,0 +1,15 @@
+<router-outlet></router-outlet>
+<app-splash-screen *ngIf="!hideSplash()" [@leaveAnimation]></app-splash-screen>
+<app-nav
+	*ngIf="checkUser(normalUser); else devUserTemplate"
+	[palette]="aestheticsService.palette()"
+	[class.show-nav]="this.navService.showNav() && !this.navService.top()">
+</app-nav>
+<ng-template #devUserTemplate>
+	<app-style-editor
+		appDraggable
+		(coordinatesEmitter)="setCoordinates($event)"
+		[coordinates]="coordinates"
+		[palette]="aestheticsService.palette()">
+	</app-style-editor>
+</ng-template>

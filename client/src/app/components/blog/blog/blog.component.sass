@@ -1,0 +1,27 @@
+@import "src/styles/abstracts/mixins"
+
+\:host
+	height: 100%
+	@include flex-column
+	box-sizing: border-box
+	padding: $default-gap 1.5rem $default-gap
+	overflow-y: auto
+
+	#posts-container
+		width: 100%
+		display: grid
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))
+		grid-gap: 1.5rem
+
+@media (min-width: 40rem)
+
+	\:host
+		padding-top: calc(2.5rem + 50px) !important
+
+@media (min-width: 75rem)
+
+	\:host
+		padding: $medium-gap $bigger-gap $default-gap
+
+	#posts-container
+		grid-template-columns: repeat(4, 1fr) !important

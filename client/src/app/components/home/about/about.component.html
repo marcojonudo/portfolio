@@ -1,0 +1,72 @@
+<h3 class="section-title">#about</h3>
+<section id="about-container-wrapper">
+	<div id="background" [style.filter]="'blur(' + blur + 'px)'"></div>
+	<div id="portrait-image">
+		<img
+			src="assets/img/me-portrait.webp"
+			class="personal-image"
+			[style.border-color]="palette?.primaryColor"
+			title="Picture of me in portrait mode"
+			alt="Me in portrait mode">
+	</div>
+	<div id="mobile-text-wrapper" [ngStyle]="palette?.buildTranslucentStyles()">
+		<div class="text">
+			<h2>Hi there!</h2>
+			<p>
+				I'm Marco, a telecommunications engineer who found the dev world more interesting than waves and antennas.
+			</p>
+			<p>
+				After working in several projects, I have come to realise <span class="bold">the importance of how the code age with time</span>.
+				Without considering myself and expert, I had to fix, improve and optimize pieces of software of every kind.
+			</p>
+			<p>
+				The key point? Always try to <span class="bold">do things in a better way</span>. Don't settle for the established path, and keep
+				a curious mind and nonconformist behaviour. Front? OK. Back? Let's go. CI/CD? Let's try. Reactive programming? Why not? Functional approach? Hell yeah!
+			</p>
+			<p>
+				All of this, considering that our main goal as engineers is quite straight forward: <span class="bold">solve problems</span>. I am
+				not an expert, but I have solved their problems.
+			</p>
+			<div>
+				<blockquote class="quote" cite="Dalinar Kholin, The Way of Kings">
+					And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance
+					nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that
+					shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the
+					fresh delight of experiences lived.
+				</blockquote>
+			</div>
+		</div>
+	</div>
+	<div
+		id="text-wrapper"
+		[ngStyle]="palette?.buildTranslucentStyles()"
+		[style.transform]="'translateX(calc(' + translateX + '%) !important'"
+		[style.opacity]="opacity">
+		<div class="text">
+			<h2>Hi there!</h2>
+			<p>
+				I'm Marco, a telecommunications engineer who found the dev world more interesting than waves and antennas.
+			</p>
+			<p>
+				After working in several projects, I have come to realise <span class="bold">the importance of how the code age with time</span>.
+				Without considering myself and expert, I had to fix, improve and optimize pieces of software of every kind.
+			</p>
+			<p>
+				The key point? Always try to <span class="bold">do things in a better way</span>. Don't settle for the established path, and keep
+				a curious mind and nonconformist behaviour. Front? OK. Back? Let's go. CI/CD? Let's try. Reactive programming? Why not? Functional approach? Hell yeah!
+			</p>
+			<p>
+				All of this, considering that our main goal as engineers is quite straight forward: <span class="bold">solve problems</span>. I am
+				not an expert, but I have solved their problems.
+			</p>
+			<div>
+				<blockquote class="quote" cite="Dalinar Kholin, The Way of Kings">
+					And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance
+					nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that
+					shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the
+					fresh delight of experiences lived.
+				</blockquote>
+			</div>
+		</div>
+	</div>
+</section>

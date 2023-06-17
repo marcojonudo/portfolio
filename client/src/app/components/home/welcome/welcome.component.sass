@@ -1,0 +1,45 @@
+@import "src/styles/abstracts/mixins"
+
+\:host
+	@include flex-column-center
+
+	> *
+		margin: 1.5rem 0
+
+	#name
+		@include flex-column-center
+		font-weight: 200
+		font-size: 4rem !important
+		line-height: normal !important
+
+		> span
+			line-height: 1.2
+
+			.bold
+				font-weight: 700 !important
+
+	#details
+		@include flex-column
+		padding: 0 $default-gap
+		margin: 0 $default-gap
+		border-radius: .2rem
+		font-weight: 200
+
+		> span
+			position: relative
+			padding: $default-gap 0
+
+@media (min-width: 40.5rem)
+
+	#name
+		display: block !important
+
+	#details
+		justify-content: space-around !important
+
+		> div
+			padding: 0 !important
+
+			&::after
+				position: relative !important
+				margin: 0 1.5rem

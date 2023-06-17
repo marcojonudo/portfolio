@@ -72,7 +72,7 @@ export class HomeComponent implements AfterViewInit {
 
 		this.setSectionTops();
 
-		effect(() => this.scrollToSection(this.navService.section()), { injector: this.injector });
+		effect(() => this.scrollToSection(this.navService.section()), { injector: this.injector, allowSignalWrites: true });
 	}
 
 	// region Getters / setters
@@ -94,12 +94,17 @@ export class HomeComponent implements AfterViewInit {
 	): void {
 		const sectionIndex = sections.findIndex(s => s.type === section.type);
 		this.elementService.getNativeElement(this.scrollableContainerElem).scrollTop = sectionTops[sectionIndex];
+		if (sectionTops[sectionIndex] === 0) {
+			this.navService.top.set(true);
+		}
 	}
 
 	setSectionTops(): void {
-		this.navService.sectionTops = this.sectionElements.toArray().map(elem =>
-			this.elementService.getBoundingClientRect(elem).top
-		);
+		if (!this.navService.sectionTops.length) {
+			this.navService.sectionTops = this.sectionElements.toArray().map(elem =>
+				this.elementService.getBoundingClientRect(elem).top
+			);
+		}
 	}
 
 }

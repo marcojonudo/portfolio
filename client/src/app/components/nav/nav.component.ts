@@ -97,11 +97,17 @@ export class NavComponent {
 		return url === Constants.URL.HOME && section.type === selectedSection.type;
 	}
 
+	navigateTo(url: string): void {
+		this.router.navigate([url]);
+	}
+
 	selectSection(section: Section, url: string): void {
-		if (this.navService.path() !== Constants.URL.HOME) {
-			this.router.navigate([url]);
+		if (this.navService.path() !== Constants.URL.HOME || section.type === this.welcomeSection.type) {
+			this.navigateTo(url);
 		}
-		this.toggleOpened();
+		if (section.type !== this.welcomeSection.type) {
+			this.toggleOpened();
+		}
 		this.navService.setSection(section);
 	}
 

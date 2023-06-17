@@ -5,11 +5,11 @@
 		<img
 			src="assets/img/me-portrait.webp"
 			class="personal-image"
-			[style.border-color]="palette.primaryColor"
+			[style.border-color]="palette?.primaryColor"
 			title="Picture of me in portrait mode"
 			alt="Me in portrait mode">
 	</div>
-	<div id="mobile-text-wrapper" [ngStyle]="palette.buildTranslucentStyles()">
+	<div id="mobile-text-wrapper" [ngStyle]="palette?.buildTranslucentStyles()">
 		<div class="text">
 			<h2>Hi there!</h2>
 			<p>
@@ -39,7 +39,7 @@
 	</div>
 	<div
 		id="text-wrapper"
-		[ngStyle]="palette.buildTranslucentStyles()"
+		[ngStyle]="palette?.buildTranslucentStyles()"
 		[style.transform]="'translateX(calc(' + translateX + '%) !important'"
 		[style.opacity]="opacity">
 		<div class="text">

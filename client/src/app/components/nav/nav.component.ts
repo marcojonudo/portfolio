@@ -104,9 +104,7 @@ export class NavComponent {
 	}
 
 	selectSection(section: Section, url: string): void {
-		if (this.navService.path() !== Constants.URL.HOME || section.type === this.welcomeSection.type) {
-			this.navigateTo(url);
-		}
+		this.navigateTo(url);
 		if (section.type !== this.welcomeSection.type) {
 			this.toggleOpened();
 		}

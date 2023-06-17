@@ -13,6 +13,7 @@ import { UntypedFormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
+import { WindowService } from '../../services/window/window.service';
 
 @Component({
 	selector: 'app-nav',
@@ -52,6 +53,7 @@ export class NavComponent {
 		public navService: NavService,
 		public blogService: BlogService,
 		private aestheticsService: AestheticsService,
+		public windowService: WindowService,
 		private cdRef: ChangeDetectorRef,
 		private router: Router
 	) {

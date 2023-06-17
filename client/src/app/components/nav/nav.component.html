@@ -56,8 +56,9 @@
 </nav>
 <section
 	id="mobile-menu-buttons"
-	[class.show]="opened"
-	[ngStyle]="palette.buildTranslucentStyles()">
+	[ngStyle]="palette.buildTranslucentStyles()"
+	[style.height.px]="windowService.getHeight()"
+	[style.transform]="opened ? 'translate3d(0, -' + windowService.getHeight() + 'px, 0)' : 'translate3d(100%, -' + windowService.getHeight() + 'px, 0)'">
 	<div (click)="selectSection(aboutSection, homeUrl)">About</div>
 	<div (click)="selectSection(skillsSection, homeUrl)">Skills</div>
 	<div (click)="selectSection(blogSection, blogUrl)">Blog</div>

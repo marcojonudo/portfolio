@@ -18,8 +18,6 @@ import { ScrollService } from '../../../services/scroll.service';
 import { WindowService } from '../../../services/window/window.service';
 import { ElementService } from '../../../services/element/element.service';
 import { BlogService } from '../../../services/blog.service';
-import { filter, map, tap } from 'rxjs/operators';
-import { ScrollData } from '../../../objects/scroll-data';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({

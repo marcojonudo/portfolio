@@ -1,14 +1,22 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, HostBinding, Inject, PLATFORM_ID } from '@angular/core';
-import { Section } from './objects/sections/section';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	effect,
+	HostBinding,
+	Inject,
+	PLATFORM_ID,
+	signal,
+	WritableSignal
+} from '@angular/core';
 import { User } from './objects/users/user';
-import { WelcomeSection } from './objects/sections/welcome-section';
 import { NavService } from './services/nav.service';
 import { Constants } from './utils/constants';
 import { AestheticsService } from './services/aesthetics.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ScrollService } from './services/scroll.service';
-import { Router } from '@angular/router';
 import { Coordinates } from './objects/coordinates';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
 	selector: 'app-root',
@@ -28,13 +36,13 @@ import { Coordinates } from './objects/coordinates';
 export class AppComponent {
 	title = 'portfolio';
 
+	SPLASH_DURATION = 1500;
+
 	@HostBinding(`style.${Constants.PROPERTY.BACKGROUND_IMAGE}`) backgroundImage: string;
 	@HostBinding(`style.${Constants.PROPERTY.COLOR}`) color: string;
 
-	section: Section;
-	showSplash: boolean;
+	hideSplash: WritableSignal<boolean>;
 	top: boolean;
-	loaded: boolean;
 
 	coordinates: Coordinates;
 
@@ -43,18 +51,18 @@ export class AppComponent {
 		public aestheticsService: AestheticsService,
 		private scrollService: ScrollService,
 		private cdRef: ChangeDetectorRef,
-		private router: Router,
 		@Inject(PLATFORM_ID) private platformId
 	) {
-		this.loaded = true;
-		this.section = new WelcomeSection();
-		this.showSplash = true;
+		this.hideSplash = signal(false);
 
 		effect(() => {
 			const palette = this.aestheticsService.palette();
 			this.backgroundImage = palette.buildBackgroundImage();
 			this.color = palette.primaryColor;
 		});
+		if (isPlatformBrowser(platformId)) {
+			setTimeout(() => this.hideSplash.set(true), this.SPLASH_DURATION);
+		}
 	}
 
 	get normalUser(): string {
